@@ -6,10 +6,24 @@ import './App.scss'
 
 export default class App extends Component {
   render() {
+    const className = classnames({
+      'bit': true,
+      'bit--fullscreen': false,
+      'bit--mobile': false,
+    })
     return (
-      <div>
-        <h1>BIT Clothes</h1>
-        {this.props.children}
+      <div className={className}>
+        <div className={'bit-header'}>
+          <h1><Link to="/">BIT Clothes</Link></h1>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/gallery">Gallery</Link></li>
+            <li><Link to="/about">About</Link></li>
+          </ul>
+        </div>
+        <div className={'bit-content'}>
+          {this.props.children}
+        </div>
       </div>
     )
   }

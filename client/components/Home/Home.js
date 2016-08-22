@@ -5,8 +5,8 @@ import './Home.scss'
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <h2>BIT Clothes</h2>
+      <div className={'bit-home'}>
+        <img src={require('./logo.png')} alt={'BIT Clothes'}/>
       </div>
     )
   }

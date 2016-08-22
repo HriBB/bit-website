@@ -6,7 +6,8 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { match, RouterContext } from 'react-router'
 
-import routes from '../../client/routes'
+import config from 'config'
+import routes from 'routes'
 
 export async function renderReactApp(ctx, next) {
 
@@ -18,15 +19,14 @@ export async function renderReactApp(ctx, next) {
       ctx.status = 302
       ctx.redirect(redirectLocation.pathname + redirectLocation.search)
     } else if (renderProps) {
-      // You can also check renderProps.components or renderProps.routes for
-      // your "not found" component or route respectively, and send a 404 as
-      // below, if you're using a catch-all route.
+      const template = readFileSync(resolve(config.dist.path, 'index.html'), 'utf-8')
+      const content = renderToString(<RouterContext {...renderProps} />)
+      const html = template.replace('<div id="bit"></div>', `<div id="bit">${content}</div>`)
       ctx.status = renderProps.components[1].name === 'NotFound' ? 400 : 200
-      // await fetchComponentData(renderProps)
-      ctx.body = renderToString(<RouterContext {...renderProps} />)
+      ctx.body = html
     } else {
       ctx.status = 404
-      ctx.body = 'Not fount!'
+      ctx.body = 'Not found!'
     }
   })
 

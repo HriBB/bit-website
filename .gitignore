@@ -1,6 +1,6 @@
 *.log
 .DS_Store
-FOTKE
+fotke
 dist
 npm-debug.log
 node_modules

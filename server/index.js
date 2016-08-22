@@ -7,12 +7,17 @@ import logger from 'koa-logger'
 import body from 'koa-bodyparser'
 import serve from 'koa-static'
 import send from 'koa-send'
+import cors from 'kcors'
 import { get, post } from 'koa-route'
 
 import config from '../config'
+import { createGraphQLServer } from './graphql'
 import { renderReactApp } from './utils/renderReactApp'
 
 const app = new Koa()
+
+// use cors
+app.use(cors());
 
 // use logger
 app.use(logger())
@@ -20,14 +25,8 @@ app.use(logger())
 // use body parser
 app.use(body())
 
-// serve favicon
-//app.use(favicon(resolve(__dirname, '..', 'static', 'favicon.png')))
-
 // create apollo graphql server
-//createGraphQL(app)
-
-// create public climbuddy rest api
-//createPublicApi(app)
+createGraphQLServer(app)
 
 // serve static
 app.use(serve(config.static.path))

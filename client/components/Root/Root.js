@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react'
+import { ApolloProvider } from 'react-apollo'
 import { Router, Route, browserHistory } from 'react-router'
 
+import client from 'apollo/client'
 import routes from 'routes'
 
 export default class Root extends Component {
 
   render() {
     return (
-      <Router history={browserHistory}>
-        <Route component={App}>
-          <Route path="/" component={Home}/>
-          <Route path="about" component={About}/>
-          <Route path="*" component={About}/>
-        </Route>
-      </Router>
+      <ApolloProvider client={client}>
+        <Router history={browserHistory}>
+          {routes}
+        </Router>
+      </ApolloProvider>
     )
   }
 

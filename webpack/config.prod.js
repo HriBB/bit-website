@@ -21,6 +21,7 @@ module.exports = {
     extensions: ['', '.js', '.scss', '.css'],
     alias: {
       config: path.resolve(__dirname, '..', 'config'),
+      apollo: path.resolve(__dirname, '..', 'client', 'apollo'),
       components: path.resolve(__dirname, '..', 'client', 'components'),
       routes: path.resolve(__dirname, '..', 'client', 'routes'),
     },
