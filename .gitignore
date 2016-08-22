@@ -1,0 +1,6 @@
+*.log
+.DS_Store
+FOTKE
+dist
+npm-debug.log
+node_modules
