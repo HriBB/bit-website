@@ -1,0 +1,14 @@
+{
+  "albums": [
+    {
+      "id": 1,
+      "name": "New album",
+      "description": "Album description"
+    },
+    {
+      "id": 2,
+      "name": "New album 2",
+      "description": "Album description 2"
+    }
+  ]
+}

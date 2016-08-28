@@ -53,7 +53,7 @@ app.use(renderReactApp)
 //app.use(jwt({ secret: config.token.secret }))
 
 // error handler
-app.on('error', (err) => console.log('==> Error', err))
+app.on('error', (err) => console.log('==> ERROR', err))
 
 // start http server
 app.listen(config.server.port);

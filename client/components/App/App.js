@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 import classnames from 'classnames'
 
+import 'normalize.css'
 import './App.scss'
 
 export default class App extends Component {
@@ -14,11 +15,13 @@ export default class App extends Component {
     return (
       <div className={className}>
         <div className={'bit-header'}>
-          <h1><Link to="/">BIT Clothes</Link></h1>
+          <h1><Link to="/">BIT</Link></h1>
           <ul>
             <li><Link to="/">Home</Link></li>
-            <li><Link to="/gallery">Gallery</Link></li>
             <li><Link to="/about">About</Link></li>
+            <li className={'logo'}><Link to="/">BIT</Link></li>
+            <li><Link to="/gallery">Gallery</Link></li>
+            <li><Link to="/shop">Shop</Link></li>
           </ul>
         </div>
         <div className={'bit-content'}>

@@ -32,15 +32,17 @@ module.exports = {
       loaders: ['babel?cacheDirectory'],
       exclude: /(node_modules)/,
     },{
-      test: /\.(scss)$/,
-      loader: ExtractTextPlugin.extract('css!postcss!sass'),
+      test: /\.(css|scss)$/,
+      loader: ExtractTextPlugin.extract('css!sass!postcss'),
     },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
     }]
   },
   sassLoader: {
-    includePaths: [path.resolve(__dirname, '..', 'client', 'styles')],
+    includePaths: [
+      path.resolve(__dirname, '..', 'client', 'styles'),
+    ],
   },
   postcss: function() {
     return [

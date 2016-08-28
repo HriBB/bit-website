@@ -1,30 +1,31 @@
 const typeDefinitions = `
 type Album {
-  id: String!
+  id: Int!
   name: String!
+  slug: String!
+  description: String
   images: [Image]
 }
 
 type Image {
-  id: String!,
-  format: String!,
-  version: Int!,
-  resource_type: String!,
-  type: String!,
-  created_at: String!,
-  bytes: Int!,
-  width: Int!,
-  height: Int!,
-  url: String!,
-  secure_url: String!
+  id: Int!
+  name: String!
+  slug: String!
+  description: String
 }
 
 type RootQuery {
   albums: [Album]
 }
 
+type RootMutation {
+  createAlbum(name: String!, description: String): Album
+  updateAlbum(id: Int!, name: String!, description: String): Album
+}
+
 schema {
   query: RootQuery
+  mutation: RootMutation
 }
 `
 

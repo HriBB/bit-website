@@ -16,14 +16,23 @@ const settings = {
 class Gallery extends Component {
 
   render() {
-    const { data: { errors, loading, albums } } = this.props
-    if (errors) {
-      console.log('errors', errors);
-      return <div>ERROR {errors.message}</div>
+    return (
+      <div className={'bit-gallery'}>
+        <h1>Gallery</h1>
+      </div>
+    )
+    const { data: { error, loading, albums } } = this.props
+    if (error) {
+      console.log('error', error);
+      return <div>ERROR {error.message}</div>
     }
     if (loading) {
       console.log('loading');
       return <div>LOADING</div>
+    }
+    if (!albums.length) {
+      console.log('albums', this.props.data);
+      return <div>NO ALBUMS</div>
     }
     const images = albums[0].images
     return (

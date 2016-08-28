@@ -1,54 +1,69 @@
 import async from 'asyncawait/async'
 import await from 'asyncawait/await'
-import cloudinary from 'cloudinary'
+import low from 'lowdb'
+import fileAsync from 'lowdb/lib/file-async'
 
 import config from 'config'
 
-cloudinary.config({
-  cloud_name: config.cloudinary.cloud_name,
-  api_key: config.cloudinary.api_key,
-  api_secret: config.cloudinary.api_secret,
+const db = low('db.json', {
+  storage: fileAsync
 })
 
-function readAlbums() {
-  return new Promise((resolve, reject) => {
-    cloudinary.api.root_folders(result => {
-      resolve(result.folders)
-    })
-  })
+db.defaults({ albums: [] })
+  .value()
+
+/*
+const albums = db.get('albums')
+
+console.log('==>', albums);
+
+const album = {
+  id: 2,
+  name: 'New album 2',
+  description: 'Album description 2'
 }
 
-function readImages(album) {
-  return new Promise((resolve, reject) => {
-    cloudinary.api.resources(result => {
-      resolve(result.resources)
-    },{
-      type: 'upload',
-      prefix: album.path,
-    })
-  })
-}
+console.log('==> album', album);
+
+const newAlbum = albums
+  .push(album)
+  .last()
+  .value()
+
+console.log('==> newAlbum', newAlbum);
+*/
 
 const resolveFunctions = {
   RootQuery: {
     albums(root, args, context, options){
-      return readAlbums()
+      return []
+    },
+  },
+  RootMutation: {
+    createAlbum(root, { name, description }, context) {
+      console.log('******************************************');
+      console.log('************* createAlbum ****************');
+      console.log('******************************************');
+      throw new Error('Not Implemented!')
+    },
+    updateAlbum(root, { id, name, description }, context) {
+      throw new Error('Not Implemented!')
     },
   },
   Album: {
     id(album) {
-      return album.path
+      return 123
     },
     name(album) {
-      return album.name
+      return 'name'
     },
     images(album) {
-      return readImages(album)
+      return []
     }
   },
   Image: {
     id(image) {
-      return image.public_id
+      return 123
     }
   },
 }
