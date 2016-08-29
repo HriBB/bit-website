@@ -1,14 +1,16 @@
 {
-  "albums": [
+  "galleries": [
     {
-      "id": 1,
-      "name": "New album",
-      "description": "Album description"
+      "id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
+      "slug": "new-gallery",
+      "name": "New Gallery",
+      "description": "Gallery description"
     },
     {
-      "id": 2,
-      "name": "New album 2",
-      "description": "Album description 2"
+      "id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "new-gallery-2",
+      "name": "New Gallery",
+      "description": "Gallery description"
     }
   ]
 }

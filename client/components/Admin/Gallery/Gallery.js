@@ -1,19 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import './Admin.scss'
-
-const Admin = props => {
+const Gallery = props => {
   const { children } = props
   return (
-    <div className={'bit-admin'}>
+    <div className={'bit-admin-gallery'}>
       {children}
     </div>
   )
 }
 
-Admin.propTypes = {
+Gallery.propTypes = {
   children: PropTypes.any.isRequired,
 }
 
-export default Admin
+export default Gallery

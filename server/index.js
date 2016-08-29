@@ -12,7 +12,7 @@ import { get, post } from 'koa-route'
 
 import config from '../config'
 import { createGraphQLServer } from './graphql'
-import { renderReactApp } from './utils/renderReactApp'
+import { renderReactApp } from './utils/react'
 
 const app = new Koa()
 
@@ -38,8 +38,7 @@ app.use(async (ctx, next) => {
   return await send(ctx, path, { root: config.dist.path })
 })
 
-
-// serve bin styles
+// serve bit styles
 app.use(async (ctx, next) => {
   const path = ctx.path.split('?')[0]
   if (path !== '/bit.css') return next()
@@ -48,9 +47,6 @@ app.use(async (ctx, next) => {
 
 // render react app
 app.use(renderReactApp)
-
-// anything after this will be protected by jwt token
-//app.use(jwt({ secret: config.token.secret }))
 
 // error handler
 app.on('error', (err) => console.log('==> ERROR', err))

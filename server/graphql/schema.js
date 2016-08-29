@@ -1,6 +1,7 @@
 const typeDefinitions = `
-type Album {
-  id: Int!
+
+type Gallery {
+  id: String!
   name: String!
   slug: String!
   description: String
@@ -8,25 +9,28 @@ type Album {
 }
 
 type Image {
-  id: Int!
+  id: String!
   name: String!
   slug: String!
   description: String
 }
 
 type RootQuery {
-  albums: [Album]
+  galleries: [Gallery]
+  gallery(slug: String!): Gallery
 }
 
 type RootMutation {
-  createAlbum(name: String!, description: String): Album
-  updateAlbum(id: Int!, name: String!, description: String): Album
+  createGallery(name: String!, description: String): Gallery
+  updateGallery(id: String!, name: String!, description: String): Gallery
+  deleteGallery(id: String!): Int
 }
 
 schema {
   query: RootQuery
   mutation: RootMutation
 }
+
 `
 
 export default [typeDefinitions]

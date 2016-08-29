@@ -2,5 +2,6 @@
 .DS_Store
 fotke
 dist
+images
 npm-debug.log
 node_modules

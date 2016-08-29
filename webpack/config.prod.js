@@ -37,6 +37,9 @@ module.exports = {
     },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
+    },{
+      test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
+      loader: 'imports?define=>false&this=>window',
     }]
   },
   sassLoader: {

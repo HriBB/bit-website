@@ -5,61 +5,45 @@ import classnames from 'classnames'
 import 'normalize.css'
 import './App.scss'
 
-export default class App extends Component {
-  render() {
-    const className = classnames({
-      'bit': true,
-      'bit--fullscreen': false,
-      'bit--mobile': false,
-    })
-    return (
-      <div className={className}>
-        <div className={'bit-header'}>
-          <h1><Link to="/">BIT</Link></h1>
+const App = props => {
+  const { children, routes } = props
+  const className = classnames({
+    'bit': true,
+    'bit--fullscreen': false,
+    'bit--mobile': false,
+  })
+  const admin = routes[1].path === 'admin'
+  const active = (admin ? routes[2].path : routes[1].path) || 'home'
+  return (
+    <div className={className}>
+      <div className={'bit-header'}>
+        <h1><Link to={'/'}>BIT</Link></h1>
+        {!admin &&
           <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li className={'logo'}><Link to="/">BIT</Link></li>
-            <li><Link to="/gallery">Gallery</Link></li>
-            <li><Link to="/shop">Shop</Link></li>
-          </ul>
-        </div>
-        <div className={'bit-content'}>
-          {this.props.children}
-        </div>
+            <li><Link className={active === 'home' ? 'active' : ''} to={'/'}>Home</Link></li>
+            <li><Link className={active === 'about' ? 'active' : ''} to={'/about'}>About</Link></li>
+            <li><Link className={'logo'} to={'/'}>BIT</Link></li>
+            <li><Link className={active === 'gallery' ? 'active' : ''} to={'/gallery'}>Gallery</Link></li>
+            <li><Link className={active === 'shop' ? 'active' : ''} to={'/shop'}>Shop</Link></li>
+          </ul>}
+        {admin &&
+          <ul>
+            <li><Link className={active === 'home' ? 'active' : ''} to={'/admin'}>Home</Link></li>
+            <li><Link className={active === 'about' ? 'active' : ''} to={'/admin/about'}>About</Link></li>
+            <li><Link className={'logo'} to={'/'}>BIT<span>ADMIN</span></Link></li>
+            <li><Link className={active === 'gallery' ? 'active' : ''} to={'/admin/gallery'}>Gallery</Link></li>
+            <li><Link className={active === 'shop' ? 'active' : ''} to={'/admin/shop'}>Shop</Link></li>
+          </ul>}
       </div>
-    )
-  }
+      <div className={'bit-content'}>
+        {children}
+      </div>
+    </div>
+  )
 }
 
-/*
-
-export default class App extends Component {
-
-  static propTypes = {
-    //device: PropTypes.object,
-  }
-
-  render() {
-    console.log('render App', this.props);
-    const { children } = this.props
-    const className = classnames({
-      'bit': true,
-      'bit--fullscreen': fullscreen,
-      'bit--mobile': device.mobile,
-    })
-    return (
-      <div className={className}>
-        <h1>BIT Clothes</h1>
-        <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/about">About</a></li>
-        </ul>
-        <div>
-          {children}
-        </div>
-      </div>
-    )
-  }
+App.propTypes = {
+  children: PropTypes.any.isRequired,
 }
-*/
+
+export default App

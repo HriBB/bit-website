@@ -1,21 +1,27 @@
 import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import formData from 'form-data'
 
 import { Body, Header, Content, Footer, Title, Close } from 'components/ux/Modal'
+import Uploadfield from 'components/ux/Uploadfield'
 import Textfield from 'components/ux/Textfield'
 import Textarea from 'components/ux/Textarea'
 import Button from 'components/ux/Button'
 
-import './AddAlbum.scss'
+import './AddGallery.scss'
 
-class AddAlbum extends Component {
+class AddGallery extends Component {
+
+  static propTypes = {
+    close: PropTypes.func,
+  }
 
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      description: '',
+      name: 'New Gallery',
+      description: 'Gallery description',
     }
     this.save = this.save.bind(this)
     this.changeName = this.changeName.bind(this)
@@ -23,9 +29,9 @@ class AddAlbum extends Component {
   }
 
   save() {
-    const { mutate } = this.props
+    const { createGallery } = this.props
     const { name, description } = this.state
-    mutate({ variables: { name, description } })
+    createGallery({ variables: { name, description } })
       .then(({ data }) => {
         console.log('got data', data);
       }).catch((error) => {
@@ -42,22 +48,23 @@ class AddAlbum extends Component {
   }
 
   render() {
+    const { close } = this.props
     const { name, description } = this.state
     return (
       <Body>
         <Header>
-          <Title>Add Album</Title>
-          <Close/>
+          <Title>Add Gallery</Title>
+          <Close onClick={close}/>
         </Header>
         <Content>
           <Textfield
-            placeholder={'Album Name'}
+            placeholder={'Gallery Name'}
             name={'name'}
             value={name}
             onChange={this.changeName}
           />
           <Textarea
-            placeholder={'Album Description'}
+            placeholder={'Gallery Description'}
             name={'description'}
             value={description}
             onChange={this.changeDescription}
@@ -73,18 +80,34 @@ class AddAlbum extends Component {
 
 }
 
-const CREATE_ALBUM = gql`
-  mutation createAlbum($name: String!, $description: String) {
-    createAlbum(name: $name, description: $description) {
+const CREATE_GALLERY = gql`
+  mutation createGallery($name: String!, $description: String) {
+    createGallery(name: $name, description: $description) {
       id
       name
       slug
       description
+      images {
+        id
+        slug
+        name
+        description
+      }
     }
   }
-`;
+`
 
-const withData = graphql(CREATE_ALBUM)
-const AddAlbumWithData = withData(AddAlbum)
+const withCreateGallery = graphql(CREATE_GALLERY, {
+  name: 'createGallery',
+  options: {
+    updateQueries: {
+      galleries: (prev, { mutationResult, queryVariables }) => {
+        return {
+          galleries: [...prev.galleries, mutationResult.data.createGallery],
+        }
+      }
+    }
+  }
+})
 
-export default AddAlbumWithData
+export default withCreateGallery(AddGallery)

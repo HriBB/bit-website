@@ -1,0 +1,40 @@
+$padding: 8px;
+
+.file-list-images {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 0 $padding $padding;
+
+  .file {
+    flex: 1 1 auto;
+    width: calc(50% - #{$padding*2});
+    margin: $padding $padding 0 0;
+    padding: 0;
+    text-align: center;
+    overflow: hidden;
+
+    @media screen and (min-width: 800px) {
+      width: calc(33.3333% - #{$padding*2});
+    }
+
+    .image {
+      display: block;
+      width: 100%;
+      height: 100px;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-color: #ddd;
+    }
+
+    .name {
+      width: 100%;
+      display: block;
+      font-size: 13px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      padding: 5px;
+    }
+  }
+}

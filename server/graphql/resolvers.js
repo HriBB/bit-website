@@ -1,63 +1,85 @@
 import async from 'asyncawait/async'
 import await from 'asyncawait/await'
 import low from 'lowdb'
-import fileAsync from 'lowdb/lib/file-async'
+import storage from 'lowdb/lib/file-async'
+import uuid from 'uuid'
+import createSlug from 'slug'
 
-import config from 'config'
+const db = low('db.json', { storage })
+db.defaults({ galleries: [] }).value()
 
-const db = low('db.json', {
-  storage: fileAsync
-})
-
-db.defaults({ albums: [] })
-  .value()
-
-/*
-const albums = db.get('albums')
-
-console.log('==>', albums);
-
-const album = {
-  id: 2,
-  name: 'New album 2',
-  description: 'Album description 2'
+function getGalleries() {
+  return db.get('galleries')
+    .value()
 }
 
-console.log('==> album', album);
+function getGalleryBySlug(slug) {
+  return db.get('galleries')
+    .find({ slug })
+    .value()
+}
 
-const newAlbum = albums
-  .push(album)
-  .last()
-  .value()
+function generateGallerySlug(name) {
+  let slug = createSlug(name.toLowerCase())
+  let exists
+  let number = 2
+  let original = slug
+  while (exists = getGalleryBySlug(slug)) {
+    slug = `${original}-${number}`
+    number++
+  }
+  return slug
+}
 
-console.log('==> newAlbum', newAlbum);
-*/
+function createGallery(gallery) {
+  return db.get('galleries')
+    .push(gallery)
+    .last()
+    .value()
+}
+
+function deleteAlbum(id) {
+  return db.get('galleries')
+    .remove({ id })
+    .value()
+}
+
 
 const resolveFunctions = {
   RootQuery: {
-    albums(root, args, context, options){
-      return []
+    galleries(root, args, context) {
+      return getGalleries()
     },
+    gallery(root, { slug }, context) {
+      return getGalleryBySlug(slug)
+    }
   },
   RootMutation: {
-    createAlbum(root, { name, description }, context) {
+    createGallery(root, { name, description }, context) {
       console.log('******************************************');
-      console.log('************* createAlbum ****************');
+      console.log('************* createGallery ****************');
       console.log('******************************************');
+      // validate
+      if (!name) throw new Error('Name is required!')
+      if (!description) throw new Error('Description is required!')
+      // generate unique id
+      const id = uuid()
+      // generate unique slug
+      const slug = generateGallerySlug(name)
+      // insert into db
+      return createGallery({ id, slug, name, description })
+    },
+    updateGallery(root, { id, name, description }, context) {
       throw new Error('Not Implemented!')
     },
-    updateAlbum(root, { id, name, description }, context) {
-      throw new Error('Not Implemented!')
-    },
+    deleteGallery(root, { id }, context) {
+      const gallery = deleteGallery(id)
+      console.log('delete', gallery);
+      return id
+    }
   },
-  Album: {
-    id(album) {
-      return 123
-    },
-    name(album) {
-      return 'name'
-    },
-    images(album) {
+  Gallery: {
+    images(gallery) {
       return []
     }
   },
