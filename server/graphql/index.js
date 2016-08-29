@@ -18,5 +18,4 @@ export function createGraphQLServer(app) {
   app.use(get('/graphiql', graphiqlKoa({
     endpointURL: '/graphql',
   })))
-
 }

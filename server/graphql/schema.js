@@ -2,17 +2,19 @@ const typeDefinitions = `
 
 type Gallery {
   id: String!
-  name: String!
   slug: String!
+  name: String!
   description: String
   images: [Image]
 }
 
 type Image {
   id: String!
-  name: String!
   slug: String!
+  name: String!
+  filename: String!
   description: String
+  url: String!
 }
 
 type RootQuery {

@@ -2,7 +2,7 @@ import async from 'asyncawait/async'
 import await from 'asyncawait/await'
 import { existsSync } from 'co-fs-extra'
 
-import config from '../../config'
+import config from 'config'
 
 /**
  * Check uploaded file parameters
@@ -11,7 +11,7 @@ import config from '../../config'
  * @return {Boolean}
  */
 export function checkFileParams(file) {
-  return Boolean(file.path && file.fieldname && file.originalname && file.mimetype && file.size)
+  return Boolean(file.path && file.filename && file.mime)
 }
 
 /**
@@ -21,7 +21,7 @@ export function checkFileParams(file) {
  * @return {Boolean}
  */
 export function checkFileMimeType(file) {
-  return Boolean(config.image.allowedMimeTypes.indexOf(file.mimetype) > -1)
+  return Boolean(config.image.allowedMimeTypes.indexOf(file.mime) > -1)
 }
 
 /**
@@ -64,7 +64,7 @@ export function getFileWithoutPath(file) {
  * @return {String}
  */
 export function getFileFilename(filename) {
-  return filename.substr(0, filename.lastIndexOf('.')).replace(/\s/g, '-')
+  return filename.substr(0, filename.lastIndexOf('.')).replace(/\s/g, '-').toLowerCase()
 }
 
 /**

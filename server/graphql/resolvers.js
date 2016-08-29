@@ -1,63 +1,25 @@
 import async from 'asyncawait/async'
 import await from 'asyncawait/await'
-import low from 'lowdb'
-import storage from 'lowdb/lib/file-async'
 import uuid from 'uuid'
-import createSlug from 'slug'
 
-const db = low('db.json', { storage })
-db.defaults({ galleries: [] }).value()
-
-function getGalleries() {
-  return db.get('galleries')
-    .value()
-}
-
-function getGalleryBySlug(slug) {
-  return db.get('galleries')
-    .find({ slug })
-    .value()
-}
-
-function generateGallerySlug(name) {
-  let slug = createSlug(name.toLowerCase())
-  let exists
-  let number = 2
-  let original = slug
-  while (exists = getGalleryBySlug(slug)) {
-    slug = `${original}-${number}`
-    number++
-  }
-  return slug
-}
-
-function createGallery(gallery) {
-  return db.get('galleries')
-    .push(gallery)
-    .last()
-    .value()
-}
-
-function deleteAlbum(id) {
-  return db.get('galleries')
-    .remove({ id })
-    .value()
-}
-
+import {
+  Gallery,
+  GalleryImage,
+} from '../db'
 
 const resolveFunctions = {
   RootQuery: {
     galleries(root, args, context) {
-      return getGalleries()
+      return Gallery.getAll()
     },
     gallery(root, { slug }, context) {
-      return getGalleryBySlug(slug)
+      return Gallery.getBySlug(slug)
     }
   },
   RootMutation: {
     createGallery(root, { name, description }, context) {
       console.log('******************************************');
-      console.log('************* createGallery ****************');
+      console.log('************* createGallery', name, description);
       console.log('******************************************');
       // validate
       if (!name) throw new Error('Name is required!')
@@ -65,28 +27,31 @@ const resolveFunctions = {
       // generate unique id
       const id = uuid()
       // generate unique slug
-      const slug = generateGallerySlug(name)
+      const slug = Gallery.generateSlug(name)
       // insert into db
-      return createGallery({ id, slug, name, description })
+      return Gallery.create({ id, slug, name, description })
     },
     updateGallery(root, { id, name, description }, context) {
+      console.log('******************************************');
+      console.log('************* updateGallery', id, name, description);
+      console.log('******************************************');
       throw new Error('Not Implemented!')
     },
     deleteGallery(root, { id }, context) {
-      const gallery = deleteGallery(id)
+      console.log('******************************************');
+      console.log('************* deleteGallery', id);
+      console.log('******************************************');
+      const gallery = Gallery.delete(id)
       console.log('delete', gallery);
       return id
     }
   },
   Gallery: {
     images(gallery) {
-      return []
+      return GalleryImage.getAllByGalleryId(gallery.id)
     }
   },
   Image: {
-    id(image) {
-      return 123
-    }
   },
 }
 

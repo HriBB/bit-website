@@ -12,5 +12,71 @@
       "name": "New Gallery",
       "description": "Gallery description"
     }
+  ],
+  "gallery_images": [
+    {
+      "id": "2dc1e3bb-a25d-4ab9-9e5c-7547a0debb53",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "chrysanthemum",
+      "filename": "chrysanthemum.jpg",
+      "name": "chrysanthemum",
+      "description": ""
+    },
+    {
+      "id": "e860360b-c0fa-423a-be27-9ea6169b40a6",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "desert",
+      "filename": "desert.jpg",
+      "name": "desert",
+      "description": ""
+    },
+    {
+      "id": "f39f5a61-1d53-468a-aed4-138af21a6847",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "hydrangeas",
+      "filename": "hydrangeas.jpg",
+      "name": "hydrangeas",
+      "description": ""
+    },
+    {
+      "id": "c88f9e63-3759-48ea-952d-22bd181ccc6a",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "jellyfish",
+      "filename": "jellyfish.jpg",
+      "name": "jellyfish",
+      "description": ""
+    },
+    {
+      "id": "c8ca06e9-7f59-44f5-9818-15f003e15658",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "koala",
+      "filename": "koala.jpg",
+      "name": "koala",
+      "description": ""
+    },
+    {
+      "id": "4a03b003-49c7-4f3c-af25-96ac07e9ce85",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "lighthouse",
+      "filename": "lighthouse.jpg",
+      "name": "lighthouse",
+      "description": ""
+    },
+    {
+      "id": "ceebc512-4872-42f8-9dce-20573c7d3cb3",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "penguins",
+      "filename": "penguins.jpg",
+      "name": "penguins",
+      "description": ""
+    },
+    {
+      "id": "d0f56bb0-f478-409e-8f3e-226b47192bad",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "tulips",
+      "filename": "tulips.jpg",
+      "name": "tulips",
+      "description": ""
+    }
   ]
 }

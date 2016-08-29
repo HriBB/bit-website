@@ -1,11 +1,12 @@
 import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
 
 import './Content.scss'
 
 const Content = props => {
-  const { children } = props
+  const { className, children } = props
   return (
-    <div className={'modal-content'}>
+    <div className={classnames('modal-content', className)}>
       {children}
     </div>
   )

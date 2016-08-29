@@ -1,7 +1,5 @@
 import async from 'asyncawait/async'
 import await from 'asyncawait/await'
-//import { readFileSync } from 'fs'
-import { resolve } from 'path'
 import Koa from 'koa'
 import logger from 'koa-logger'
 import body from 'koa-bodyparser'
@@ -13,6 +11,7 @@ import { get, post } from 'koa-route'
 import config from '../config'
 import { createGraphQLServer } from './graphql'
 import { renderReactApp } from './utils/react'
+import { uploadImages } from './utils/upload'
 
 const app = new Koa()
 
@@ -25,8 +24,11 @@ app.use(logger())
 // use body parser
 app.use(body())
 
-// create apollo graphql server
+// create graphql server
 createGraphQLServer(app)
+
+// upload images
+app.use(post('/upload', uploadImages))
 
 // serve static
 app.use(serve(config.static.path))

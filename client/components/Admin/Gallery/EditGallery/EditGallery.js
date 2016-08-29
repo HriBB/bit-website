@@ -8,19 +8,20 @@ import Textfield from 'components/ux/Textfield'
 import Textarea from 'components/ux/Textarea'
 import Button from 'components/ux/Button'
 
-import './AddGallery.scss'
+import './EditGallery.scss'
 
-class AddGallery extends Component {
+class EditGallery extends Component {
 
   static propTypes = {
-    close: PropTypes.func,
+    gallery: PropTypes.object.isRequired,
+    close: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      name: '',
-      description: '',
+      name: 'New Gallery',
+      description: 'Gallery description',
     }
     this.save = this.save.bind(this)
     this.changeName = this.changeName.bind(this)
@@ -28,9 +29,9 @@ class AddGallery extends Component {
   }
 
   save() {
-    const { createGallery } = this.props
+    const { updateGallery } = this.props
     const { name, description } = this.state
-    createGallery({ variables: { name, description } })
+    updateGallery({ variables: { id, name, description } })
       .then(({ data }) => {
         console.log('got data', data);
       }).catch((error) => {
@@ -52,7 +53,7 @@ class AddGallery extends Component {
     return (
       <Body>
         <Header>
-          <Title>Add Gallery</Title>
+          <Title>Edit Gallery</Title>
           <Close onClick={close}/>
         </Header>
         <Content>
@@ -79,9 +80,9 @@ class AddGallery extends Component {
 
 }
 
-const CREATE_GALLERY = gql`
-  mutation createGallery($name: String!, $description: String) {
-    createGallery(name: $name, description: $description) {
+const UPDATE_GALLERY = gql`
+  mutation updateGallery($id: String!, $name: String!, $description: String) {
+    updateGallery(id: $id, name: $name, description: $description) {
       id
       name
       slug
@@ -96,17 +97,17 @@ const CREATE_GALLERY = gql`
   }
 `
 
-const withCreateGallery = graphql(CREATE_GALLERY, {
-  name: 'createGallery',
+const withUpdateGallery = graphql(UPDATE_GALLERY, {
+  name: 'updateGallery',
   options: {
     updateQueries: {
       galleries: (prev, { mutationResult, queryVariables }) => {
         return {
-          galleries: [...prev.galleries, mutationResult.data.createGallery],
+          galleries: [...prev.galleries, mutationResult.data.updateGallery],
         }
       }
     }
   }
 })
 
-export default withCreateGallery(AddGallery)
+export default withUpdateGallery(EditGallery)

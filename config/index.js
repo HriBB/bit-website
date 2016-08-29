@@ -18,9 +18,9 @@ module.exports = {
     path: path.resolve(__dirname, '..', 'dist'),
   },
   upload: {
-    dir: '/image',
-    path: path.resolve(__dirname, '..', 'documents'),
-    url: 'http://localhost:4000/documents',
+    dir: '/images',
+    path: path.resolve(__dirname, '..', 'images'),
+    url: 'http://localhost:4000/images',
   },
   image: {
     allowedMimeTypes: ['image/jpeg', 'image/png'],

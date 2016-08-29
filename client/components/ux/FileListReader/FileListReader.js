@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 
-import './fileListReader.scss'
+import './FileListReader.scss'
 
-const fileListReader = ComposedComponent => class extends Component {
+const FileListReader = ComposedComponent => class extends Component {
 
   constructor(props) {
     super(props)
@@ -12,7 +12,7 @@ const fileListReader = ComposedComponent => class extends Component {
   /**
    * This should be used as input onChange handler
    */
-  onInputChange = (e) => {
+  readImages = (e) => {
     const files = e.target.files
 
     // no files
@@ -66,13 +66,6 @@ const fileListReader = ComposedComponent => class extends Component {
   }
 
   /**
-   * This can be used to reset form
-   */
-  onInputReset = () => {
-    this.setState({ images: [] })
-  }
-
-  /**
    * This will be sent to the wrapped component
    */
   renderImages() {
@@ -96,11 +89,10 @@ const fileListReader = ComposedComponent => class extends Component {
       <ComposedComponent
         {...this.props}
         images={this.renderImages()}
-        onInputChange={this.onInputChange}
-        onInputReset={this.onInputReset}
+        readImages={this.readImages}
       />
     )
   }
 }
 
-export default fileListReader
+export default FileListReader
