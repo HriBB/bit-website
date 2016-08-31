@@ -4,6 +4,7 @@ import Koa from 'koa'
 import logger from 'koa-logger'
 import body from 'koa-bodyparser'
 import serve from 'koa-static'
+import mount from 'koa-mount'
 import send from 'koa-send'
 import cors from 'kcors'
 import { get, post } from 'koa-route'
@@ -31,7 +32,10 @@ createGraphQLServer(app)
 app.use(post('/upload', uploadImages))
 
 // serve static
-app.use(serve(config.static.path))
+app.use(mount('/static', serve(config.static.path)))
+
+// serve static
+app.use(mount('/images', serve(config.upload.path)))
 
 // serve bit script
 app.use(async (ctx, next) => {

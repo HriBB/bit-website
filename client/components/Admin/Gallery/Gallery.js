@@ -49,7 +49,7 @@ export default class Gallery extends Component {
     const { children } = this.props
     const { addGallery, editGallery, addImages } = this.state
     return (
-      <div className={'bit-admin-gallery'}>
+      <div>
 
         {Children.map(children, child => cloneElement(child, {
           actions: {

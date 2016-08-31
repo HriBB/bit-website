@@ -6,25 +6,26 @@ const db = low('db.json', { storage })
 db.defaults({ galleries: [] }).value()
 db.defaults({ gallery_images: [] }).value()
 
+const galleries = db.get('galleries')
+const galleryImages = db.get('gallery_images')
+
 export const GalleryImage = {
 
   getAllByGalleryId: (id) => {
-    return db.get('gallery_images')
-      .filter(i => i.gallery_id === id)
-      .value()
+    return galleryImages.filter(i => i.gallery_id === id).value()
+  },
+
+  getFirstByGalleryId: (id) => {
+    return galleryImages.filter(i => i.gallery_id === id).first().value()
   },
 
   getById: (id) => {
-    return db.get('gallery_images')
-      .find({ id })
-      .value()
+    return galleryImages.find({ id }).value()
   },
 
   create: (image) => {
-    return db.get('gallery_images')
-      .push(image)
-      .last()
-      .value()
+    console.log('==> create image', image);
+    return galleryImages.push(image).last().value()
   },
 
 }
@@ -32,20 +33,23 @@ export const GalleryImage = {
 export const Gallery = {
 
   getAll: () => {
-    return db.get('galleries')
-      .value()
+    return galleries.value()
   },
 
   getById: (id) => {
-    return db.get('galleries')
-      .find({ id })
-      .value()
+    return galleries.find({ id }).value()
   },
 
   getBySlug: (slug) => {
-    return db.get('galleries')
-      .find({ slug })
-      .value()
+    return galleries.find({ slug }).value()
+  },
+
+  create: (gallery) => {
+    return galleries.push(gallery).last().value()
+  },
+
+  delete: (id) => {
+    return galleries.remove({ id }).value()
   },
 
   generateSlug: (name) => {
@@ -53,24 +57,11 @@ export const Gallery = {
     let exists
     let number = 2
     let original = slug
-    while (exists = this.getBySlug(slug)) {
+    while (exists = Gallery.getBySlug(slug)) {
       slug = `${original}-${number}`
       number++
     }
     return slug
-  },
-
-  create: (gallery) => {
-    return db.get('galleries')
-      .push(gallery)
-      .last()
-      .value()
-  },
-
-  delete: (id) => {
-    return db.get('galleries')
-      .remove({ id })
-      .value()
   },
 
 }

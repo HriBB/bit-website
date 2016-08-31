@@ -19,6 +19,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "chrysanthemum",
       "filename": "chrysanthemum.jpg",
+      "extension": "jpg",
       "name": "chrysanthemum",
       "description": ""
     },
@@ -27,6 +28,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "desert",
       "filename": "desert.jpg",
+      "extension": "jpg",
       "name": "desert",
       "description": ""
     },
@@ -35,6 +37,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "hydrangeas",
       "filename": "hydrangeas.jpg",
+      "extension": "jpg",
       "name": "hydrangeas",
       "description": ""
     },
@@ -43,6 +46,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "jellyfish",
       "filename": "jellyfish.jpg",
+      "extension": "jpg",
       "name": "jellyfish",
       "description": ""
     },
@@ -51,6 +55,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "koala",
       "filename": "koala.jpg",
+      "extension": "jpg",
       "name": "koala",
       "description": ""
     },
@@ -59,6 +64,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "lighthouse",
       "filename": "lighthouse.jpg",
+      "extension": "jpg",
       "name": "lighthouse",
       "description": ""
     },
@@ -67,6 +73,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "penguins",
       "filename": "penguins.jpg",
+      "extension": "jpg",
       "name": "penguins",
       "description": ""
     },
@@ -75,6 +82,7 @@
       "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
       "slug": "tulips",
       "filename": "tulips.jpg",
+      "extension": "jpg",
       "name": "tulips",
       "description": ""
     }

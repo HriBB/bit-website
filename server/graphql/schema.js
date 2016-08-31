@@ -6,6 +6,7 @@ type Gallery {
   name: String!
   description: String
   images: [Image]
+  image: Image
 }
 
 type Image {
@@ -13,8 +14,13 @@ type Image {
   slug: String!
   name: String!
   filename: String!
+  extension: String!
   description: String
   url: String!
+  small: String!
+  medium: String!
+  large: String!
+  full: String!
 }
 
 type RootQuery {

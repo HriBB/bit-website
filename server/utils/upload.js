@@ -94,6 +94,7 @@ export async function uploadImages(ctx, next) {
         gallery_id: gallery.id,
         slug: createSlug(basename),
         filename: `${basename}.${extension}`,
+        extension: extension,
         name: basename,
         description: '',
       }

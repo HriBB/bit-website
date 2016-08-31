@@ -7,16 +7,11 @@ import './App.scss'
 
 const App = props => {
   const { children, routes } = props
-  const className = classnames({
-    'bit': true,
-    'bit--fullscreen': false,
-    'bit--mobile': false,
-  })
   const admin = routes[1].path === 'admin'
   const active = (admin ? routes[2].path : routes[1].path) || 'home'
   return (
-    <div className={className}>
-      <div className={'bit-header'}>
+    <div className={'bit-app'}>
+      <div className={'bit-app-header'}>
         <h1><Link to={'/'}>BIT</Link></h1>
         {!admin &&
           <ul>
@@ -35,7 +30,7 @@ const App = props => {
             <li><Link className={active === 'shop' ? 'active' : ''} to={'/admin/shop'}>Shop</Link></li>
           </ul>}
       </div>
-      <div className={'bit-content'}>
+      <div className={'bit-app-content'}>
         {children}
       </div>
     </div>

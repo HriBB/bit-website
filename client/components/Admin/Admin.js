@@ -1,16 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Link } from 'react-router'
 
-import './Admin.scss'
-
-const Admin = props => {
-  const { children } = props
-  return (
-    <div className={'bit-admin'}>
-      {children}
-    </div>
-  )
-}
+const Admin = props => props.children
 
 Admin.propTypes = {
   children: PropTypes.any.isRequired,

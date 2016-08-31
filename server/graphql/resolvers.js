@@ -2,10 +2,16 @@ import async from 'asyncawait/async'
 import await from 'asyncawait/await'
 import uuid from 'uuid'
 
+import config from 'config'
+
 import {
   Gallery,
   GalleryImage,
 } from '../db'
+
+import {
+  getGalleryImageUrl,
+} from '../utils/image'
 
 const resolveFunctions = {
   RootQuery: {
@@ -48,10 +54,30 @@ const resolveFunctions = {
   },
   Gallery: {
     images(gallery) {
-      return GalleryImage.getAllByGalleryId(gallery.id)
-    }
+      const images = GalleryImage.getAllByGalleryId(gallery.id)
+      return images.map(image => Object.assign({}, image, { gallery }))
+    },
+    image(gallery) {
+      const image = GalleryImage.getFirstByGalleryId(gallery.id)
+      return image ? Object.assign({}, image, { gallery }) : null
+    },
   },
   Image: {
+    url(image) {
+      return getGalleryImageUrl(image.gallery, image)
+    },
+    small(image) {
+      return getGalleryImageUrl(image.gallery, image, 'small')
+    },
+    medium(image) {
+      return getGalleryImageUrl(image.gallery, image, 'medium')
+    },
+    large(image) {
+      return getGalleryImageUrl(image.gallery, image, 'large')
+    },
+    full(image) {
+      return getGalleryImageUrl(image.gallery, image, 'full')
+    },
   },
 }
 

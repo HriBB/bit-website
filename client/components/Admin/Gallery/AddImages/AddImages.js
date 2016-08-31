@@ -4,7 +4,7 @@ import gql from 'graphql-tag'
 import fetch from 'isomorphic-fetch'
 
 import { Body, Header, Content, Footer, Title, Close } from 'components/ux/Modal'
-import FileListReader from 'components/ux/FileListReader'
+import FileList from 'components/ux/FileList'
 import Uploadfield from 'components/ux/Uploadfield'
 import Button from 'components/ux/Button'
 
@@ -77,4 +77,4 @@ class AddImages extends Component {
 
 }
 
-export default FileListReader(AddImages)
+export default FileList(AddImages)

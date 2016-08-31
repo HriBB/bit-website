@@ -2,7 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
+import Content from 'components/ux/Content'
+import Title from 'components/ux/Title'
 import Button from 'components/ux/Button'
+import Masonry, { MasonryItem } from 'components/ux/Masonry'
 
 import './GalleryView.scss'
 
@@ -24,14 +27,23 @@ class GalleryView extends Component {
 
   render() {
     const { data: { error, loading, gallery } } = this.props
-    if (error) return <h1>{error.message}</h1>
-    if (loading) return <h1>Loading ...</h1>
+    if (error) return <Title>{error.message}</Title>
+    if (loading) return <Title>Loading ...</Title>
     return (
-      <div className={'bit-admin-gallery-view'}>
-        <h1>{gallery.name}</h1>
-        <Button onClick={this.editGallery}>Edit Gallery</Button>
-        <Button onClick={this.addImages}>Add Images</Button>
-      </div>
+      <Content className={'bit-admin-gallery-view'}>
+        <Title>
+          {gallery.name}
+          <Button onClick={this.editGallery}>Edit Gallery</Button>
+          <Button onClick={this.addImages}>Add Images</Button>
+        </Title>
+        <Masonry>
+          {gallery.images.map((image, index) =>
+            <MasonryItem key={image.id} big={index === 0}>
+              <img src={image.small} />
+            </MasonryItem>
+          )}
+        </Masonry>
+      </Content>
     )
   }
 
@@ -50,6 +62,7 @@ const GET_GALLERY = gql`
         name
         filename
         description
+        small
       }
     }
   }

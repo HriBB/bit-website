@@ -2,8 +2,10 @@ import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { ResponsiveGrid, ResponsiveGridItem } from 'components/ux/ResponsiveGrid'
+import Content from 'components/ux/Content'
+import Title from 'components/ux/Title'
 import Button from 'components/ux/Button'
+import Masonry, { MasonryItem } from 'components/ux/Masonry'
 import GalleryListItem from './GalleryListItem'
 
 import './GalleryList.scss'
@@ -11,24 +13,26 @@ import './GalleryList.scss'
 class GalleryList extends Component {
 
   render() {
-    console.log(this.props.actions);
     const {
       actions: { addGallery },
       data: { error, loading, galleries }
     } = this.props
-    if (error) return <h2>{error.message}</h2>
-    if (loading) return <h2>Loading ...</h2>
+    if (error) return <Title>{error.message}</Title>
+    if (loading) return <Title>Loading ...</Title>
     return (
-      <div className={'bit-admin-gallery-list'}>
-        <Button onClick={addGallery}>Add gallery</Button>
-        <ResponsiveGrid className={'bit-admin-gallery-list__items'}>
+      <Content className={'bit-admin-gallery-list'}>
+        <Title>
+          Gallery
+          <Button onClick={addGallery}>Add gallery</Button>
+        </Title>
+        <Masonry big>
           {galleries.map(gallery =>
-            <ResponsiveGridItem key={gallery.id}>
+            <MasonryItem key={gallery.id}>
               <GalleryListItem gallery={gallery} />
-            </ResponsiveGridItem>
+            </MasonryItem>
           )}
-        </ResponsiveGrid>
-      </div>
+        </Masonry>
+      </Content>
     )
   }
 
@@ -41,11 +45,12 @@ const GET_GALLERIES = gql`
       slug
       name
       description
-      images {
+      image {
         id
         slug
         name
         description
+        small
       }
     }
   }

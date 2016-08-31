@@ -23,9 +23,10 @@ module.exports = {
     url: 'http://localhost:4000/images',
   },
   image: {
+    placeholder: 'http://localhost:4000/static/images/placeholder.png',
     allowedMimeTypes: ['image/jpeg', 'image/png'],
     sizes: {
-      small:  { width: 360,   height: 360,  crop: false, quality: 90 },
+      small:  { width: 480,   height: 480,  crop: false, quality: 90 },
       medium: { width: 768,   height: 768,  crop: false, quality: 90 },
       large:  { width: 1280,  height: 1280, crop: false, quality: 90 },
       full:   { width: 1920,  height: 1920, crop: false, quality: 90 },

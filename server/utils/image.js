@@ -13,6 +13,22 @@ import {
 } from './file'
 
 /**
+ * Get gallery image url
+ *
+ * @param  {Object} gallery
+ * @param  {Object} image
+ * @param  {String} size
+ * @return {String}
+ */
+export function getGalleryImageUrl(gallery, image, size) {
+  if (!size) {
+    return `${config.upload.url}/gallery/${gallery.slug}/${image.filename}`
+  } else {
+    return `${config.upload.url}/gallery/${gallery.slug}/${image.slug}-${size}.${image.extension}`
+  }
+}
+
+/**
  * Create size images
  *
  * @param  {String} image
