@@ -11,8 +11,9 @@
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --progress --verbose --colors --config ./webpack/config.prod.js",
-    "dev": "cross-env NODE_ENV=development node ./webpack/webpack-dev-server.js",
+    "client:dev": "cross-env NODE_ENV=development node ./webpack/webpack-dev-server.js",
     "server:dev": "cross-env NODE_ENV=development nodemon ./server/start --exec babel-node --watch ./config --watch ./server",
+    "server:debug": "cross-env NODE_ENV=production nodemon ./server/start --exec babel-node --watch ./config --watch ./server",
     "server:prod": "cross-env NODE_ENV=production babel-node ./server/start",
     "lint": "eslint ./config ./client ./server"
   },
@@ -26,6 +27,7 @@
     "co-fs": "^1.2.0",
     "co-fs-extra": "^1.2.1",
     "cross-env": "^2.0.1",
+    "draft-js": "^0.8.1",
     "ga-react-router": "^2.1.1",
     "gm": "^1.23.0",
     "google-auth-library": "^0.9.8",
@@ -52,6 +54,7 @@
     "react-modal": "^1.4.0",
     "react-motion": "^0.4.4",
     "react-router": "^2.7.0",
+    "react-rte": "^0.5.0",
     "react-slick": "^0.13.3",
     "slug": "^0.9.1",
     "uuid": "^2.0.2"

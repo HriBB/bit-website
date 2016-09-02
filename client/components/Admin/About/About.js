@@ -1,17 +1,18 @@
 import React, { Component, PropTypes } from 'react'
 
-import './About.scss'
+import Content from 'components/ux/Content'
+import Title from 'components/ux/Title'
+import Editor from 'components/ux/ReactRTE'
 
-const About = props => {
-  const { children } = props
-  return (
-    <div className={'bit-admin-about'}>
-      <h1>About</h1>
-    </div>
-  )
+export default class About extends Component {
+
+  render() {
+    return (
+      <Content className={'bit-admin-about'}>
+        <Title>About</Title>
+        <Editor/>
+      </Content>
+    )
+  }
+
 }
-
-About.propTypes = {
-}
-
-export default About
