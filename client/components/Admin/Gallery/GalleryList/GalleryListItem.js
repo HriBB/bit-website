@@ -14,9 +14,10 @@ const GalleryListItem = props => {
     <div className={'bit-admin-gallery-list-item'}>
       <Card>
         <Link to={`/admin/gallery/${gallery.slug}`}>
-          <Image src={image} alt={gallery.name}/>
+          <Image src={image} alt={gallery.name}>
+            <Title>{gallery.name}</Title>
+          </Image>
         </Link>
-        <Title>{gallery.name}</Title>
         <Content>{gallery.description}</Content>
       </Card>
     </div>

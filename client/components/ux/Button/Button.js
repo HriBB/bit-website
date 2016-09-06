@@ -1,11 +1,13 @@
 import React, { Component, PropTypes } from 'react'
+import classnames from 'classnames'
 
 import './Button.scss'
 
 const Button = props => {
-  const { children, ...rest } = props
+  const { children, className, ...rest } = props
+  const buttonClass = classnames('bit-button', className)
   return (
-    <button className={'bit-button'} {...rest}>
+    <button className={buttonClass} {...rest}>
       {children}
     </button>
   )

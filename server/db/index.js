@@ -48,6 +48,11 @@ export const Gallery = {
     return galleries.push(gallery).last().value()
   },
 
+  update: (gallery) => {
+    const { id } = gallery
+    return galleries.find({ id }).assign(gallery).value()
+  },
+
   delete: (id) => {
     return galleries.remove({ id }).value()
   },

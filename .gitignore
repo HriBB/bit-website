@@ -1,8 +1,8 @@
 # BIT
 .DS_Store
-fotke
-dist
-images
+/fotke
+/dist
+/images
 
 # Logs
 logs

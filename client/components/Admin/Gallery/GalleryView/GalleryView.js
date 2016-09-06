@@ -4,8 +4,11 @@ import gql from 'graphql-tag'
 
 import Content from 'components/ux/Content'
 import Title from 'components/ux/Title'
+import Item from 'components/ux/Title/Item'
 import Button from 'components/ux/Button'
+import IconLink from 'components/ux/IconLink'
 import Masonry, { MasonryItem } from 'components/ux/Masonry'
+import GalleryImage from './GalleryImage'
 
 import './GalleryView.scss'
 
@@ -32,14 +35,15 @@ class GalleryView extends Component {
     return (
       <Content className={'bit-admin-gallery-view'}>
         <Title>
-          {gallery.name}
+          <IconLink to={'/admin/gallery'} name={'navigate_before'}/>
+          <Item>{gallery.name}</Item>
           <Button onClick={this.editGallery}>Edit Gallery</Button>
           <Button onClick={this.addImages}>Add Images</Button>
         </Title>
         <Masonry>
           {gallery.images.map((image, index) =>
             <MasonryItem key={image.id} big={index === 0}>
-              <img src={image.small} />
+              <GalleryImage gallery={gallery} image={image}/>
             </MasonryItem>
           )}
         </Masonry>

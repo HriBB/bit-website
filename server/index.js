@@ -51,8 +51,10 @@ app.use(async (ctx, next) => {
   return await send(ctx, path, { root: config.dist.path })
 })
 
-// render react app
-app.use(renderReactApp)
+if (__PROD__) {
+  // render react app
+  app.use(renderReactApp)
+}
 
 // error handler
 app.on('error', (err) => console.log('==> ERROR', err))

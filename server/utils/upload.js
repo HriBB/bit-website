@@ -80,7 +80,7 @@ export async function uploadImages(ctx, next) {
       let path = await getFileUploadPath(destination, filename, extension)
       let basename = getFileFilename(getFileWithoutPath(path))
 
-      console.log('====> upload image', paths);
+      console.log('====> upload image', path);
 
       // move temp file to path
       await move(file.path, path)

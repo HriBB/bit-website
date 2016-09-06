@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 
 import Content from 'components/ux/Content'
 import Title from 'components/ux/Title'
+import Item from 'components/ux/Title/Item'
 import Button from 'components/ux/Button'
 import Masonry, { MasonryItem } from 'components/ux/Masonry'
 import GalleryListItem from './GalleryListItem'
@@ -22,7 +23,7 @@ class GalleryList extends Component {
     return (
       <Content className={'bit-admin-gallery-list'}>
         <Title>
-          Gallery
+          <Item>Gallery</Item>
           <Button onClick={addGallery}>Add gallery</Button>
         </Title>
         <Masonry big>

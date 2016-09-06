@@ -32,11 +32,11 @@ module.exports = {
       loaders: ['babel?cacheDirectory'],
       exclude: /(node_modules)/,
     },{
-      test: /\.(css|scss)$/,
-      loader: ExtractTextPlugin.extract('css!sass!postcss'),
-    },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
+    },{
+      test: /\.(css|scss)$/,
+      loader: ExtractTextPlugin.extract('css!resolve-url!sass!postcss'),
     },{
       test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
       loader: 'imports?define=>false&this=>window',

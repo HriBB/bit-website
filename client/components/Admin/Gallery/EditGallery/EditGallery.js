@@ -17,11 +17,16 @@ class EditGallery extends Component {
     close: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
+
   constructor(props) {
     super(props)
     this.state = {
-      name: 'New Gallery',
-      description: 'Gallery description',
+      name: props.gallery.name,
+      description: props.gallery.description,
+      error: 'Some error',
     }
     this.save = this.save.bind(this)
     this.changeName = this.changeName.bind(this)
@@ -29,14 +34,18 @@ class EditGallery extends Component {
   }
 
   save() {
-    const { updateGallery } = this.props
+    const { gallery, updateGallery, close } = this.props
     const { name, description } = this.state
+    const { id, slug } = gallery
     updateGallery({ variables: { id, name, description } })
-      .then(({ data }) => {
-        console.log('got data', data);
-      }).catch((error) => {
-        console.log('there was an error sending the query', error);
-      });
+      .then(({ data: { updateGallery } }) => {
+        close()
+        if (updateGallery.slug !== slug) {
+          this.context.router.push(`/admin/gallery/${updateGallery.slug}`)
+        }
+      }).catch(error => {
+        this.setState({ error: error.message })
+      })
   }
 
   changeName(e) {
@@ -49,7 +58,7 @@ class EditGallery extends Component {
 
   render() {
     const { close } = this.props
-    const { name, description } = this.state
+    const { name, description, error } = this.state
     return (
       <Body>
         <Header>
@@ -70,6 +79,7 @@ class EditGallery extends Component {
             onChange={this.changeDescription}
             rows={5}
           />
+          {error && <span>{error}</span>}
         </Content>
         <Footer>
           <Button onClick={this.save}>Save</Button>
@@ -99,15 +109,6 @@ const UPDATE_GALLERY = gql`
 
 const withUpdateGallery = graphql(UPDATE_GALLERY, {
   name: 'updateGallery',
-  options: {
-    updateQueries: {
-      galleries: (prev, { mutationResult, queryVariables }) => {
-        return {
-          galleries: [...prev.galleries, mutationResult.data.updateGallery],
-        }
-      }
-    }
-  }
 })
 
 export default withUpdateGallery(EditGallery)
