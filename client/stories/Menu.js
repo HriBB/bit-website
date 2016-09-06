@@ -21,7 +21,7 @@ const centered = {
 
 storiesOf('Menu', module)
   .add('default', () => (
-    <Menu target={<Button>Open menu</Button>}>
+    <Menu target={<Button style={{margin:'20px'}}>Open menu</Button>}>
       <MenuItem>One</MenuItem>
       <MenuItem>Two</MenuItem>
       <MenuItem>Three</MenuItem>
@@ -63,8 +63,7 @@ storiesOf('Menu', module)
       </Menu>
     </div>
   ))
-
-  .add('overflow hidden parent', () => {
+  .add('overflow', () => {
     const divStyle = { margin: '0 auto', textAlign: 'center' }
     const cardStyle = { margin: '50px 0 0 0' }
     const imageStyle = { width: '240px' }
@@ -81,5 +80,45 @@ storiesOf('Menu', module)
           </Image>
         </Card>
       </div>
+    )
+  })
+  .add('fix bottom left', () => {
+    const style = { position: 'absolute', bottom: '20px', right: '20px' }
+    return (
+      <Menu target={<Button style={style}>Menu</Button>} valign={'bottom'} align={'left'}>
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+      </Menu>
+    )
+  })
+  .add('fix bottom right', () => {
+    const style = { position: 'absolute', bottom: '20px', left: '20px' }
+    return (
+      <Menu target={<Button style={style}>Menu</Button>} valign={'bottom'} align={'right'}>
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+      </Menu>
+    )
+  })
+  .add('fix top left', () => {
+    const style = { position: 'absolute', top: '20px', right: '20px' }
+    return (
+      <Menu target={<Button style={style}>Menu</Button>} valign={'top'} align={'left'}>
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+      </Menu>
+    )
+  })
+  .add('fix top right', () => {
+    const style = { position: 'absolute', top: '20px', left: '20px' }
+    return (
+      <Menu target={<Button style={style}>Menu</Button>} valign={'top'} align={'right'}>
+        <MenuItem>One</MenuItem>
+        <MenuItem>Two</MenuItem>
+        <MenuItem>Three</MenuItem>
+      </Menu>
     )
   })

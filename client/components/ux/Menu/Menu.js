@@ -23,16 +23,13 @@ export default class Menu extends Component {
 
   constructor(props) {
     super(props)
-
     this.node = null
     this.portal = null
     this.menu = null
     this.open = false
-
     this.onDocumentKeydown = this.onDocumentKeydown.bind(this)
     this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this)
     this.onTargetMouseUp = this.onTargetMouseUp.bind(this)
-    this.styleMenu = this.styleMenu.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,35 +64,63 @@ export default class Menu extends Component {
     }
   }
 
-  styleMenu() {
+  positionMenu() {
     const { align, valign } = this.props
     const { innerWidth, innerHeight, scrollX, scrollY } = window
     const target = findDOMNode(this).getBoundingClientRect()
     const portal = findDOMNode(this.portal).getBoundingClientRect()
+    let menuX, menuY, originX, originY
 
-    let originX
-    let originY
-
-    let menuX
-    let menuY
-
-    // left/right
     if (align === 'left') {
+      //
+      // left
+      //
       menuX = target.left + scrollX
       originX = 'left'
+      //
+      // move to right
+      //
+      if ((menuX + portal.width) > (innerWidth + scrollX)) {
+        menuX = target.right + scrollX - portal.width
+        originX = 'right'
+      }
     } else {
+      //
+      // right
+      //
       menuX = target.right + scrollX - portal.width
       originX = 'right'
+      //
+      // move to left
+      //
+      if (menuX < 0) {
+        menuX = target.left + scrollX
+        originX = 'left'
+      }
     }
 
-    // top/bottom
     if (valign === 'top') {
+      //
+      // top
+      //
       menuY = target.top - portal.height + scrollY
       originY = 'bottom'
+      //
+      // move to bottom
+      //
+      if (menuY < 0) {
+        menuY = target.bottom + scrollY
+        originY = 'top'
+      }
     } else {
+      //
+      // bottom
+      //
       menuY = target.bottom + scrollY
       originY = 'top'
+      //
       // move to top
+      //
       if ((menuY + portal.height) > (innerHeight + scrollY)) {
         menuY = target.top - portal.height + scrollY
         originY = 'bottom'
@@ -131,7 +156,7 @@ export default class Menu extends Component {
       this.node
     )
     this.open = true
-    this.styleMenu()
+    this.positionMenu()
   }
 
   closeMenu() {
