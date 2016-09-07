@@ -10,19 +10,27 @@ import Menu, { MenuItem } from 'components/ux/Menu'
 export default class GalleryImage extends Component {
 
   static propTypes = {
+    actions: PropTypes.object.isRequired,
     gallery: PropTypes.object.isRequired,
     image: PropTypes.object.isRequired,
   }
 
-  editImage = (e) => {
-    console.log('edit');
+  constructor(props) {
+    super(props)
+    this.editImage = this.editImage.bind(this)
+    this.openImage = this.openImage.bind(this)
+    this.deleteImage = this.deleteImage.bind(this)
   }
 
-  openImage = (e) => {
+  editImage(e) {
+    this.props.actions.editImage(this.props.image)
+  }
+
+  openImage(e) {
     console.log('open');
   }
 
-  deleteImage = (e) => {
+  deleteImage(e) {
     console.log('delete');
   }
 

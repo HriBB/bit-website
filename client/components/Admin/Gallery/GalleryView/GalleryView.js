@@ -30,7 +30,7 @@ class GalleryView extends Component {
   }
 
   render() {
-    const { data: { error, loading, gallery } } = this.props
+    const { actions, data: { error, loading, gallery } } = this.props
     if (error) return <Title>{error.message}</Title>
     if (loading) return <Loader/>
     return (
@@ -44,7 +44,7 @@ class GalleryView extends Component {
         <Masonry>
           {gallery.images.map((image, index) =>
             <MasonryItem key={image.id} big={index === 0}>
-              <GalleryImage gallery={gallery} image={image}/>
+              <GalleryImage gallery={gallery} image={image} actions={actions}/>
             </MasonryItem>
           )}
         </Masonry>

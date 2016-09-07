@@ -5,6 +5,7 @@ import Modal from 'components/ux/Modal'
 import AddGallery from './AddGallery'
 import EditGallery from './EditGallery'
 import AddImages from './AddImages'
+import EditImage from './EditImage'
 
 export default class Gallery extends Component {
 
@@ -18,10 +19,12 @@ export default class Gallery extends Component {
       addGallery: false,
       editGallery: false,
       addImages: false,
+      editImage: false,
     }
     this.addGallery = this.addGallery.bind(this)
     this.editGallery = this.editGallery.bind(this)
     this.addImages = this.addImages.bind(this)
+    this.editImage = this.editImage.bind(this)
     this.closeModal = this.closeModal.bind(this)
   }
 
@@ -37,17 +40,22 @@ export default class Gallery extends Component {
     this.setState({ addImages: gallery })
   }
 
+  editImage(image) {
+    this.setState({ editImage: image })
+  }
+
   closeModal() {
     this.setState({
       addGallery: false,
       editGallery: false,
       addImages: false,
+      editImage: false,
     })
   }
 
   render() {
     const { children } = this.props
-    const { addGallery, editGallery, addImages } = this.state
+    const { addGallery, editGallery, addImages, editImage } = this.state
     return (
       <div>
 
@@ -56,6 +64,7 @@ export default class Gallery extends Component {
             addGallery: this.addGallery,
             editGallery: this.editGallery,
             addImages: this.addImages,
+            editImage: this.editImage,
           }
         }))}
 
@@ -72,6 +81,11 @@ export default class Gallery extends Component {
         {addImages &&
           <Modal isOpen onRequestClose={this.closeModal}>
             <AddImages gallery={addImages} close={this.closeModal}/>
+          </Modal>}
+
+        {editImage &&
+          <Modal isOpen onRequestClose={this.closeModal}>
+            <EditImage image={editImage} close={this.closeModal}/>
           </Modal>}
 
       </div>

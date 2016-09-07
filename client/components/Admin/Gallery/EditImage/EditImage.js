@@ -7,12 +7,12 @@ import Textfield from 'components/ux/Textfield'
 import Textarea from 'components/ux/Textarea'
 import Button from 'components/ux/Button'
 
-import './EditGallery.scss'
+import './EditImage.scss'
 
-class EditGallery extends Component {
+class EditImage extends Component {
 
   static propTypes = {
-    gallery: PropTypes.object.isRequired,
+    image: PropTypes.object.isRequired,
     close: PropTypes.func.isRequired,
   }
 
@@ -23,8 +23,8 @@ class EditGallery extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      name: props.gallery.name,
-      description: props.gallery.description,
+      name: props.image.name,
+      description: props.image.description,
       error: null,
     }
     this.save = this.save.bind(this)
@@ -33,14 +33,16 @@ class EditGallery extends Component {
   }
 
   save() {
-    const { gallery, updateGallery, close } = this.props
+    const { image, updateImage, close } = this.props
     const { name, description } = this.state
-    const { id, slug } = gallery
-    updateGallery({ variables: { id, name, description } })
-      .then(({ data: { updateGallery } }) => {
+    const { id, slug } = image
+    updateImage({ variables: { id, name, description } })
+      .then(({ data: { updateImage } }) => {
+        console.log({updateImage});
+        return
         close()
-        if (updateGallery.slug !== slug) {
-          this.context.router.push(`/admin/gallery/${updateGallery.slug}`)
+        if (updateImage.slug !== slug) {
+          this.context.router.push(`/admin/gallery/${updateImage.slug}`)
         }
       }).catch(error => {
         this.setState({ error: error.message })
@@ -61,18 +63,18 @@ class EditGallery extends Component {
     return (
       <Body>
         <Header>
-          <Title>Edit Gallery</Title>
+          <Title>Edit Image</Title>
           <Close onClick={close}/>
         </Header>
         <Content>
           <Textfield
-            placeholder={'Gallery Name'}
+            placeholder={'Image Name'}
             name={'name'}
             value={name}
             onChange={this.changeName}
           />
           <Textarea
-            placeholder={'Gallery Description'}
+            placeholder={'Image Description'}
             name={'description'}
             value={description}
             onChange={this.changeDescription}
@@ -89,25 +91,19 @@ class EditGallery extends Component {
 
 }
 
-const UPDATE_GALLERY = gql`
-  mutation updateGallery($id: String!, $name: String!, $description: String) {
-    updateGallery(id: $id, name: $name, description: $description) {
+const UPDATE_IMAGE = gql`
+  mutation updateImage($id: String!, $name: String!, $description: String) {
+    updateImage(id: $id, name: $name, description: $description) {
       id
       name
       slug
       description
-      images {
-        id
-        slug
-        name
-        description
-      }
     }
   }
 `
 
-const withUpdateGallery = graphql(UPDATE_GALLERY, {
-  name: 'updateGallery',
+const withUpdateImage = graphql(UPDATE_IMAGE, {
+  name: 'updateImage',
 })
 
-export default withUpdateGallery(EditGallery)
+export default withUpdateImage(EditImage)

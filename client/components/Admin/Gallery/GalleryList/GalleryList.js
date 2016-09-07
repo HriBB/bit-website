@@ -15,22 +15,19 @@ import './GalleryList.scss'
 class GalleryList extends Component {
 
   render() {
-    const {
-      actions: { addGallery },
-      data: { error, loading, galleries }
-    } = this.props
+    const { actions, data: { error, loading, galleries } } = this.props
     if (error) return <Title>{error.message}</Title>
     if (loading) return <Loader/>
     return (
       <Content className={'bit-admin-gallery-list'}>
         <Title>
           <Item>Gallery</Item>
-          <Button onClick={addGallery}>Add gallery</Button>
+          <Button onClick={actions.addGallery}>Add gallery</Button>
         </Title>
         <Masonry big>
           {galleries.map(gallery =>
             <MasonryItem key={gallery.id}>
-              <GalleryListItem gallery={gallery} />
+              <GalleryListItem gallery={gallery} actions={actions}/>
             </MasonryItem>
           )}
         </Masonry>

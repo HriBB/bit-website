@@ -65,10 +65,45 @@ const resolveFunctions = {
       console.log('******************************************');
       console.log('************* deleteGallery', id);
       console.log('******************************************');
+      throw new Error('Not implemented')
       const gallery = Gallery.delete(id)
       console.log('delete', gallery);
       return id
-    }
+    },
+    async updateImage(root, { id, name, description }, context) {
+      console.log('******************************************');
+      console.log('************* updateImage', id, name, description);
+      console.log('******************************************');
+      // validate
+      if (!id) throw new Error('ID is required!')
+      if (!name) throw new Error('Name is required!')
+      if (!description) throw new Error('Description is required!')
+      // read old gallery
+      const old = GalleryImage.getById(id)
+      if (!old) throw new Error('Invalid gallery ID!')
+
+      throw new Error('Not implemented')
+
+      // get slug
+      let slug = old.slug
+      // name has changed
+      if (name !== old.name) {
+        slug = GalleryImage.generateSlug(name)
+        const from = `${config.upload.path}/gallery/${old.slug}`
+        const to = `${config.upload.path}/gallery/${slug}`
+        await move(from, to)
+      }
+      // update
+      return GalleryImage.update({ id, slug, name, description })
+    },
+    deleteImage(root, { id }, context) {
+      console.log('******************************************');
+      console.log('************* deleteImage', id);
+      console.log('******************************************');
+      const image = GalleryImage.delete(id)
+      console.log('delete', gallery);
+      return id
+    },
   },
   Gallery: {
     images(gallery) {
