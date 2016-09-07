@@ -1,6 +1,7 @@
 @import 'variables';
 
 .bit-content {
+  position: relative;
   margin: 20px;
 
   @media (min-width: 1024px) {

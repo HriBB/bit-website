@@ -5,6 +5,8 @@ import Slider from 'react-slick'
 
 import './Gallery.scss'
 
+import Loader from 'components/ux/Loader'
+
 const settings = {
   dots: true,
   infinite: true,
@@ -12,6 +14,7 @@ const settings = {
   slidesToShow: 1,
   slidesToScroll: 1,
 }
+
 
 class Gallery extends Component {
 

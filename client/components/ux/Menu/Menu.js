@@ -68,9 +68,7 @@ export default class Menu extends Component {
   }
 
   onTargetMouseUp = (e) => {
-    if (!this.open) {
-      this.openMenu(this.props)
-    }
+    this.openMenu(this.props)
   }
 
   onTargetKeydown(e) {
@@ -214,7 +212,7 @@ export default class Menu extends Component {
   render() {
     return cloneElement(this.props.target, {
       onMouseUp: this.onTargetMouseUp,
-      onKeyDown: this.onTargetKeydown
+      onKeyDown: this.onTargetKeydown,
     })
   }
 
@@ -252,9 +250,7 @@ export class MenuItem extends Component {
 
   onClick = (e) => {
     const { closeMenu, onClick } = this.props
-    if (onClick) {
-      onClick(this.props)
-    }
+    if (onClick) onClick(this.props)
     closeMenu()
   }
 

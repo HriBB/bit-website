@@ -7,8 +7,8 @@ import './Masonry.scss'
 const masonryOptions = {
   itemSelector: '.masonry__item',
   columnWidth: '.masonry__sizer',
-  percentPosition: true,
-  transitionDuration: 250,
+  percentPosition: false,
+  transitionDuration: 0,
 }
 
 const Masonry = props => {
@@ -19,7 +19,7 @@ const Masonry = props => {
   }, className)
   return (
     <div className={'masonry-container'}>
-      <ReactMasonry className={masonryClass} options={masonryOptions} updateOnEachImageLoad={true}>
+      <ReactMasonry className={masonryClass} options={masonryOptions}>
         <div className={'masonry__sizer'}></div>
         {children}
       </ReactMasonry>

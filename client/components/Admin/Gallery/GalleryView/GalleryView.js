@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
+import Loader from 'components/ux/Loader'
 import Content from 'components/ux/Content'
 import Title from 'components/ux/Title'
 import Item from 'components/ux/Title/Item'
@@ -31,7 +32,7 @@ class GalleryView extends Component {
   render() {
     const { data: { error, loading, gallery } } = this.props
     if (error) return <Title>{error.message}</Title>
-    if (loading) return <Title>Loading ...</Title>
+    if (loading) return <Loader/>
     return (
       <Content className={'bit-admin-gallery-view'}>
         <Title>
