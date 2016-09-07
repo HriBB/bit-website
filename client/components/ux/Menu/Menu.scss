@@ -37,6 +37,11 @@
       background: #eee;
     }
 
+    &:focus {
+      outline: none;
+      background: #eee;
+    }
+
   }
 
 }

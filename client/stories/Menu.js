@@ -3,17 +3,17 @@ import { storiesOf, action } from '@kadira/storybook'
 
 import config from 'config'
 
-import Button from '../components/ux/Button'
-import Card, { Image, Title, Content, Actions } from '../components/ux/Card'
-import Menu, { MenuItem } from '../components/ux/Menu'
+import Button from 'components/ux/Button'
+import Card, { Image, Title, Content, Actions } from 'components/ux/Card'
+import Menu, { MenuItem } from 'components/ux/Menu'
 import IconButton from 'components/ux/IconButton'
 
 storiesOf('Menu', module)
   .add('default', () => (
     <Menu target={<Button style={{margin:'20px'}}>Open menu</Button>}>
-      <MenuItem>One</MenuItem>
-      <MenuItem>Two</MenuItem>
-      <MenuItem>Three</MenuItem>
+      <MenuItem onClick={() => console.log('select one')}>One</MenuItem>
+      <MenuItem onClick={() => console.log('select two')}>Two</MenuItem>
+      <MenuItem onClick={() => console.log('select three')}>Three</MenuItem>
     </Menu>
   ))
   .add('left/right top/bottom', () => {

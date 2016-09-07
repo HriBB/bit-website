@@ -1,10 +1,17 @@
 import React, { Component, PropTypes, Children, cloneElement } from 'react'
-import CSSPropertyOperations from 'react/lib/CSSPropertyOperations'
 import ReactDOM, { findDOMNode } from 'react-dom'
 import Portal from 'react-portal'
 import classnames from 'classnames'
 
 import './Menu.scss'
+
+const KEYCODES = {
+  ENTER: 13,
+  ESCAPE: 27,
+  SPACE: 32,
+  UP: 38,
+  DOWN: 40,
+}
 
 export default class Menu extends Component {
 
@@ -32,6 +39,7 @@ export default class Menu extends Component {
     this.onDocumentKeydown = this.onDocumentKeydown.bind(this)
     this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this)
     this.onTargetMouseUp = this.onTargetMouseUp.bind(this)
+    this.onTargetKeydown = this.onTargetKeydown.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -47,8 +55,7 @@ export default class Menu extends Component {
   }
 
   onDocumentKeydown(e) {
-    const ESCAPE = 27
-    if (e.keyCode === ESCAPE) {
+    if (e.keyCode === KEYCODES.ESCAPE) {
       this.closeMenu()
     }
   }
@@ -62,7 +69,13 @@ export default class Menu extends Component {
 
   onTargetMouseUp = (e) => {
     if (!this.open) {
-      this.renderMenu(this.props)
+      this.openMenu(this.props)
+    }
+  }
+
+  onTargetKeydown(e) {
+    if (e.keyCode === KEYCODES.ENTER || e.keyCode === KEYCODES.DOWN) {
+      this.openMenu()
     }
   }
 
@@ -161,6 +174,11 @@ export default class Menu extends Component {
     }, 20)
   }
 
+  focusMenu() {
+    const portal = findDOMNode(this.portal)
+    portal.firstChild.focus()
+  }
+
   renderMenu(props) {
     const { children, className } = props
     if (!this.node) {
@@ -170,16 +188,20 @@ export default class Menu extends Component {
       document.addEventListener('keydown', this.onDocumentKeydown)
       document.addEventListener('mouseup', this.onDocumentMouseUp)
     }
-    this.portal = ReactDOM.unstable_renderSubtreeIntoContainer(
-      this,
-      <MenuList>{children}</MenuList>,
-      this.node
-    )
+    const list = <MenuList closeMenu={this.closeMenu}>{children}</MenuList>
+    this.portal = ReactDOM.unstable_renderSubtreeIntoContainer(this, list, this.node)
     this.open = true
     this.positionMenu()
   }
 
-  closeMenu() {
+  openMenu(props) {
+    if (!this.open) {
+      this.renderMenu(props || this.props)
+      this.focusMenu()
+    }
+  }
+
+  closeMenu = () => {
     document.removeEventListener('keydown', this.onDocumentKeydown)
     document.removeEventListener('mouseup', this.onDocumentMouseUp)
     ReactDOM.unmountComponentAtNode(this.node)
@@ -191,7 +213,8 @@ export default class Menu extends Component {
 
   render() {
     return cloneElement(this.props.target, {
-      onMouseUp: this.onTargetMouseUp
+      onMouseUp: this.onTargetMouseUp,
+      onKeyDown: this.onTargetKeydown
     })
   }
 
@@ -201,13 +224,17 @@ class MenuList extends Component {
 
   static propTypes = {
     children: PropTypes.any.isRequired,
+    closeMenu: PropTypes.func.isRequired,
   }
 
   render() {
-    const { children } = this.props
+    const { children, closeMenu } = this.props
     return (
       <ul className={'bit-menu__list'}>
-        {children}
+        {Children.map(children, (child, index) => cloneElement(child, {
+          tabIndex: index + 1,
+          closeMenu,
+        }))}
       </ul>
     )
   }
@@ -218,12 +245,36 @@ export class MenuItem extends Component {
 
   static propTypes = {
     children: PropTypes.any.isRequired,
+    closeMenu: PropTypes.func,
+    onClick: PropTypes.func,
+    tabIndex: PropTypes.number,
+  }
+
+  onClick = (e) => {
+    const { closeMenu, onClick } = this.props
+    if (onClick) {
+      onClick(this.props)
+    }
+    closeMenu()
+  }
+
+  onKeyDown = (e) => {
+    if (e.keyCode === KEYCODES.UP || e.keyCode === KEYCODES.DOWN) {
+      const node = findDOMNode(this)
+      const children = node.parentNode.children
+      const i = [].indexOf.call(children, node)
+      const len = children.length
+      const next = e.keyCode === KEYCODES.DOWN ? (i+1)%len : (i+len-1)%len
+      children[next].focus()
+    } else if (e.keyCode === KEYCODES.ENTER || e.keyCode === KEYCODES.SPACE) {
+      this.onClick()
+    }
   }
 
   render() {
-    const { children } = this.props
+    const { children, tabIndex } = this.props
     return (
-      <li className={'bit-menu__item'}>
+      <li className={'bit-menu__item'} tabIndex={tabIndex} onClick={this.onClick} onKeyDown={this.onKeyDown}>
         {children}
       </li>
     )
