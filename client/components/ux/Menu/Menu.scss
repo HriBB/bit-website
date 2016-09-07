@@ -2,14 +2,16 @@
 
 .bit-menu {
   position: absolute;
-  opacity: 0;
   display: inline-block;
+  opacity: 0;
 
   .bit-menu__list {
     display: inline-block;
+    overflow-x: hidden;
+    overflow-y: auto;
     min-width: 124px;
     margin: 0;
-    padding: 5px 0;
+    padding: 0;
     list-style: none;
     border-radius: 2px;
     background: #fff;
@@ -19,8 +21,17 @@
   .bit-menu__item {
     cursor: pointer;
     height: 48px;
+    width: 100%;
     line-height: 48px;
-    padding: 0 16px;
+    padding: 0 22px 0 16px;
+
+    &:first-child {
+      margin-top: 5px;
+    }
+
+    &:last-child {
+      margin-bottom: 5px;
+    }
 
     &:hover {
       background: #eee;

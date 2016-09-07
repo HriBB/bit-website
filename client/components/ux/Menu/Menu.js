@@ -12,12 +12,14 @@ export default class Menu extends Component {
     align: PropTypes.oneOf(['left', 'right']),
     children: PropTypes.any.isRequired,
     className: PropTypes.string,
+    padding: PropTypes.number,
     target: PropTypes.element.isRequired,
-    valign: PropTypes.oneOf(['bottom', 'top'])
+    valign: PropTypes.oneOf(['bottom', 'top']),
   }
 
   static defaultProps = {
     align: 'left',
+    padding: 5,
     valign: 'bottom',
   }
 
@@ -65,79 +67,97 @@ export default class Menu extends Component {
   }
 
   positionMenu() {
-    const { align, valign } = this.props
+    const { align, valign, padding } = this.props
     const { innerWidth, innerHeight, scrollX, scrollY } = window
-    const target = findDOMNode(this).getBoundingClientRect()
-    const portal = findDOMNode(this.portal).getBoundingClientRect()
-    let menuX, menuY, originX, originY
+    const targetNode = findDOMNode(this)
+    const portalNode = findDOMNode(this.portal)
+    const target = targetNode.getBoundingClientRect()
+    const portal = portalNode.getBoundingClientRect()
+
+    let menuX, menuY, originX, originY, above, below, maxHeight, constrain
 
     if (align === 'left') {
-      //
-      // left
-      //
+      // align left
       menuX = target.left + scrollX
       originX = 'left'
-      //
-      // move to right
-      //
+      // out of bounds, move to right
       if ((menuX + portal.width) > (innerWidth + scrollX)) {
         menuX = target.right + scrollX - portal.width
         originX = 'right'
       }
     } else {
-      //
-      // right
-      //
+      // align right
       menuX = target.right + scrollX - portal.width
       originX = 'right'
-      //
-      // move to left
-      //
+      // out of bounds, move to left
       if (menuX < 0) {
         menuX = target.left + scrollX
         originX = 'left'
       }
     }
 
+    // calculate space above/below target
+    above = target.top
+    below = innerHeight - target.bottom
+
     if (valign === 'top') {
-      //
-      // top
-      //
+      // show at the top
       menuY = target.top - portal.height + scrollY
       originY = 'bottom'
-      //
-      // move to bottom
-      //
-      if (menuY < 0) {
+      // out of bounds, move to bottom if there is more space
+      if (menuY < 0 && below > above) {
         menuY = target.bottom + scrollY
         originY = 'top'
       }
     } else {
-      //
-      // bottom
-      //
+      // show at the bottom
       menuY = target.bottom + scrollY
       originY = 'top'
-      //
-      // move to top
-      //
-      if ((menuY + portal.height) > (innerHeight + scrollY)) {
+      // out of bounds, move to top if there is more space
+      if ((menuY + portal.height) > (innerHeight + scrollY) && above > below) {
         menuY = target.top - portal.height + scrollY
         originY = 'bottom'
       }
     }
 
+    // set max height
+    maxHeight = portal.height
+
+    // constrain to viewport
+    if (originY === 'top') {
+      // originY is top, which means show menu at the bottom
+      if (portal.height > (innerHeight - target.bottom)) {
+        maxHeight = innerHeight - target.bottom - 10
+        constrain = true
+      }
+    } else {
+      // originY is top, which means show menu at the top
+      if (portal.height > target.top) {
+        maxHeight = target.top - 10
+        menuY = scrollY + 10
+        constrain = true
+      }
+    }
+
     // set initial style
+    this.node.style.height = `0px`
     this.node.style.left = `${menuX}px`
     this.node.style.top = `${menuY}px`
-    this.node.style.transform = 'scale3d(0.01, 0.01, 1)'
+    this.node.style.transform = `scale3d(0.01, 0.01, 1)`
     this.node.style.transformOrigin = `${originX} ${originY}`
 
-    // do the animation
+    // constrain portal
+    if (constrain) {
+      portalNode.style.maxHeight = `${maxHeight}px`
+    }
+
+    // do the animation with a slight delay
+    // TODO: figure out how to wait for initial styles
     setTimeout(() => {
-      this.node.style.opacity = '1'
-      this.node.style.transform = 'scale3d(1, 1, 1)'
-      this.node.style.transition = 'transform 0.2s ease'
+      this.node.style.opacity = `1`
+      this.node.style.height = `${maxHeight}px`
+      this.node.style.transform = `scale3d(1, 1, 1)`
+      this.node.style.transition = `transform 0.2s ease`
     }, 20)
   }
 
