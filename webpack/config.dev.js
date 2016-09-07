@@ -5,7 +5,7 @@ var config = require('../config')
 module.exports = {
   name: 'bit',
   target: 'web',
-  devtool: 'cheap-module-inline-source-map',
+  devtool: 'eval',
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?' + config.dev.url,

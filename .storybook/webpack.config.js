@@ -1,7 +1,7 @@
 const path = require('path');
 
-
 module.exports = {
+  devtool: 'eval',
   module: {
     loaders: [{
       test: /\.(scss|css)$/,
