@@ -1,70 +1,162 @@
 import async from 'asyncawait/async'
 import await from 'asyncawait/await'
-import { removeSync } from 'co-fs-extra'
+import { parse } from 'path'
+import { move, removeSync, existsSync } from 'co-fs-extra'
+import createSlug from 'slug'
 import gm from 'gm'
 
 import config from 'config'
 
-import {
-  getFilePath,
-  getFileFilename,
-  getFileExtension,
-  getFileWithoutPath,
-} from './file'
+//path.parse('/home/user/dir/file.txt')
+// returns
+// {
+//    root : "/",
+//    dir : "/home/user/dir",
+//    base : "file.txt",
+//    ext : ".txt",
+//    name : "file"
+// }
+
+// public functions
 
 /**
- * Get gallery image url
+ * Get image url
  *
- * @param  {Object} gallery
- * @param  {Object} image
- * @param  {String} size
+ * @param  {String} type    Image type
+ * @param  {Object} parent  Parent object
+ * @param  {Object} image   Image object
+ * @param  {String} size    Size string
  * @return {String}
  */
-export function getGalleryImageUrl(gallery, image, size) {
+export function getImageUrl(type, parent, image, size) {
   if (!size) {
-    return `${config.upload.url}/gallery/${gallery.slug}/${image.filename}`
+    return `${config.upload.url}/${type}/${parent.slug}/${image.filename}`
   } else {
-    return `${config.upload.url}/gallery/${gallery.slug}/${image.slug}-${size}.${image.extension}`
+    return `${config.upload.url}/${type}/${parent.slug}/${image.slug}-${size}.${image.extension}`
   }
 }
 
 /**
- * Create size images
+ * Upload Gallery Image description
+ * @param  {String}  type    Image type
+ * @param  {Object}  parent  Parent object
+ * @param  {Object}  file    Uploaded file
+ * @return {Promise}
+ */
+export async function uploadImage(type, parent, file) {
+  // validate file
+  if (!file.path || !file.filename || !file.mime) {
+    throw new Error('Invalid file parameters!')
+  }
+  if (config.image.allowedMimeTypes.indexOf(file.mime) === -1) {
+    throw new Error('Invalid image type!')
+  }
+
+  // generate unique path
+  const finfo = parse(file.filename)
+  const filename = (`${createSlug(finfo.name)}${finfo.ext}`).toLowerCase()
+  const base = `${config.upload.path}/${type}/${parent.slug}`
+  const path = await generateUniquePath(`${base}/${filename}`)
+
+  console.log('==> upload image', path)
+
+  // move original to path
+  await move(file.path, path)
+
+  // create size images
+  const info = parse(path)
+  for (let size in config.image.sizes) {
+    let { width, height, crop, quality } = config.image.sizes[size]
+    let destination = `${base}/${info.name}-${size}${info.ext}`
+    console.log('==> create', size, destination);
+    if (crop) {
+      await cropImage(path, destination, width, height, quality)
+    } else {
+      await resizeImage(path, destination, width, height, quality)
+    }
+  }
+
+  // return path
+  return path
+}
+
+/**
+ * Rename image
+ * @param  {String} type   Image type
+ * @param  {Object} parent Parent object
+ * @param  {Object} image  Image object
+ * @param  {String} name   New name
+ * @return {Promise}
+ */
+export async function renameImage(type, parent, image, name) {
+  console.log('==> rename image', type, parent.slug, image.name, name)
+
+  const filename = (`${createSlug(name)}.${image.extension}`).toLowerCase()
+  const base = `${config.upload.path}/${type}/${parent.slug}`
+  const from = `${base}/${image.filename}`
+  const to = await generateUniquePath(`${base}/${filename}`)
+  const info = parse(to)
+
+  console.log('==> move', from, to)
+
+  // move original to path
+  await move(from, to)
+
+  // move sizes
+  for (let size in config.image.sizes) {
+    await move(
+      `${base}/${image.filename}-${size}.${image.extension}`,
+      `${base}/${info.name}-${size}.${image.extension}`
+    )
+  }
+
+  console.log('==> renamed image', to)
+
+  // return new path
+  return to
+}
+
+/**
+ * Remove image
+ *
+ * Remove original and all size images
  *
  * @param  {String} image
  */
-export async function createSizeImages(image) {
-  console.log('==> create size images for', image);
-  const path = getFilePath(image)
-  const file = getFileWithoutPath(image)
-  const filename = getFileFilename(file)
-  const extension = getFileExtension(file)
+export async function removeImage(type, parent, image) {
+  console.log('==> remove image', type, parent.slug, image.filename)
+  const base = `${config.upload.path}/${type}/${parent.slug}`
+  const path = `${base}/${image.filename}`
+  const info = parse(path)
+  await removeSync(path)
   for (let size in config.image.sizes) {
-    let { width, height, crop, quality } = config.image.sizes[size]
-    let destination = `${path}/${filename}-${size}.${extension}`
-    await createImage(image, destination, width, height, quality, crop)
+    await removeSync(`${base}/${info.name}-${size}${info.ext}`)
   }
 }
 
+// private functions
+
 /**
- * Create image helper
+ * Get file path
  *
- * Depending on crop parameter either crops or resizes image
+ * Generates unique file path for given destination.
+ * If file with the same name already exists in destination,
+ * it will add suffix filename-2, filename-3, and so on ...
  *
- * @param  {String} source
- * @param  {String} destination
- * @param  {Number} width
- * @param  {Number} height
- * @param  {Number} quality
- * @param  {Boolean} crop
- * @return {Promise}
+ * @param  {String} destination Destination folder
+ * @param  {String} filename    File name without extension
+ * @param  {String} extension   File extension
+ * @return {String}
  */
-export function createImage(source, destination, width, height, quality, crop) {
-  if (crop) {
-    return cropImage(source, destination, width, height, quality)
-  } else {
-    return resizeImage(source, destination, width, height, quality)
+async function generateUniquePath(path) {
+  const info = parse(path)
+  let number = 2
+  let exists
+  while (exists = await existsSync(path)) {
+    path = `${info.dir}/${info.name}-${number}${info.ext}`
+    number++
   }
+  return path
 }
 
 /**
@@ -77,8 +169,8 @@ export function createImage(source, destination, width, height, quality, crop) {
  * @param  {Number} quality
  * @return {Promise}
  */
-export function cropImage(source, destination, width, height, quality) {
-  console.log('==> crop start', source);
+function cropImage(source, destination, width, height, quality) {
+  console.log('==> crop start', source)
   return new Promise((resolve, reject) => {
     gm(source)
     .autoOrient()
@@ -107,8 +199,8 @@ export function cropImage(source, destination, width, height, quality) {
  * @param  {Number} quality
  * @return {Promise}
  */
-export function resizeImage(source, destination, width, height, quality) {
-  console.log('==> resize start', source);
+function resizeImage(source, destination, width, height, quality) {
+  console.log('==> resize start', source)
   return new Promise((resolve, reject) => {
     gm(source)
     .autoOrient()
@@ -124,24 +216,4 @@ export function resizeImage(source, destination, width, height, quality) {
       }
     })
   })
-}
-
-/**
- * Remove image
- *
- * Remove original and all size images
- *
- * @param  {String} image
- */
-export async function removeImage(image) {
-  console.log('==> removeImage', image);
-  const path = getFilePath(image)
-  const file = getFileWithoutPath(image)
-  const filename = getFileFilename(file)
-  const extension = getFileExtension(file)
-  await removeSync(image)
-  for (let size in config.image.sizes) {
-    let size = `${path}/${filename}-${size}.${extension}`
-    await removeSync(size)
-  }
 }

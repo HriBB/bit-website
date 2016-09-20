@@ -1,5 +1,6 @@
 import async from 'asyncawait/async'
 import await from 'asyncawait/await'
+import { parse } from 'path'
 import { move } from 'co-fs-extra'
 import uuid from 'uuid'
 
@@ -11,7 +12,9 @@ import {
 } from '../db'
 
 import {
-  getGalleryImageUrl,
+  getImageUrl,
+  renameImage,
+  removeImage,
 } from '../utils/image'
 
 const resolveFunctions = {
@@ -24,7 +27,7 @@ const resolveFunctions = {
     }
   },
   RootMutation: {
-    createGallery(root, { name, description }, context) {
+    async createGallery(root, { name, description }, context) {
       console.log('******************************************');
       console.log('************* createGallery', name, description);
       console.log('******************************************');
@@ -46,28 +49,41 @@ const resolveFunctions = {
       if (!id) throw new Error('ID is required!')
       if (!name) throw new Error('Name is required!')
       if (!description) throw new Error('Description is required!')
-      // read old gallery
-      const old = Gallery.getById(id)
-      if (!old) throw new Error('Invalid gallery ID!')
-      // get slug
-      let slug = old.slug
+      // read gallery
+      const gallery = Gallery.getById(id)
+      if (!gallery) throw new Error('Invalid gallery!')
+      // new data
+      const data = Object.assign({}, gallery, { name, description })
       // name has changed
-      if (name !== old.name) {
-        slug = Gallery.generateSlug(name)
-        const from = `${config.upload.path}/gallery/${old.slug}`
+      if (name !== gallery.name) {
+        const slug = Gallery.generateSlug(name)
+        const from = `${config.upload.path}/gallery/${gallery.slug}`
         const to = `${config.upload.path}/gallery/${slug}`
         await move(from, to)
+        Object.assign(data, { slug })
       }
-      // update
-      return Gallery.update({ id, slug, name, description })
+      // update gallery
+      return Gallery.update(data)
     },
-    deleteGallery(root, { id }, context) {
+    async deleteGallery(root, { id }, context) {
       console.log('******************************************');
       console.log('************* deleteGallery', id);
       console.log('******************************************');
-      throw new Error('Not implemented')
-      const gallery = Gallery.delete(id)
-      console.log('delete', gallery);
+      // read gallery
+      const gallery = Gallery.getById(id)
+      if (!gallery) throw new Error('Invalid gallery!')
+      // remove gallery images
+      const images = GalleryImage.getAllByGalleryId(gallery.id)
+      for (let index in images) {
+        const image = images[index]
+        // remove image from fs
+        await removeImage('gallery', gallery, image)
+        // remove image from db
+        GalleryImage.delete(image.id)
+      }
+      // remove gallery from db
+      Gallery.delete(id)
+      // return id of deleted gallery
       return id
     },
     async updateImage(root, { id, name, description }, context) {
@@ -78,30 +94,38 @@ const resolveFunctions = {
       if (!id) throw new Error('ID is required!')
       if (!name) throw new Error('Name is required!')
       if (!description) throw new Error('Description is required!')
-      // read old gallery
-      const old = GalleryImage.getById(id)
-      if (!old) throw new Error('Invalid gallery ID!')
-
-      throw new Error('Not implemented')
-
-      // get slug
-      let slug = old.slug
+      // read image
+      const image = GalleryImage.getById(id)
+      if (!image) throw new Error('Invalid image!')
+      // read gallery
+      const gallery = Gallery.getById(image.gallery_id)
+      if (!gallery) throw new Error('Invalid gallery!')
+      // new data
+      const data = Object.assign({}, image, { name, description })
       // name has changed
-      if (name !== old.name) {
-        slug = GalleryImage.generateSlug(name)
-        const from = `${config.upload.path}/gallery/${old.slug}`
-        const to = `${config.upload.path}/gallery/${slug}`
-        await move(from, to)
+      if (name !== image.name) {
+        const path = await renameImage('gallery', gallery, image, name)
+        const info = parse(path)
+        Object.assign(data, { slug: info.name, filename: info.base })
       }
       // update
-      return GalleryImage.update({ id, slug, name, description })
+      return GalleryImage.update(data)
     },
-    deleteImage(root, { id }, context) {
+    async deleteImage(root, { id }, context) {
       console.log('******************************************');
       console.log('************* deleteImage', id);
       console.log('******************************************');
-      const image = GalleryImage.delete(id)
-      console.log('delete', gallery);
+      // read image
+      const image = GalleryImage.getById(id)
+      if (!image) throw new Error('Invalid image!')
+      // read gallery
+      const gallery = Gallery.getById(image.gallery_id)
+      if (!gallery) throw new Error('Invalid gallery!')
+      // remove image from fs
+      await removeImage('gallery', gallery, image)
+      // remove image from db
+      GalleryImage.delete(id)
+      // return id of deleted image
       return id
     },
   },
@@ -117,19 +141,19 @@ const resolveFunctions = {
   },
   Image: {
     url(image) {
-      return getGalleryImageUrl(image.gallery, image)
+      return getImageUrl('gallery', image.gallery, image)
     },
     small(image) {
-      return getGalleryImageUrl(image.gallery, image, 'small')
+      return getImageUrl('gallery', image.gallery, image, 'small')
     },
     medium(image) {
-      return getGalleryImageUrl(image.gallery, image, 'medium')
+      return getImageUrl('gallery', image.gallery, image, 'medium')
     },
     large(image) {
-      return getGalleryImageUrl(image.gallery, image, 'large')
+      return getImageUrl('gallery', image.gallery, image, 'large')
     },
     full(image) {
-      return getGalleryImageUrl(image.gallery, image, 'full')
+      return getImageUrl('gallery', image.gallery, image, 'full')
     },
   },
 }

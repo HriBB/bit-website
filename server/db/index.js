@@ -24,8 +24,16 @@ export const GalleryImage = {
   },
 
   create: (image) => {
-    console.log('==> create image', image);
     return galleryImages.push(image).last().value()
+  },
+
+  update: (image) => {
+    const { id } = image
+    return galleryImages.find({ id }).assign(image).value()
+  },
+
+  delete: (id) => {
+    return galleryImages.remove({ id }).value()
   },
 
 }

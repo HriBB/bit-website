@@ -15,111 +15,57 @@
   ],
   "gallery_images": [
     {
-      "id": "2dc1e3bb-a25d-4ab9-9e5c-7547a0debb53",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
-      "slug": "chrysanthemum",
-      "filename": "chrysanthemum.jpg",
-      "extension": "jpg",
-      "name": "chrysanthemum",
-      "description": ""
-    },
-    {
-      "id": "e860360b-c0fa-423a-be27-9ea6169b40a6",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
-      "slug": "desert",
-      "filename": "desert.jpg",
-      "extension": "jpg",
-      "name": "desert",
-      "description": ""
-    },
-    {
-      "id": "f39f5a61-1d53-468a-aed4-138af21a6847",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "id": "746c51cc-538f-4e6d-ba25-5e7986a62c1a",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "hydrangeas",
       "filename": "hydrangeas.jpg",
       "extension": "jpg",
-      "name": "hydrangeas",
+      "name": "hydrangeas.jpg",
       "description": ""
     },
     {
-      "id": "c88f9e63-3759-48ea-952d-22bd181ccc6a",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "id": "c814c048-f3a0-454d-915f-65240a1f92ca",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "jellyfish",
       "filename": "jellyfish.jpg",
       "extension": "jpg",
-      "name": "jellyfish",
+      "name": "jellyfish.jpg",
       "description": ""
     },
     {
-      "id": "c8ca06e9-7f59-44f5-9818-15f003e15658",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "id": "875b11b9-da9d-4eee-988f-977a57049b4c",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "koala",
       "filename": "koala.jpg",
       "extension": "jpg",
-      "name": "koala",
+      "name": "koala.jpg",
       "description": ""
     },
     {
-      "id": "4a03b003-49c7-4f3c-af25-96ac07e9ce85",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "id": "28c68790-b11e-403a-abb7-aaa352a99fdb",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "lighthouse",
       "filename": "lighthouse.jpg",
       "extension": "jpg",
-      "name": "lighthouse",
+      "name": "lighthouse.jpg",
       "description": ""
     },
     {
-      "id": "ceebc512-4872-42f8-9dce-20573c7d3cb3",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "id": "ee7674b3-5c71-4b8f-a464-52c324034a5c",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "penguins",
       "filename": "penguins.jpg",
       "extension": "jpg",
-      "name": "penguins",
+      "name": "penguins.jpg",
       "description": ""
     },
     {
-      "id": "d0f56bb0-f478-409e-8f3e-226b47192bad",
-      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "id": "4c48ea20-9a5a-4444-b608-c51004d61ab2",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "tulips",
       "filename": "tulips.jpg",
       "extension": "jpg",
-      "name": "tulips",
-      "description": ""
-    },
-    {
-      "id": "c788773f-2461-4508-80dc-9e7b72c3b73d",
-      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
-      "slug": "_77a9183",
-      "filename": "_77a9183.jpg",
-      "extension": "jpg",
-      "name": "_77a9183",
-      "description": ""
-    },
-    {
-      "id": "a5e19e77-4c7a-4231-bf46-c434247edc05",
-      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
-      "slug": "_77a9191",
-      "filename": "_77a9191.jpg",
-      "extension": "jpg",
-      "name": "_77a9191",
-      "description": ""
-    },
-    {
-      "id": "c1d7c71c-3cda-4583-b1f1-1dd62eab80a2",
-      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
-      "slug": "_77a9219",
-      "filename": "_77a9219.jpg",
-      "extension": "jpg",
-      "name": "_77a9219",
-      "description": ""
-    },
-    {
-      "id": "2b470ce5-91fb-459b-98eb-345b98c269b3",
-      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
-      "slug": "_77a9384",
-      "filename": "_77a9384.jpg",
-      "extension": "jpg",
-      "name": "_77a9384",
+      "name": "tulips.jpg",
       "description": ""
     }
   ]

@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
+import update from 'react-addons-update'
 import gql from 'graphql-tag'
 
 import Loader from 'components/ux/Loader'
@@ -19,6 +20,9 @@ class GalleryView extends Component {
     super(props)
     this.editGallery = this.editGallery.bind(this)
     this.addImages = this.addImages.bind(this)
+    this.openImage = this.openImage.bind(this)
+    this.editImage = this.editImage.bind(this)
+    this.deleteImage = this.deleteImage.bind(this)
   }
 
   editGallery() {
@@ -27,6 +31,25 @@ class GalleryView extends Component {
 
   addImages() {
     this.props.actions.addImages(this.props.data.gallery)
+  }
+
+  openImage(image) {
+    console.log('open image', image);
+  }
+
+  editImage(image) {
+    this.props.actions.editImage(image)
+  }
+
+  deleteImage(image) {
+    const { deleteImage } = this.props
+    const { id } = image
+    deleteImage({ variables: { id } })
+      .then(({ data }) => {
+        console.log('deleteImage success', data);
+      }).catch((error) => {
+        console.log('deleteImage error', error);
+      });
   }
 
   render() {
@@ -44,7 +67,13 @@ class GalleryView extends Component {
         <Masonry>
           {gallery.images.map((image, index) =>
             <MasonryItem key={image.id} big={index === 0}>
-              <GalleryImage gallery={gallery} image={image} actions={actions}/>
+              <GalleryImage
+                gallery={gallery}
+                image={image}
+                open={this.openImage}
+                edit={this.editImage}
+                delete={this.deleteImage}
+              />
             </MasonryItem>
           )}
         </Masonry>
@@ -73,8 +102,68 @@ const GET_GALLERY = gql`
   }
 `
 
-const withData = graphql(GET_GALLERY, {
-  options: ownProps => ({ variables: { slug: ownProps.params.slug } })
-})
+const DELETE_IMAGE = gql`
+  mutation deleteImage($id: String!) {
+    deleteImage(id: $id)
+  }
+`
 
-export default withData(GalleryView)
+const GalleryViewWithData = compose(
+  graphql(GET_GALLERY, {
+    options: ownProps => ({
+      variables: { slug: ownProps.params.slug }
+    })
+  }),
+  graphql(DELETE_IMAGE, {
+    name: 'deleteImage',
+    options: ownProps => ({
+      updateQueries: {
+        galleries: (prev, { mutationResult }) => {
+          // find gallery index
+          const galleryId = ownProps.data.gallery.id
+          const galleryIndex = prev.galleries.findIndex(g => g.id === galleryId)
+
+          // gallery not found, return previous state
+          if (galleryIndex === -1) return prev
+
+          // create new galleries and gallery
+          const galleries = [...prev.galleries]
+          const gallery = galleries[galleryIndex]
+
+          // filter out deleted image
+          const imageId = mutationResult.data.deleteImage
+          const images = ownProps.data.gallery.images.filter(i => i.id !== imageId)
+
+          // if gallery contains images, replace them
+          if (gallery.images && gallery.images.length) {
+            gallery.images = images
+          }
+
+          // if gallery image was removed, replace it
+          if (gallery.image && gallery.image.id === imageId) {
+            gallery.image = images[0]
+          }
+
+          // return galleries
+          return { galleries }
+        },
+        gallery: (prev, { mutationResult }) => {
+          const id = mutationResult.data.deleteImage
+          return update(prev, {
+            gallery: {
+              images: { $apply: images => images.filter(i => i.id !== id)}
+            }
+          })
+          /*
+          const gallery = Object.assign({}, prev.gallery, {
+            images: prev.gallery.images.filter(i => i.id !== id)
+          })
+          return { gallery }
+          */
+        }
+      }
+    })
+  })
+)(GalleryView)
+
+export default GalleryViewWithData

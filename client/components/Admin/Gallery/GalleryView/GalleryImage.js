@@ -10,28 +10,30 @@ import Menu, { MenuItem } from 'components/ux/Menu'
 export default class GalleryImage extends Component {
 
   static propTypes = {
-    actions: PropTypes.object.isRequired,
     gallery: PropTypes.object.isRequired,
     image: PropTypes.object.isRequired,
+    open: PropTypes.func.isRequired,
+    edit: PropTypes.func.isRequired,
+    delete: PropTypes.func.isRequired,
   }
 
   constructor(props) {
     super(props)
-    this.editImage = this.editImage.bind(this)
-    this.openImage = this.openImage.bind(this)
-    this.deleteImage = this.deleteImage.bind(this)
+    this.open = this.open.bind(this)
+    this.edit = this.edit.bind(this)
+    this.delete = this.delete.bind(this)
   }
 
-  editImage(e) {
-    this.props.actions.editImage(this.props.image)
+  open() {
+    this.props.open(this.props.image)
   }
 
-  openImage(e) {
-    console.log('open');
+  edit() {
+    this.props.edit(this.props.image)
   }
 
-  deleteImage(e) {
-    console.log('delete');
+  delete() {
+    this.props.delete(this.props.image)
   }
 
   render() {
@@ -41,9 +43,9 @@ export default class GalleryImage extends Component {
       <div className={'bit-admin-gallery-image'}>
         <img src={image.small} />
         <Menu target={<IconButton name={'more_vert'}/>} align={'right'}>
-          <MenuItem onClick={this.editImage}>Edit Image</MenuItem>
-          <MenuItem onClick={this.openImage}>Open Image</MenuItem>
-          <MenuItem onClick={this.deleteImage}>Delete Image</MenuItem>
+          <MenuItem onClick={this.edit}>Edit Image</MenuItem>
+          <MenuItem onClick={this.open}>Open Image</MenuItem>
+          <MenuItem onClick={this.delete}>Delete Image</MenuItem>
         </Menu>
       </div>
     )
