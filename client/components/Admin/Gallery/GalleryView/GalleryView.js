@@ -110,43 +110,14 @@ const DELETE_IMAGE = gql`
 
 const GalleryViewWithData = compose(
   graphql(GET_GALLERY, {
-    options: ownProps => ({
-      variables: { slug: ownProps.params.slug }
+    options: props => ({
+      variables: { slug: props.params.slug }
     })
   }),
   graphql(DELETE_IMAGE, {
     name: 'deleteImage',
-    options: ownProps => ({
+    options: props => ({
       updateQueries: {
-        galleries: (prev, { mutationResult }) => {
-          // find gallery index
-          const galleryId = ownProps.data.gallery.id
-          const galleryIndex = prev.galleries.findIndex(g => g.id === galleryId)
-
-          // gallery not found, return previous state
-          if (galleryIndex === -1) return prev
-
-          // create new galleries and gallery
-          const galleries = [...prev.galleries]
-          const gallery = galleries[galleryIndex]
-
-          // filter out deleted image
-          const imageId = mutationResult.data.deleteImage
-          const images = ownProps.data.gallery.images.filter(i => i.id !== imageId)
-
-          // if gallery contains images, replace them
-          if (gallery.images && gallery.images.length) {
-            gallery.images = images
-          }
-
-          // if gallery image was removed, replace it
-          if (gallery.image && gallery.image.id === imageId) {
-            gallery.image = images[0]
-          }
-
-          // return galleries
-          return { galleries }
-        },
         gallery: (prev, { mutationResult }) => {
           const id = mutationResult.data.deleteImage
           return update(prev, {
@@ -154,12 +125,38 @@ const GalleryViewWithData = compose(
               images: { $apply: images => images.filter(i => i.id !== id)}
             }
           })
-          /*
-          const gallery = Object.assign({}, prev.gallery, {
-            images: prev.gallery.images.filter(i => i.id !== id)
+        },
+        galleries: (prev, { mutationResult }) => {
+          console.log('UPDATE GALLERIES');
+          const gallery = props.data.gallery
+          const index = prev.galleries.findIndex(g => g.id === gallery.id)
+          if (index === -1) return prev // gallery not found, return prev state
+
+          const next = update(prev, {
+            galleries: {
+              [index]: {
+                $apply: g => {
+                  // $apply updates gallery object
+                  // @see https://facebook.github.io/react/docs/update.html
+                  // this code will replace images
+                  const imageId = mutationResult.data.deleteImage
+                  const images = gallery.images.filter(i => i.id !== imageId)
+                  if (g.images && g.images.length) {
+                    g.images = images || []
+                  }
+                  if (g.image && g.image.id === imageId) {
+                    g.image = images[0] || null
+                  }
+                  return g
+                }
+              }
+            }
           })
-          return { gallery }
-          */
+
+          console.log(next);
+
+          return next
+
         }
       }
     })

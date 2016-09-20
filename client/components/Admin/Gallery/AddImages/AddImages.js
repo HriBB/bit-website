@@ -21,13 +21,14 @@ class AddImages extends Component {
 
   constructor(props) {
     super(props)
+    this.state = { uploading: false }
     this.files = null
     this.upload = this.upload.bind(this)
     this.changeFiles = this.changeFiles.bind(this)
   }
 
   upload() {
-    const { gallery } = this.props
+    const { gallery, close } = this.props
     const formData = new FormData()
     formData.append('type', 'gallery')
     formData.append('id', gallery.id)
@@ -36,10 +37,16 @@ class AddImages extends Component {
       method: 'POST',
       body: formData
     }
+    this.setState({ uploading: true })
     return fetch('http://localhost:4000/upload', options)
       .then(response => response.json())
       .then(json => {
-        console.log('response', json);
+        console.log('upload done', json);
+        close()
+      })
+      .catch(err => {
+        console.log('upload failed', err);
+        this.setState({ uploading: false })
       })
   }
 
@@ -50,6 +57,7 @@ class AddImages extends Component {
 
   render() {
     const { images, close } = this.props
+    const { uploading } = this.state
     return (
       <Body className={'bit-admin-add-images'}>
         <Header>
@@ -69,7 +77,7 @@ class AddImages extends Component {
           </div>
         </Content>
         <Footer>
-          <Button onClick={this.upload}>Save</Button>
+          <Button onClick={this.upload} disabled={uploading}>Save</Button>
         </Footer>
       </Body>
     )

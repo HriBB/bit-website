@@ -11,11 +11,59 @@
       "slug": "new-gallery-2",
       "name": "New Gallery",
       "description": "Gallery description"
+    },
+    {
+      "id": "259306e9-25f1-45c3-bd45-86bb95807e3e",
+      "slug": "fashion",
+      "name": "Fashion",
+      "description": "Stuff"
+    },
+    {
+      "id": "65b9ad5c-4c8d-4a00-a36e-7dc7c543954c",
+      "slug": "fsdads",
+      "name": "fsdads",
+      "description": "asdfsdf"
+    },
+    {
+      "id": "fb3cc3d5-a057-42a1-8ff4-f8edfb752f99",
+      "slug": "hfgdhfg",
+      "name": "hfgdhfg",
+      "description": "fdghdfg"
+    },
+    {
+      "id": "01df6e77-62cc-4884-b4a4-642bc103e517",
+      "slug": "gfdgsdf",
+      "name": "gfdgsdf",
+      "description": "gdsfgdsf"
+    },
+    {
+      "id": "456d3d04-20ca-4161-9ab9-5bbd3e604b68",
+      "slug": "sdagds",
+      "name": "sdagds",
+      "description": "dfh"
     }
   ],
   "gallery_images": [
     {
-      "id": "746c51cc-538f-4e6d-ba25-5e7986a62c1a",
+      "id": "6ea51d8e-6b74-45ce-b3e4-be65227ced4d",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
+      "slug": "chrysanthemum",
+      "filename": "chrysanthemum.jpg",
+      "extension": "jpg",
+      "name": "chrysanthemum.jpg",
+      "description": ""
+    },
+    {
+      "id": "79108616-89da-4ace-8e14-8f672320fe55",
+      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
+      "slug": "desert",
+      "filename": "desert.jpg",
+      "extension": "jpg",
+      "name": "desert.jpg",
+      "description": ""
+    },
+    {
+      "id": "a20b749f-46db-4827-9386-ea0b03f0dcf0",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "hydrangeas",
       "filename": "hydrangeas.jpg",
@@ -24,7 +72,7 @@
       "description": ""
     },
     {
-      "id": "c814c048-f3a0-454d-915f-65240a1f92ca",
+      "id": "ba23762b-ae85-4e26-9934-09d32ddc913a",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "jellyfish",
       "filename": "jellyfish.jpg",
@@ -33,7 +81,7 @@
       "description": ""
     },
     {
-      "id": "875b11b9-da9d-4eee-988f-977a57049b4c",
+      "id": "3beedf2d-82a9-4904-9700-26fda2c7bb59",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "koala",
       "filename": "koala.jpg",
@@ -42,7 +90,7 @@
       "description": ""
     },
     {
-      "id": "28c68790-b11e-403a-abb7-aaa352a99fdb",
+      "id": "9e8d10a2-60b9-40b4-a080-fc9b81c5b70a",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "lighthouse",
       "filename": "lighthouse.jpg",
@@ -51,7 +99,7 @@
       "description": ""
     },
     {
-      "id": "ee7674b3-5c71-4b8f-a464-52c324034a5c",
+      "id": "a81db9b2-0279-4089-a346-92678819694f",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "penguins",
       "filename": "penguins.jpg",
@@ -60,12 +108,219 @@
       "description": ""
     },
     {
-      "id": "4c48ea20-9a5a-4444-b608-c51004d61ab2",
+      "id": "f9358802-0aa6-4b05-a6bc-2e60cfe9fd4d",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "tulips",
       "filename": "tulips.jpg",
       "extension": "jpg",
       "name": "tulips.jpg",
+      "description": ""
+    },
+    {
+      "id": "f0bd13a5-0256-4fe8-8ca2-e25fd5edf1de",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "prilep1399730",
+      "filename": "prilep1399730.jpg",
+      "extension": "jpg",
+      "name": "prilep1399730.jpg",
+      "description": ""
+    },
+    {
+      "id": "ce71d397-b711-4796-a2f0-c1b030d766fc",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "prilep1524699",
+      "filename": "prilep1524699.jpg",
+      "extension": "jpg",
+      "name": "prilep1524699.jpg",
+      "description": ""
+    },
+    {
+      "id": "d8b2c927-ec53-41e7-bc45-fa59a0c9a74b",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "prilep1549347",
+      "filename": "prilep1549347.jpg",
+      "extension": "jpg",
+      "name": "prilep1549347.jpg",
+      "description": ""
+    },
+    {
+      "id": "6bb9ede4-e812-413e-95e0-9e135480c7cf",
+      "gallery_id": "58219791-0c12-4761-9199-c6ee42926657",
+      "slug": "prilep1551576",
+      "filename": "prilep1551576.jpg",
+      "extension": "jpg",
+      "name": "prilep1551576.jpg",
+      "description": ""
+    },
+    {
+      "id": "5026450b-3a86-4e21-8428-ae2bb593c821",
+      "gallery_id": "259306e9-25f1-45c3-bd45-86bb95807e3e",
+      "slug": "_77a9183",
+      "filename": "_77a9183.jpg",
+      "extension": "jpg",
+      "name": "_77a9183.jpg",
+      "description": ""
+    },
+    {
+      "id": "9d13c2e3-cbeb-485e-af89-19c30001bc15",
+      "gallery_id": "259306e9-25f1-45c3-bd45-86bb95807e3e",
+      "slug": "_77a9191",
+      "filename": "_77a9191.jpg",
+      "extension": "jpg",
+      "name": "_77a9191.jpg",
+      "description": ""
+    },
+    {
+      "id": "549b8e15-7443-4328-98bc-274bfe2c4818",
+      "gallery_id": "259306e9-25f1-45c3-bd45-86bb95807e3e",
+      "slug": "_77a9219",
+      "filename": "_77a9219.jpg",
+      "extension": "jpg",
+      "name": "_77a9219.jpg",
+      "description": ""
+    },
+    {
+      "id": "3dab49eb-f112-4cee-ac84-bc84f395bbd9",
+      "gallery_id": "259306e9-25f1-45c3-bd45-86bb95807e3e",
+      "slug": "_77a9384",
+      "filename": "_77a9384.jpg",
+      "extension": "jpg",
+      "name": "_77a9384.jpg",
+      "description": ""
+    },
+    {
+      "id": "8ef733c6-97f1-45f8-980d-7376e5ab55a0",
+      "gallery_id": "fb3cc3d5-a057-42a1-8ff4-f8edfb752f99",
+      "slug": "69426_1516535167666_1663090515_1202071_6695305_n",
+      "filename": "69426_1516535167666_1663090515_1202071_6695305_n.jpg",
+      "extension": "jpg",
+      "name": "69426_1516535167666_1663090515_1202071_6695305_n.jpg",
+      "description": ""
+    },
+    {
+      "id": "9a70c4ba-7499-46ee-80e6-659a1aea9fda",
+      "gallery_id": "fb3cc3d5-a057-42a1-8ff4-f8edfb752f99",
+      "slug": "305190_2156134837258_250844580_n",
+      "filename": "305190_2156134837258_250844580_n.jpg",
+      "extension": "jpg",
+      "name": "305190_2156134837258_250844580_n.jpg",
+      "description": ""
+    },
+    {
+      "id": "c62fe070-c549-47cd-8271-b04cbeea384a",
+      "gallery_id": "fb3cc3d5-a057-42a1-8ff4-f8edfb752f99",
+      "slug": "72130_1516481086314_1663090515_1202016_1116407_n",
+      "filename": "72130_1516481086314_1663090515_1202016_1116407_n.jpg",
+      "extension": "jpg",
+      "name": "72130_1516481086314_1663090515_1202016_1116407_n.jpg",
+      "description": ""
+    },
+    {
+      "id": "a5bf199e-ded4-4126-aa8c-582bac470599",
+      "gallery_id": "fb3cc3d5-a057-42a1-8ff4-f8edfb752f99",
+      "slug": "312778_2156139077364_1908423487_n",
+      "filename": "312778_2156139077364_1908423487_n.jpg",
+      "extension": "jpg",
+      "name": "312778_2156139077364_1908423487_n.jpg",
+      "description": ""
+    },
+    {
+      "id": "c8e5e4f2-2ae4-46aa-852c-04607ad23b43",
+      "gallery_id": "fb3cc3d5-a057-42a1-8ff4-f8edfb752f99",
+      "slug": "bit_tm2",
+      "filename": "bit_tm2.jpg",
+      "extension": "jpg",
+      "name": "bit_tm2.jpg",
+      "description": ""
+    },
+    {
+      "id": "afb5142a-551c-45e4-a760-27d20bc4cce6",
+      "gallery_id": "65b9ad5c-4c8d-4a00-a36e-7dc7c543954c",
+      "slug": "dsc_0168",
+      "filename": "dsc_0168.jpg",
+      "extension": "jpg",
+      "name": "dsc_0168.jpg",
+      "description": ""
+    },
+    {
+      "id": "1298752e-472c-4747-9f2d-3f87f9efc400",
+      "gallery_id": "65b9ad5c-4c8d-4a00-a36e-7dc7c543954c",
+      "slug": "img_9766-maybe-final",
+      "filename": "img_9766-maybe-final.jpg",
+      "extension": "jpg",
+      "name": "img_9766-maybe-final.jpg",
+      "description": ""
+    },
+    {
+      "id": "f0933085-3254-439d-bedc-f495a97d91b9",
+      "gallery_id": "65b9ad5c-4c8d-4a00-a36e-7dc7c543954c",
+      "slug": "_mg_3256_webarticledetail",
+      "filename": "_mg_3256_webarticledetail.jpg",
+      "extension": "jpg",
+      "name": "_mg_3256_webarticledetail.jpg",
+      "description": ""
+    },
+    {
+      "id": "219b6a01-9b93-44f3-af9c-a17558f91255",
+      "gallery_id": "65b9ad5c-4c8d-4a00-a36e-7dc7c543954c",
+      "slug": "obdelane-1",
+      "filename": "obdelane-1.jpg",
+      "extension": "jpg",
+      "name": "obdelane-1.jpg",
+      "description": ""
+    },
+    {
+      "id": "552d64cb-f854-4cbb-90ad-ed19766f22bb",
+      "gallery_id": "65b9ad5c-4c8d-4a00-a36e-7dc7c543954c",
+      "slug": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng",
+      "filename": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng.jpg",
+      "extension": "jpg",
+      "name": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng.jpg",
+      "description": ""
+    },
+    {
+      "id": "4ce17731-5c9f-472c-b566-163c77a655ef",
+      "gallery_id": "01df6e77-62cc-4884-b4a4-642bc103e517",
+      "slug": "krilo1",
+      "filename": "krilo1.jpg",
+      "extension": "jpg",
+      "name": "krilo1.jpg",
+      "description": ""
+    },
+    {
+      "id": "adf38d90-7072-42c3-81a2-acb941b1cbbd",
+      "gallery_id": "01df6e77-62cc-4884-b4a4-642bc103e517",
+      "slug": "pajkice4",
+      "filename": "pajkice4.jpg",
+      "extension": "jpg",
+      "name": "pajkice4.jpg",
+      "description": ""
+    },
+    {
+      "id": "46e31b4f-ee62-423c-8861-25057c2558a3",
+      "gallery_id": "01df6e77-62cc-4884-b4a4-642bc103e517",
+      "slug": "plasc3",
+      "filename": "plasc3.jpg",
+      "extension": "jpg",
+      "name": "plasc3.jpg",
+      "description": ""
+    },
+    {
+      "id": "63a2b80f-84cb-4a9b-89c5-1d6a22f62ad1",
+      "gallery_id": "01df6e77-62cc-4884-b4a4-642bc103e517",
+      "slug": "pulover3",
+      "filename": "pulover3.jpg",
+      "extension": "jpg",
+      "name": "pulover3.jpg",
+      "description": ""
+    },
+    {
+      "id": "673e40c3-2ee7-44f0-b1af-419376c0c9f6",
+      "gallery_id": "01df6e77-62cc-4884-b4a4-642bc103e517",
+      "slug": "vse-tina-hribernik",
+      "filename": "vse-tina-hribernik.jpg",
+      "extension": "jpg",
+      "name": "vse-tina-hribernik.jpg",
       "description": ""
     }
   ]

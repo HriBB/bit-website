@@ -28,11 +28,12 @@ class AddGallery extends Component {
   }
 
   save() {
-    const { createGallery } = this.props
+    const { createGallery, close } = this.props
     const { name, description } = this.state
     createGallery({ variables: { name, description } })
       .then(({ data }) => {
         console.log('createGallery success', data);
+        close();
       }).catch((error) => {
         console.log('createGallery error', error);
       });
@@ -83,14 +84,11 @@ const CREATE_GALLERY = gql`
   mutation createGallery($name: String!, $description: String) {
     createGallery(name: $name, description: $description) {
       id
-      name
       slug
+      name
       description
-      images {
+      image {
         id
-        slug
-        name
-        description
       }
     }
   }

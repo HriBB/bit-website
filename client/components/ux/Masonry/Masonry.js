@@ -19,7 +19,7 @@ const Masonry = props => {
   }, className)
   return (
     <div className={'masonry-container'}>
-      <ReactMasonry className={masonryClass} options={masonryOptions}>
+      <ReactMasonry className={masonryClass} options={masonryOptions} updateOnEachImageLoad={true}>
         <div className={'masonry__sizer'}></div>
         {children}
       </ReactMasonry>
