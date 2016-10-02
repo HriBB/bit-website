@@ -3,66 +3,40 @@ import { Route } from 'react-router'
 
 import App from 'components/App'
 import Home from 'components/Home'
+import Shop from 'components/Shop'
 import About from 'components/About'
 import Gallery from 'components/Gallery'
-import Shop from 'components/Shop'
-
-import Admin from 'components/Admin'
-import AdminHome from 'components/Admin/Home'
-import AdminAbout from 'components/Admin/About'
-import AdminGallery from 'components/Admin/Gallery'
-import AdminGalleryList from 'components/Admin/Gallery/GalleryList'
-import AdminGalleryView from 'components/Admin/Gallery/GalleryView'
-import AdminShop from 'components/Admin/Shop'
-
+import GalleryList from 'components/Gallery/GalleryList'
+import GalleryView from 'components/Gallery/GalleryView'
 import NotFound from 'components/NotFound'
 
-const publicRoutes = [{
-  path: '/',
-  component: Home
-},{
-  path: 'about',
-  component: About
-},{
-  path: 'gallery',
-  component: Gallery
-},{
-  path: 'shop',
-  component: Shop
-}]
-
-const adminRoutes = [{
-  path: 'admin',
-  component: Admin,
-  indexRoute: {
-    component: AdminHome
-  },
+export default {
+  component: App,
   childRoutes: [{
-    path: 'gallery',
-    component: AdminGallery,
-    indexRoute: {
-      component: AdminGalleryList
-    },
-    childRoutes: [{
-      path: ':slug',
-      component: AdminGalleryView
-    }]
-  },{
-    path: 'shop',
-    component: AdminShop
+    path: '/',
+    component: Home,
   },{
     path: 'about',
-    component: AdminAbout
+    component: About,
+  },{
+    path: 'gallery',
+    component: Gallery,
+    indexRoute: {
+      component: GalleryList,
+    },
+    childRoutes: [{
+      path: ':gallery',
+      component: GalleryView,
+      childRoutes: [{
+        path: ':image',
+        component: GalleryView,
+      }],
+    }],
+  },{
+    path: 'shop',
+    component: Shop,
+  },{
+    path: '*',
+    component: NotFound,
   }]
-}]
-
-const routes = {
-  component: App,
-  childRoutes: [
-    ...publicRoutes,
-    ...adminRoutes,
-    { path: '*', component: NotFound }
-  ]
 }
-
-export default routes

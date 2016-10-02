@@ -45,15 +45,6 @@
   ],
   "gallery_images": [
     {
-      "id": "6ea51d8e-6b74-45ce-b3e4-be65227ced4d",
-      "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
-      "slug": "chrysanthemum",
-      "filename": "chrysanthemum.jpg",
-      "extension": "jpg",
-      "name": "chrysanthemum.jpg",
-      "description": ""
-    },
-    {
       "id": "79108616-89da-4ace-8e14-8f672320fe55",
       "gallery_id": "fb8fcf2e-c976-49ad-ab00-6c36320214cd",
       "slug": "desert",
@@ -321,6 +312,15 @@
       "filename": "vse-tina-hribernik.jpg",
       "extension": "jpg",
       "name": "vse-tina-hribernik.jpg",
+      "description": ""
+    },
+    {
+      "id": "b2231254-6aa5-4787-bf86-bb7cf7574653",
+      "gallery_id": "456d3d04-20ca-4161-9ab9-5bbd3e604b68",
+      "slug": "_77a9219",
+      "filename": "_77a9219.jpg",
+      "extension": "jpg",
+      "name": "_77a9219.jpg",
       "description": ""
     }
   ]

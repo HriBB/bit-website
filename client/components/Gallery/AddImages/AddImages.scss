@@ -1,0 +1,21 @@
+@import 'variables';
+
+.bit-add-images {
+
+  .bit-add-images__content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding-bottom: 15px;
+
+    .bit-add-images__input {
+    }
+
+    .bit-add-images__images {
+      overflow-x: hidden;
+      overflow-y: auto;
+    }
+
+  }
+
+}

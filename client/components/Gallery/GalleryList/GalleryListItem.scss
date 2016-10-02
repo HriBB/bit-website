@@ -1,0 +1,14 @@
+@import 'variables';
+
+.bit-gallery-list-item {
+  width: 100%;
+
+  .bit-card {
+    width: 100%;
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+}

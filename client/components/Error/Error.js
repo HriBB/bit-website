@@ -1,19 +1,19 @@
 import React, { Component, PropTypes } from 'react'
 
-import './NotFound.scss'
+import './Error.scss'
 
 import { Layout, Content, Header, Title } from 'components/ux/Layout'
 
-export default class NotFound extends Component {
+export default class Error extends Component {
 
   render() {
     return (
-      <Layout className={'bit-404'}>
+      <Layout className={'bit-error'} centered>
         <Header>
-          <Title center>Error</Title>
+          <Title>Error</Title>
         </Header>
         <Content>
-          Page not found!
+          {this.props.children}
         </Content>
       </Layout>
     )

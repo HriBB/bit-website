@@ -1,0 +1,16 @@
+@import 'variables';
+
+.bit-gallery-image {
+  position: relative;
+
+  img {
+    cursor: pointer;
+  }
+
+  button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #fff;
+  }
+}

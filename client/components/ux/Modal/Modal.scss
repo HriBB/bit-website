@@ -1,17 +1,40 @@
 @import 'variables';
 
-.ReactModal__Content {
-  width: 100% !important;
+.ReactModalPortal {
+  z-index: 9997 !important;
   height: 100% !important;
+}
 
-  @media screen and (max-width: 799px) {
-    border: none !important;
-    border-radius: 0 !important;
+.ReactModal__Overlay {
+  z-index: 9998 !important;
+  height: 100% !important;
+}
+
+.ReactModal__Content {
+  z-index: 9999 !important;
+  height: 100% !important;
+}
+
+.bit-modal {
+
+  &.bit-modal--centered {
+    width: 100% !important;
+    height: 100% !important;
+    background: #fff !important;
+
+    @media screen and (min-width: 800px) {
+      top: 50% !important;
+      left: 50% !important;
+      width: 600px !important;
+      height: 400px !important;
+      transform: translate(-50%, -50%) !important;
+      max-height: 80% !important;
+      border: 1px solid #ccc !important;
+      border-radius: 4px !important;
+    }
   }
 
-  @media screen and (min-width: 800px) {
-    width: 600px !important;
-    height: 400px !important;
-    max-height: 80% !important;
+  &.bit-modal--dark {
+
   }
 }

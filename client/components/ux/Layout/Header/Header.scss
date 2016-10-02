@@ -1,0 +1,59 @@
+@import 'variables';
+
+.bit-header {
+  display: flex;
+  width: 100%;
+  height: 56px;
+  padding: 0 10px;
+  align-items: center;
+
+  &.bit-header--centered {
+    justify-content: center;
+  }
+
+  &.bit-header--primary {
+    background: $color-primary;
+  }
+
+  &.bit-header--secondary {
+    background: $color-secondary;
+  }
+
+  &.bit-header--third {
+    background: $color-third;
+  }
+
+  &.bit-header--light {
+    color: #000;
+
+    .bit-title,
+    .bit-icon,
+    .bit-icon-link,
+    .bit-icon-button {
+      color: #000;
+    }
+  }
+
+  &.bit-header--dark {
+    color: #fff;
+
+    .bit-title,
+    .bit-icon,
+    .bit-icon-link,
+    .bit-icon-button {
+      color: #fff;
+    }
+  }
+
+  > :first-child {
+    &.bit-title {
+      margin-left: 5px;
+    }
+  }
+
+  > :last-child {
+    &:not(.bit-title) {
+      margin-right: 0px;
+    }
+  }
+}

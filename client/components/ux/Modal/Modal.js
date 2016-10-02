@@ -1,51 +1,70 @@
 import React, { Component, PropTypes } from 'react'
 import ReactModal from 'react-modal'
+import classnames from 'classnames'
+import merge from 'lodash.merge'
 
 import './Modal.scss'
 
-const styles = {
-  overlay : {
-    position: 'fixed',
-    zIndex: '9999',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.75)',
+const defaultStyles = {
+  overlay: {
+    position        : 'fixed',
+    top             : 0,
+    left            : 0,
+    right           : 0,
+    bottom          : 0,
+    backgroundColor : 'rgba(255, 255, 255, 0.75)'
   },
-  content : {
-    position: 'absolute',
-    zIndex: '9999',
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    minWidth: '300px',
-    minHeight: '200px',
-    transform: 'translate(-50%, -50%)',
-    border: '1px solid #ccc',
-    background: '#fff',
-    overflow: 'auto',
-    WebkitOverflowScrolling: 'touch',
-    borderRadius: '4px',
-    outline: 'none',
-    padding: '0px',
+  content: {
+    position                : 'absolute',
+    top                     : 0,
+    left                    : 0,
+    right                   : 0,
+    bottom                  : 0,
+    border                  : 'none',
+    background              : 'none',
+    overflow                : 'hidden',
+    WebkitOverflowScrolling : 'touch',
+    borderRadius            : 0,
+    outline                 : 'none',
+    padding                 : 0
   }
 }
 
 const Modal = props => {
-  const { children, ...rest } = props
+  const { centered, children, className, dark, fullscreen, light, ...rest } = props
+  const modalClass = classnames('bit-modal', {
+    'bit-modal--dark': dark,
+    'bit-modal--light': light,
+    'bit-modal--centered': centered,
+    'bit-modal--fullscreen': fullscreen,
+  }, className)
+  const styles = merge({}, defaultStyles, {
+    overlay: {
+      backgroundColor: dark ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.75)',
+    },
+  })
   return (
-    <ReactModal {...rest} style={styles}>
+    <ReactModal
+      className={modalClass}
+      {...rest}
+      style={styles}
+      portalClassName={'bitt-modal-portal'}
+      overlayClassName={'bit-modal-overlay'}
+    >
       {children}
     </ReactModal>
   )
 }
 
 Modal.propTypes = {
-  isOpen: PropTypes.bool,
-  onRequestClose: PropTypes.func,
+  centered: PropTypes.bool,
   children: PropTypes.any.isRequired,
+  className: PropTypes.string,
+  dark: PropTypes.bool,
+  fullscreen: PropTypes.bool,
+  isOpen: PropTypes.bool,
+  light: PropTypes.bool,
+  onRequestClose: PropTypes.func,
 }
 
 export default Modal

@@ -195,7 +195,7 @@ export default class Menu extends Component {
   openMenu(props) {
     if (!this.open) {
       this.renderMenu(props || this.props)
-      this.focusMenu()
+      //this.focusMenu()
     }
   }
 

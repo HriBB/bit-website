@@ -1,0 +1,14 @@
+@import 'variables';
+
+.bit-title {
+  display: inline-block;
+  line-height: 56px;
+  margin: 0;
+  padding: 0 5px;
+  font-size: 22px;
+  font-weight: 400;
+
+  &.bit-title--flex {
+    flex: 1;
+  }
+}
