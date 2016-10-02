@@ -39,8 +39,8 @@ export default class GalleryImage extends Component {
       <div className={'bit-gallery-image'}>
         <img src={image.small} onClick={this.openImage} />
         <Menu target={<IconButton name={'more_vert'}/>} align={'right'}>
-          <MenuItem onClick={this.editImage}>Edit Image</MenuItem>
           <MenuItem onClick={this.openImage}>Open Image</MenuItem>
+          <MenuItem onClick={this.editImage}>Edit Image</MenuItem>
           <MenuItem onClick={this.deleteImage}>Delete Image</MenuItem>
         </Menu>
       </div>

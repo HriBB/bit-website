@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Link } from 'react-router'
 
 import {
   Layout,
@@ -14,7 +15,9 @@ export default class Home extends Component {
     return (
       <Layout centered className={'bit-home'}>
         <Content>
-          <img src={require('./logo.png')} alt={'BIT Clothes'}/>
+          <Link to={'/about'}>
+            <img src={require('./logo.png')} alt={'BIT Clothes'}/>
+          </Link>
         </Content>
       </Layout>
     )

@@ -44,10 +44,12 @@ body {
     justify-content: center;
 
     li {
-      display: inline-block;
+      display: block;
+      margin: 0;
+      padding: 0;
 
       a {
-        display: inline-block;
+        display: block;
         height: 56px;
         line-height: 56px;
         padding: 0 10px;
