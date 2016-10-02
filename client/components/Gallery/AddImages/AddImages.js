@@ -30,11 +30,9 @@ class AddImages extends Component {
     super(props)
     this.state = { uploading: false }
     this.files = null
-    this.upload = this.upload.bind(this)
-    this.changeFiles = this.changeFiles.bind(this)
   }
 
-  upload() {
+  upload = () => {
     const { gallery, close } = this.props
     const formData = new FormData()
     formData.append('type', 'gallery')
@@ -57,7 +55,7 @@ class AddImages extends Component {
       })
   }
 
-  changeFiles(e) {
+  changeFiles = (e) => {
     this.files = e.target.files
     this.props.readImages(e)
   }

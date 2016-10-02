@@ -49,11 +49,11 @@ class GalleryView extends Component {
   }
 
   openImage = (image) => {
-    this.context.router.push(`/gallery/${this.props.params.gallery}/${image.slug}`)
+    this.context.router.transitionTo(`/gallery/${this.props.params.gallery}/${image.slug}`)
   }
 
   closeImage = () => {
-    this.context.router.push(`/gallery/${this.props.params.gallery}`)
+    this.context.router.transitionTo(`/gallery/${this.props.params.gallery}`)
   }
 
   render() {

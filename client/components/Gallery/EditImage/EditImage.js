@@ -34,12 +34,9 @@ class EditImage extends Component {
       description: props.image.description,
       error: null,
     }
-    this.save = this.save.bind(this)
-    this.changeName = this.changeName.bind(this)
-    this.changeDescription = this.changeDescription.bind(this)
   }
 
-  save() {
+  save = () => {
     const { image, updateImage, close } = this.props
     const { name, description } = this.state
     const { id, slug } = image
@@ -49,18 +46,18 @@ class EditImage extends Component {
         return
         close()
         if (updateImage.slug !== slug) {
-          this.context.router.push(`/gallery/${updateImage.slug}`)
+          this.context.router.transitionTo(`/gallery/${updateImage.slug}`)
         }
       }).catch(error => {
         this.setState({ error: error.message })
       })
   }
 
-  changeName(e) {
+  changeName = (e) => {
     this.setState({ name: e.target.value })
   }
 
-  changeDescription(e) {
+  changeDescription = (e) => {
     this.setState({ description: e.target.value })
   }
 

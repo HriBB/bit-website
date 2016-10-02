@@ -5,9 +5,9 @@ import cn from 'classnames'
 import 'normalize.css'
 import './App.scss'
 
-const App = props => {
+const App = (props, context) => {
   const { children, routes } = props
-  const active = routes[1].path
+  const active = '/'
   return (
     <div className={'bit-app'}>
       <div className={'bit-app-header'}>

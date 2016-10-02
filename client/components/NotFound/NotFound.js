@@ -13,9 +13,9 @@ export default class NotFound extends Component {
 
   render() {
     return (
-      <Layout className={'bit-404'}>
+      <Layout className={'bit-404'} centered>
         <Header>
-          <Title center>Error</Title>
+          <Title>Error</Title>
         </Header>
         <Content>
           Page not found!

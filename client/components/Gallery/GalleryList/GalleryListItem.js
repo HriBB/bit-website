@@ -28,27 +28,19 @@ export default class GallerListItem extends Component {
     router: PropTypes.object.isRequired,
   }
 
-  constructor(props, context) {
-    super(props, context)
-    this.openGallery = this.openGallery.bind(this)
-    this.editGallery = this.editGallery.bind(this)
-    this.addImages = this.addImages.bind(this)
-    this.deleteGallery = this.deleteGallery.bind(this)
+  openGallery = () => {
+    this.context.router.transitionTo(`/gallery/${this.props.gallery.slug}`)
   }
 
-  openGallery() {
-    this.context.router.push(`/gallery/${this.props.gallery.slug}`)
-  }
-
-  editGallery() {
+  editGallery = () => {
     this.props.editGallery(this.props.gallery)
   }
 
-  addImages() {
+  addImages = () => {
     this.props.addImages(this.props.gallery)
   }
 
-  deleteGallery() {
+  deleteGallery = () => {
     this.props.deleteGallery(this.props.gallery)
   }
 

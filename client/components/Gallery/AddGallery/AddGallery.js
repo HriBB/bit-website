@@ -29,12 +29,9 @@ class AddGallery extends Component {
       name: '',
       description: '',
     }
-    this.save = this.save.bind(this)
-    this.changeName = this.changeName.bind(this)
-    this.changeDescription = this.changeDescription.bind(this)
   }
 
-  save() {
+  save = () => {
     const { createGallery, close } = this.props
     const { name, description } = this.state
     createGallery({ variables: { name, description } })
@@ -46,11 +43,11 @@ class AddGallery extends Component {
       });
   }
 
-  changeName(e) {
+  changeName = (e) => {
     this.setState({ name: e.target.value })
   }
 
-  changeDescription(e) {
+  changeDescription = (e) => {
     this.setState({ description: e.target.value })
   }
 

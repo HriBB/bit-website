@@ -36,10 +36,6 @@ export default class Menu extends Component {
     this.portal = null
     this.menu = null
     this.open = false
-    this.onDocumentKeydown = this.onDocumentKeydown.bind(this)
-    this.onDocumentMouseUp = this.onDocumentMouseUp.bind(this)
-    this.onTargetMouseUp = this.onTargetMouseUp.bind(this)
-    this.onTargetKeydown = this.onTargetKeydown.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +50,7 @@ export default class Menu extends Component {
     }
   }
 
-  onDocumentKeydown(e) {
+  onDocumentKeydown = (e) => {
     if (e.keyCode === KEYCODES.ESCAPE) {
       this.closeMenu()
     }
@@ -71,7 +67,7 @@ export default class Menu extends Component {
     this.openMenu(this.props)
   }
 
-  onTargetKeydown(e) {
+  onTargetKeydown = (e) => {
     if (e.keyCode === KEYCODES.ENTER || e.keyCode === KEYCODES.DOWN) {
       this.openMenu()
     }

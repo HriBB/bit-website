@@ -34,12 +34,9 @@ class EditGallery extends Component {
       description: props.gallery.description,
       error: null,
     }
-    this.save = this.save.bind(this)
-    this.changeName = this.changeName.bind(this)
-    this.changeDescription = this.changeDescription.bind(this)
   }
 
-  save() {
+  save = () => {
     const { gallery, updateGallery, close } = this.props
     const { name, description } = this.state
     const { id, slug } = gallery
@@ -47,18 +44,18 @@ class EditGallery extends Component {
       .then(({ data: { updateGallery } }) => {
         close()
         if (updateGallery.slug !== slug) {
-          this.context.router.push(`/gallery/${updateGallery.slug}`)
+          this.context.router.transitionTo(`/gallery/${updateGallery.slug}`)
         }
       }).catch(error => {
         this.setState({ error: error.message })
       })
   }
 
-  changeName(e) {
+  changeName = (e) => {
     this.setState({ name: e.target.value })
   }
 
-  changeDescription(e) {
+  changeDescription = (e) => {
     this.setState({ description: e.target.value })
   }
 

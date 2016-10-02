@@ -11,7 +11,7 @@ import { get, post } from 'koa-route'
 
 import config from '../config'
 import { createGraphQLServer } from './graphql'
-import { renderReactApp } from './utils/react'
+//import { renderReactApp } from './utils/react'
 import { uploadImages } from './utils/upload'
 
 const app = new Koa()
@@ -51,10 +51,12 @@ app.use(async (ctx, next) => {
   return await send(ctx, path, { root: config.dist.path })
 })
 
+/*
+// render react app
 if (__PROD__) {
-  // render react app
   app.use(renderReactApp)
 }
+*/
 
 // error handler
 app.on('error', (err) => console.log('==> ERROR', err))

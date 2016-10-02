@@ -1,8 +1,11 @@
 import React, { Component, Children, PropTypes, cloneElement } from 'react'
+import { Link, Match } from 'react-router'
 import { compose, graphql } from 'react-apollo'
 import update from 'react-addons-update'
 import gql from 'graphql-tag'
-import { Link } from 'react-router'
+
+import GalleryList from './GalleryList'
+import GalleryView from './GalleryView'
 
 import AddGallery from './AddGallery'
 import EditGallery from './EditGallery'
@@ -16,7 +19,6 @@ import {
 class Gallery extends Component {
 
   static propTypes = {
-    children: PropTypes.any.isRequired,
   }
 
   constructor(props) {
@@ -27,36 +29,29 @@ class Gallery extends Component {
       addImages: false,
       editImage: false,
     }
-    this.addGallery = this.addGallery.bind(this)
-    this.editGallery = this.editGallery.bind(this)
-    this.deleteGallery = this.deleteGallery.bind(this)
-    this.addImages = this.addImages.bind(this)
-    this.editImage = this.editImage.bind(this)
-    this.deleteImage = this.deleteImage.bind(this)
-    this.closeModal = this.closeModal.bind(this)
   }
 
-  addGallery() {
+  addGallery = () => {
     this.setState({ addGallery: true })
   }
 
-  editGallery(gallery) {
+  editGallery = (gallery) => {
     this.setState({ editGallery: gallery })
   }
 
-  deleteGallery(gallery) {
+  deleteGallery = (gallery) => {
     console.log('todo delete gallery');
   }
 
-  addImages(gallery) {
+  addImages = (gallery) => {
     this.setState({ addImages: gallery })
   }
 
-  editImage(image) {
+  editImage = (image) => {
     this.setState({ editImage: image })
   }
 
-  deleteImage(image) {
+  deleteImage = (image) => {
     console.log('todo delete image');
     /*
     const { deleteImage } = this.props
@@ -70,7 +65,7 @@ class Gallery extends Component {
     */
   }
 
-  closeModal() {
+  closeModal = () => {
     this.setState({
       addGallery: false,
       editGallery: false,
@@ -80,19 +75,21 @@ class Gallery extends Component {
   }
 
   render() {
-    const { children } = this.props
+    const { children, pathname } = this.props
     const { addGallery, editGallery, addImages, editImage } = this.state
+    const actions = {
+      addGallery: this.addGallery,
+      editGallery: this.editGallery,
+      deleteGallery: this.deleteGallery,
+      addImages: this.addImages,
+      editImage: this.editImage,
+      deleteImage: this.deleteImage,
+    }
     return (
       <div>
 
-        {Children.map(children, child => cloneElement(child, {
-          addGallery: this.addGallery,
-          editGallery: this.editGallery,
-          deleteGallery: this.deleteGallery,
-          addImages: this.addImages,
-          editImage: this.editImage,
-          deleteImage: this.deleteImage,
-        }))}
+        <Match pattern={''} render={(props) => <GalleryList {...props} {...actions}/>}/>
+        <Match pattern={'/gallery/:gallery/:image?'} render={(props) => <GalleryView {...props} {...actions}/>}/>
 
         {addGallery &&
           <Modal isOpen centered onRequestClose={this.closeModal}>
