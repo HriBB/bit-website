@@ -4,6 +4,7 @@ export Content from './Layout/Content'
 export Header from './Layout/Header'
 export Footer from './Layout/Footer'
 export Title from './Layout/Title'
+export Paragraph from './Layout/Paragraph'
 
 // icons & buttons
 export Button from './Button'

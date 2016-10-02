@@ -4,8 +4,9 @@ import classnames from 'classnames'
 import './Title.scss'
 
 const Title = props => {
-  const { className, children, flex, ...rest } = props
+  const { centered, className, children, flex, ...rest } = props
   const titleClass = classnames('bit-title', {
+    'bit-title--centered': centered,
     'bit-title--flex': flex,
   }, className)
   return (
@@ -16,6 +17,7 @@ const Title = props => {
 }
 
 Title.propTypes = {
+  centered: PropTypes.bool,
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
   flex: PropTypes.bool,

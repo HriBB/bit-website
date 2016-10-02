@@ -30,7 +30,7 @@ const Slider = props => {
     <Modal className={modalClass} {...rest} dark>
       <Layout>
         <Header dark>
-          <Title flex>Gallery</Title>
+          <Title flex centered>Gallery</Title>
           <IconButton name={'close'} onClick={close}/>
         </Header>
         <Content>
