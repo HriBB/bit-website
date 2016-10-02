@@ -1,11 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 
-import './GalleryImage.scss'
+import {
+  Button,
+  IconButton,
+  Menu,
+  MenuItem,
+} from 'components/ux'
 
-import Button from 'components/ux/Button'
-import IconButton from 'components/ux/IconButton'
-import Menu, { MenuItem } from 'components/ux/Menu'
+import './GalleryImage.scss'
 
 export default class GalleryImage extends Component {
 
@@ -34,7 +37,7 @@ export default class GalleryImage extends Component {
     const id = `image-menu-${image.id}`
     return (
       <div className={'bit-gallery-image'}>
-        <img src={image.small} onClick={this.open} />
+        <img src={image.small} onClick={this.openImage} />
         <Menu target={<IconButton name={'more_vert'}/>} align={'right'}>
           <MenuItem onClick={this.editImage}>Edit Image</MenuItem>
           <MenuItem onClick={this.openImage}>Open Image</MenuItem>

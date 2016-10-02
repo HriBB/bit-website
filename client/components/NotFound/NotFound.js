@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 
-import './NotFound.scss'
+import {
+  Layout,
+  Content,
+  Header,
+  Title,
+} from 'components/ux'
 
-import { Layout, Content, Header, Title } from 'components/ux/Layout'
+import './NotFound.scss'
 
 export default class NotFound extends Component {
 

@@ -2,7 +2,12 @@ import React, { Component, PropTypes } from 'react'
 
 import './About.scss'
 
-import { Layout, Header, Content, Title } from 'components/ux/Layout'
+import {
+  Layout,
+  Header,
+  Content,
+  Title,
+} from 'components/ux'
 
 export default class About extends Component {
 

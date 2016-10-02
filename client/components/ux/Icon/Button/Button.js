@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react'
 import classnames from 'classnames'
 
-import './IconButton.scss'
+import './Button.scss'
 
-const IconButton = props => {
+const Button = props => {
   const { className, name, ...rest } = props
   const buttonClass = classnames('bit-icon-button', className)
   const iconClass = classnames(`icon-${name}`)
@@ -14,9 +14,9 @@ const IconButton = props => {
   )
 }
 
-IconButton.propTypes = {
+Button.propTypes = {
   className: PropTypes.string,
   name: PropTypes.string.isRequired,
 }
 
-export default IconButton
+export default Button

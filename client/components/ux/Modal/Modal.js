@@ -40,7 +40,7 @@ const Modal = props => {
   }, className)
   const styles = merge({}, defaultStyles, {
     overlay: {
-      backgroundColor: dark ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.75)',
+      backgroundColor: dark ? 'rgba(0,0,0,0.90)' : 'rgba(255,255,255,0.85)',
     },
   })
   return (
@@ -48,7 +48,7 @@ const Modal = props => {
       className={modalClass}
       {...rest}
       style={styles}
-      portalClassName={'bitt-modal-portal'}
+      portalClassName={'bit-modal-portal'}
       overlayClassName={'bit-modal-overlay'}
     >
       {children}

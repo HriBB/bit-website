@@ -2,6 +2,47 @@
 
 .bit-footer {
   display: flex;
+  width: 100%;
+  height: 56px;
+  padding: 0 10px;
+  align-items: center;
   justify-content: flex-end;
-  padding: 10px;
+
+  &.bit-footer--centered {
+    justify-content: center;
+  }
+
+  &.bit-footer--light {
+    color: #000;
+
+    .bit-title,
+    .bit-icon,
+    .bit-icon-link,
+    .bit-icon-button {
+      color: #000;
+    }
+  }
+
+  &.bit-footer--dark {
+    color: #fff;
+
+    .bit-title,
+    .bit-icon,
+    .bit-icon-link,
+    .bit-icon-button {
+      color: #fff;
+    }
+  }
+
+  > :first-child {
+    &.bit-title {
+      margin-left: 5px;
+    }
+  }
+
+  > :last-child {
+    &:not(.bit-title) {
+      margin-right: 0px;
+    }
+  }
 }

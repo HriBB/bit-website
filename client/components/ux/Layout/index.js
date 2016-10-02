@@ -1,5 +1,1 @@
-export Layout from './Layout'
-export Header from './Header'
-export Footer from './Footer'
-export Content from './Content'
-export Title from './Title'
+export default from './Layout'

@@ -2,11 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { Layout, Header, Content, Footer, Title } from 'components/ux/Layout'
-import Button from 'components/ux/Button'
-import IconButton from 'components/ux/IconButton'
-import Textfield from 'components/ux/Textfield'
-import Textarea from 'components/ux/Textarea'
+import {
+  Layout,
+  Header,
+  Content,
+  Footer,
+  Title,
+  Button,
+  IconButton,
+  Textfield,
+  Textarea,
+} from 'components/ux'
 
 import './EditGallery.scss'
 

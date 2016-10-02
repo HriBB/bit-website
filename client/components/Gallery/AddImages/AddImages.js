@@ -3,11 +3,17 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 import fetch from 'isomorphic-fetch'
 
-import { Layout, Header, Content, Footer, Title } from 'components/ux/Layout'
-import FileList from 'components/ux/FileList'
-import Uploadfield from 'components/ux/Uploadfield'
-import Button from 'components/ux/Button'
-import IconButton from 'components/ux/IconButton'
+import {
+  Layout,
+  Header,
+  Content,
+  Footer,
+  Title,
+  Button,
+  IconButton,
+  Uploadfield,
+  FileList,
+} from 'components/ux'
 
 import './AddImages.scss'
 

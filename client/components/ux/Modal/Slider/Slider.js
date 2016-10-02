@@ -1,13 +1,19 @@
 import React, { Component, PropTypes } from 'react'
 import ReactModal from 'react-modal'
 import classnames from 'classnames'
-import Slider from 'react-slick'
+import Slick from 'react-slick'
 
-import './ModalSlider.scss'
+import {
+  Layout,
+  Header,
+  Content,
+  Footer,
+  Title,
+  IconButton,
+  Modal,
+} from 'components/ux'
 
-import { Layout, Header, Content, Footer, Title } from 'components/ux/Layout'
-import IconButton from 'components/ux/IconButton'
-import Modal from 'components/ux/Modal'
+import './Slider.scss'
 
 const sliderSettings = {
   dots: true,
@@ -17,7 +23,7 @@ const sliderSettings = {
   slidesToScroll: 1,
 }
 
-const ModalSlider = props => {
+const Slider = props => {
   const { children, className, close, ...rest } = props
   const modalClass = classnames('bit-modal-slider', className)
   return (
@@ -28,11 +34,11 @@ const ModalSlider = props => {
           <IconButton name={'close'} onClick={close}/>
         </Header>
         <Content>
-          <Slider {...sliderSettings}>
+          <Slick {...sliderSettings}>
             {children}
-          </Slider>
+          </Slick>
         </Content>
-        <Footer>
+        <Footer dark centered>
           Image Name
         </Footer>
       </Layout>
@@ -40,7 +46,7 @@ const ModalSlider = props => {
   )
 }
 
-ModalSlider.propTypes = {
+Slider.propTypes = {
   children: PropTypes.any.isRequired,
   className: PropTypes.string,
   close: PropTypes.func.isRequired,
@@ -48,4 +54,4 @@ ModalSlider.propTypes = {
   onRequestClose: PropTypes.func,
 }
 
-export default ModalSlider
+export default Slider

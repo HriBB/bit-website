@@ -1,15 +1,20 @@
 import React, { Component, PropTypes } from 'react'
 
-import './Shop.scss'
+import {
+  Layout,
+  Header,
+  Content,
+  Title,
+} from 'components/ux'
 
-import { Layout, Header, Content, Title } from 'components/ux/Layout'
+import './Shop.scss'
 
 export default class Shop extends Component {
 
   render() {
     return (
       <Layout centered className={'bit-shop'}>
-        <Header centered>
+        <Header>
           <Title>Shop</Title>
         </Header>
         <Content>

@@ -2,15 +2,23 @@ import React, { Component, PropTypes } from 'react'
 import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import { Layout, Content, Header, Title } from 'components/ux/Layout'
-import Loader from 'components/ux/Loader'
-import Button from 'components/ux/Button'
-import IconButton from 'components/ux/IconButton'
-import Menu, { MenuItem } from 'components/ux/Menu'
-import Masonry, { MasonryItem } from 'components/ux/Masonry'
-
 import Error from 'components/Error'
 import GalleryListItem from './GalleryListItem'
+
+import {
+  Layout,
+  Content,
+  Header,
+  Title,
+  Loader,
+  Button,
+  IconButton,
+  IconLink,
+  Menu,
+  MenuItem,
+  Masonry,
+  MasonryItem,
+} from 'components/ux'
 
 import './GalleryList.scss'
 
@@ -35,7 +43,8 @@ class GalleryList extends Component {
     if (loading) return <Loader/>
     return (
       <Layout className={'bit-gallery-list'} centered>
-        <Header light centered>
+        <Header light>
+          <IconLink to={'/'} name={'navigate_before'}/>
           <Title>Gallery</Title>
           <Menu target={<IconButton name={'more_vert'}/>} align={'left'}>
             <MenuItem onClick={addGallery}>Add Gallery</MenuItem>

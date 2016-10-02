@@ -3,11 +3,17 @@ import { Link } from 'react-router'
 
 import config from 'config'
 
-import './GalleryListItem.scss'
+import {
+  IconButton,
+  Menu,
+  MenuItem,
+  Card,
+  CardImage,
+  CardTitle,
+  CardContent,
+} from 'components/ux'
 
-import IconButton from 'components/ux/IconButton'
-import Menu, { MenuItem } from 'components/ux/Menu'
-import Card, { Image, Title, Content } from 'components/ux/Card'
+import './GalleryListItem.scss'
 
 export default class GallerListItem extends Component {
 
@@ -52,16 +58,16 @@ export default class GallerListItem extends Component {
     return (
       <div className={'bit-gallery-list-item'}>
         <Card>
-          <Image src={image} alt={gallery.name} onClick={this.openGallery}>
-            <Title>{gallery.name}</Title>
+          <CardImage src={image} alt={gallery.name} onClick={this.openGallery}>
+            <CardTitle>{gallery.name}</CardTitle>
             <Menu target={<IconButton name={'more_vert'}/>} align={'right'}>
               <MenuItem onClick={this.openGallery}>Open Gallery</MenuItem>
               <MenuItem onClick={this.editGallery}>Edit Gallery</MenuItem>
               <MenuItem onClick={this.addImages}>Add Images</MenuItem>
               <MenuItem onClick={this.deleteGallery}>Delete Gallery</MenuItem>
             </Menu>
-          </Image>
-          <Content>{gallery.description}</Content>
+          </CardImage>
+          <CardContent>{gallery.description}</CardContent>
         </Card>
       </div>
     )

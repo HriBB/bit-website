@@ -3,17 +3,25 @@ import { compose, graphql } from 'react-apollo'
 import update from 'react-addons-update'
 import gql from 'graphql-tag'
 
-import { Layout, Header, Content, Title } from 'components/ux/Layout'
-import Loader from 'components/ux/Loader'
-import Button from 'components/ux/Button'
-import IconLink from 'components/ux/IconLink'
-import IconButton from 'components/ux/IconButton'
-import Menu, { MenuItem } from 'components/ux/Menu'
-import Masonry, { MasonryItem } from 'components/ux/Masonry'
-import ModalSlider, { ModalSliderItem } from 'components/ux/ModalSlider'
-
 import Error from 'components/Error'
 import GalleryImage from './GalleryImage'
+
+import {
+  Layout,
+  Header,
+  Content,
+  Title,
+  Loader,
+  Button,
+  IconLink,
+  IconButton,
+  Menu,
+  MenuItem,
+  Masonry,
+  MasonryItem,
+  ModalSlider,
+  ModalSliderItem,
+} from 'components/ux'
 
 import './GalleryView.scss'
 
@@ -45,7 +53,7 @@ class GalleryView extends Component {
   }
 
   closeImage = () => {
-    this.context.router.push(`/gallery/${this.props.gallery}`)
+    this.context.router.push(`/gallery/${this.props.params.gallery}`)
   }
 
   render() {

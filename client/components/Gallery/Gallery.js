@@ -4,11 +4,14 @@ import update from 'react-addons-update'
 import gql from 'graphql-tag'
 import { Link } from 'react-router'
 
-import Modal from 'components/ux/Modal'
 import AddGallery from './AddGallery'
 import EditGallery from './EditGallery'
 import AddImages from './AddImages'
 import EditImage from './EditImage'
+
+import {
+  Modal,
+} from 'components/ux'
 
 class Gallery extends Component {
 

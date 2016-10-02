@@ -1,8 +1,13 @@
 import React, { Component, PropTypes } from 'react'
 
-import './Error.scss'
+import {
+  Layout,
+  Content,
+  Header,
+  Title,
+} from 'components/ux'
 
-import { Layout, Content, Header, Title } from 'components/ux/Layout'
+import './Error.scss'
 
 export default class Error extends Component {
 
