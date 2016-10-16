@@ -15,6 +15,7 @@ import {
   getImageUrl,
   renameImage,
   removeImage,
+  removeFolder,
 } from '../utils/image'
 
 const resolveFunctions = {
@@ -52,9 +53,9 @@ const resolveFunctions = {
       // read gallery
       const gallery = Gallery.getById(id)
       if (!gallery) throw new Error('Invalid gallery!')
-      // new data
+      // build new data
       const data = Object.assign({}, gallery, { name, description })
-      // name has changed
+      // name has changed, rename the folder
       if (name !== gallery.name) {
         const slug = Gallery.generateSlug(name)
         const from = `${config.upload.path}/gallery/${gallery.slug}`
@@ -81,6 +82,8 @@ const resolveFunctions = {
         // remove image from db
         GalleryImage.delete(image.id)
       }
+      // remove folder
+      await removeFolder('gallery', gallery)
       // remove gallery from db
       Gallery.delete(id)
       // return id of deleted gallery
@@ -100,9 +103,9 @@ const resolveFunctions = {
       // read gallery
       const gallery = Gallery.getById(image.gallery_id)
       if (!gallery) throw new Error('Invalid gallery!')
-      // new data
+      // build new data
       const data = Object.assign({}, image, { name, description })
-      // name has changed
+      // name has changed, rename image file
       if (name !== image.name) {
         const path = await renameImage('gallery', gallery, image, name)
         const info = parse(path)

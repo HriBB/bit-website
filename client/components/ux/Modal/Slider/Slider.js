@@ -23,35 +23,51 @@ const sliderSettings = {
   slidesToScroll: 1,
 }
 
-const Slider = props => {
-  const { children, className, close, ...rest } = props
-  const modalClass = classnames('bit-modal-slider', className)
-  return (
-    <Modal className={modalClass} {...rest} dark>
-      <Layout>
-        <Header dark>
-          <Title flex centered>Gallery</Title>
-          <IconButton name={'close'} onClick={close}/>
-        </Header>
-        <Content>
-          <Slick {...sliderSettings}>
-            {children}
-          </Slick>
-        </Content>
-        <Footer dark centered>
-          Image Name
-        </Footer>
-      </Layout>
-    </Modal>
-  )
-}
+export default class Slider extends Component {
 
-Slider.propTypes = {
-  children: PropTypes.any.isRequired,
-  className: PropTypes.string,
-  close: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool,
-  onRequestClose: PropTypes.func,
-}
+  static propTypes = {
+    afterChange: PropTypes.func,
+    children: PropTypes.any.isRequired,
+    className: PropTypes.string,
+    close: PropTypes.func.isRequired,
+    index: PropTypes.number.isRequired,
+    isOpen: PropTypes.bool,
+    onRequestClose: PropTypes.func,
+    title: PropTypes.string.isRequired,
+  }
 
-export default Slider
+  componentDidUpdate(prevProps) {
+    if (prevProps.index !== this.props.index) {
+      this.slider.slickGoTo(this.props.index)
+    }
+  }
+
+  render() {
+    const { afterChange, children, className, close, index, subTitle, title, ...rest } = this.props
+    const modalClass = classnames('bit-modal-slider', className)
+    const settings = Object.assign({}, sliderSettings, {
+      ref: ref => this.slider = ref,
+      initialSlide: index,
+      afterChange,
+    })
+    return (
+      <Modal className={modalClass} {...rest} dark>
+        <Layout>
+          <Header dark>
+            <Title flex centered>{title}</Title>
+            <IconButton name={'close'} onClick={close}/>
+          </Header>
+          <Content>
+            <Slick {...settings}>
+              {children}
+            </Slick>
+          </Content>
+          <Footer dark centered>
+            {subTitle}
+          </Footer>
+        </Layout>
+      </Modal>
+    )
+  }
+
+}

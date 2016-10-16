@@ -33,6 +33,22 @@ class GalleryList extends Component {
     editImage: PropTypes.func.isRequired,
   }
 
+  static contextTypes = {
+    emitter: PropTypes.object.isRequired,
+  }
+
+  refresh = () => {
+    this.props.data.refetch()
+  }
+
+  componentDidMount() {
+    this.refreshListener = this.context.emitter.addListener('upload-complete', this.refresh)
+  }
+
+  componentWillUnmount() {
+    if (this.refreshListener) this.refreshListener.remove()
+  }
+
   render() {
     const {
       addGallery, editGallery, deleteGallery,
@@ -88,5 +104,5 @@ const GET_GALLERIES = gql`
   }`
 
 export default compose(
-  graphql(GET_GALLERIES)
+  graphql(GET_GALLERIES),
 )(GalleryList)

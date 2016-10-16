@@ -40,7 +40,14 @@ class Gallery extends Component {
   }
 
   deleteGallery = (gallery) => {
-    console.log('todo delete gallery');
+    const { deleteGallery } = this.props
+    const { id } = gallery
+    deleteGallery({ variables: { id } })
+      .then(({ data }) => {
+        console.log('deleteGallery success', data);
+      }).catch((error) => {
+        console.log('deleteGallery error', error);
+      });
   }
 
   addImages = (gallery) => {
@@ -52,8 +59,6 @@ class Gallery extends Component {
   }
 
   deleteImage = (image) => {
-    console.log('todo delete image');
-    /*
     const { deleteImage } = this.props
     const { id } = image
     deleteImage({ variables: { id } })
@@ -62,7 +67,6 @@ class Gallery extends Component {
       }).catch((error) => {
         console.log('deleteImage error', error);
       });
-    */
   }
 
   closeModal = () => {
@@ -116,6 +120,11 @@ class Gallery extends Component {
   }
 }
 
+const DELETE_GALLERY = gql`
+  mutation deleteGallery($id: String!) {
+    deleteGallery(id: $id)
+  }`
+
 const DELETE_IMAGE = gql`
   mutation deleteImage($id: String!) {
     deleteImage(id: $id)
@@ -127,6 +136,7 @@ export default compose(
     options: ownProps => ({
       updateQueries: {
         gallery: (prev, { mutationResult }) => {
+          if (!prev.gallery || !prev.gallery.images) return prev
           const id = mutationResult.data.deleteImage
           return update(prev, {
             gallery: {
@@ -135,6 +145,7 @@ export default compose(
           })
         },
         galleries: (prev, { mutationResult }) => {
+          if (!ownProps.data || !ownProps.data.gallery) return prev
           const gallery = ownProps.data.gallery
           const index = prev.galleries.findIndex(g => g.id === gallery.id)
           if (index === -1) return prev // gallery not found, return prev state
@@ -157,6 +168,19 @@ export default compose(
                 }
               }
             }
+          })
+        },
+      },
+    }),
+  }),
+  graphql(DELETE_GALLERY, {
+    name: 'deleteGallery',
+    options: ownProps => ({
+      updateQueries: {
+        galleries: (prev, { mutationResult }) => {
+          const id = mutationResult.data.deleteGallery
+          return update(prev, {
+            galleries: { $apply: galleries => galleries.filter(g => g.id !== id)}
           })
         },
       },

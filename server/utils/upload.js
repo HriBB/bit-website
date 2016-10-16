@@ -45,12 +45,15 @@ export async function uploadImages(ctx, next) {
     const images = []
     for (let i = 0, len = files.length; i < len; i++) {
       console.log(`==> upload file ${i+1} of ${len}`)
-
       const file = files[i]
 
+      // upload image
       const path = await uploadImage(type, gallery, file)
+
+      // parse uploaded path
       const info = parse(path)
 
+      // build image data
       const data = {
         id: uuid(),
         gallery_id: gallery.id,

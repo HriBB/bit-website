@@ -4,6 +4,11 @@
 
   .masonry__item {
     position: relative;
+
+    img {
+      display: block;
+      width: 100%;
+    }
   }
 
   .masonry__sizer { width: 50%; }

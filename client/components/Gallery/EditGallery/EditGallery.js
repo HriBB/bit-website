@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import {
@@ -110,8 +110,8 @@ const UPDATE_GALLERY = gql`
   }
 `
 
-const withUpdateGallery = graphql(UPDATE_GALLERY, {
-  name: 'updateGallery',
-})
-
-export default withUpdateGallery(EditGallery)
+export default compose(
+  graphql(UPDATE_GALLERY, {
+    name: 'updateGallery',
+  }),
+)(EditGallery)

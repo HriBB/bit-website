@@ -11,6 +11,7 @@ import {
   Header,
   Content,
   Title,
+  Paragraph,
   Loader,
   Button,
   IconLink,
@@ -37,7 +38,12 @@ class GalleryView extends Component {
   }
 
   static contextTypes = {
+    emitter: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
+  }
+
+  refresh = () => {
+    this.props.data.refetch()
   }
 
   editGallery = () => {
@@ -48,12 +54,31 @@ class GalleryView extends Component {
     this.props.addImages(this.props.data.gallery)
   }
 
+  deleteGallery = () => {
+    this.props.deleteGallery(this.props.data.gallery)
+  }
+
   openImage = (image) => {
     this.context.router.transitionTo(`/gallery/${this.props.params.gallery}/${image.slug}`)
   }
 
   closeImage = () => {
     this.context.router.transitionTo(`/gallery/${this.props.params.gallery}`)
+  }
+
+  afterSliderChange = (index) => {
+    const { params, data: { gallery: { images } } } = this.props
+    const image = images[index]
+    const url = `/gallery/${params.gallery}/${image.slug}`
+    this.context.router.replaceWith(url)
+  }
+
+  componentDidMount() {
+    this.refreshListener = this.context.emitter.addListener('upload-complete', this.refresh)
+  }
+
+  componentWillUnmount() {
+    if (this.refreshListener) this.refreshListener.remove()
   }
 
   render() {
@@ -66,6 +91,9 @@ class GalleryView extends Component {
     if (error) return <Error>{error.message}</Error>
     if (loading) return <Loader/>
     if (!gallery) return <Error>Gallery '{params.gallery}' does not exist.</Error>
+    const showSlider = !!params.image
+    const index = showSlider && gallery.images.findIndex(i => i.slug === params.image)
+    const image = showSlider && gallery.images[index]
     return (
       <Layout className={'bit-gallery-view'} centered>
         <Header>
@@ -74,9 +102,11 @@ class GalleryView extends Component {
           <Menu target={<IconButton name={'more_vert'}/>} align={'left'}>
             <MenuItem onClick={this.editGallery}>Edit Gallery</MenuItem>
             <MenuItem onClick={this.addImages}>Add Images</MenuItem>
+            <MenuItem onClick={this.deleteGallery}>Delete Gallery</MenuItem>
           </Menu>
         </Header>
         <Content>
+          <Paragraph>{gallery.description}</Paragraph>
           <Masonry>
             {gallery.images.map((image, index) =>
               <MasonryItem key={image.id} big={index === 0}>
@@ -92,7 +122,14 @@ class GalleryView extends Component {
           </Masonry>
         </Content>
         {params.image &&
-          <ModalSlider isOpen close={this.closeImage}>
+          <ModalSlider
+            afterChange={this.afterSliderChange}
+            close={this.closeImage}
+            index={index}
+            isOpen
+            subTitle={image.name}
+            title={gallery.name}
+          >
             {gallery.images.map(image =>
               <div key={image.id}>
                 <ModalSliderItem

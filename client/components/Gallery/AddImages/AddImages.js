@@ -19,6 +19,10 @@ import './AddImages.scss'
 
 class AddImages extends Component {
 
+  static contextTypes = {
+    emitter: PropTypes.object.isRequired,
+  }
+
   static propTypes = {
     gallery: PropTypes.object.isRequired,
     images: PropTypes.object.isRequired,
@@ -33,6 +37,7 @@ class AddImages extends Component {
   }
 
   upload = () => {
+    const { emitter } = this.context
     const { gallery, close } = this.props
     const formData = new FormData()
     formData.append('type', 'gallery')
@@ -47,6 +52,8 @@ class AddImages extends Component {
       .then(response => response.json())
       .then(json => {
         console.log('upload done', json);
+        this.setState({ uploading: false })
+        emitter.emit('upload-complete')
         close()
       })
       .catch(err => {
@@ -67,7 +74,7 @@ class AddImages extends Component {
       <Layout className={'bit-add-images'}>
         <Header third dark>
           <Title flex>Add Images</Title>
-          <IconButton name={'close'} onClick={close}/>
+          {!uploading && <IconButton name={'close'} onClick={close}/>}
         </Header>
         <Content className={'bit-add-images__content'}>
           <div className={'bit-add-images__input'}>
@@ -82,7 +89,9 @@ class AddImages extends Component {
           </div>
         </Content>
         <Footer>
-          <Button onClick={this.upload} disabled={uploading}>Save</Button>
+          <Button onClick={this.upload} disabled={uploading}>
+            {uploading ? 'Uploading ...' : 'Upload'}
+          </Button>
         </Footer>
       </Layout>
     )

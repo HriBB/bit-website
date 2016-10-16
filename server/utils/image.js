@@ -7,16 +7,6 @@ import gm from 'gm'
 
 import config from 'config'
 
-//path.parse('/home/user/dir/file.txt')
-// returns
-// {
-//    root : "/",
-//    dir : "/home/user/dir",
-//    base : "file.txt",
-//    ext : ".txt",
-//    name : "file"
-// }
-
 // public functions
 
 /**
@@ -34,6 +24,17 @@ export function getImageUrl(type, parent, image, size) {
   } else {
     return `${config.upload.url}/${type}/${parent.slug}/${image.slug}-${size}.${image.extension}`
   }
+}
+
+/**
+ * Remove folder
+ * @param  {String}  type   Image type
+ * @param  {Object}  parent Parent object
+ * @return {Promise}
+ */
+export async function removeFolder(type, parent) {
+  console.log('==> removeFolder', `${config.upload.path}/${type}/${parent.slug}`);
+  return removeSync(`${config.upload.path}/${type}/${parent.slug}`)
 }
 
 /**
@@ -104,8 +105,12 @@ export async function renameImage(type, parent, image, name) {
 
   // move sizes
   for (let size in config.image.sizes) {
+    console.log('==> move size ',
+      `${base}/${image.slug}-${size}.${image.extension}`,
+      `${base}/${info.name}-${size}.${image.extension}`
+    )
     await move(
-      `${base}/${image.filename}-${size}.${image.extension}`,
+      `${base}/${image.slug}-${size}.${image.extension}`,
       `${base}/${info.name}-${size}.${image.extension}`
     )
   }

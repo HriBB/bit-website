@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { graphql } from 'react-apollo'
+import { compose, graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import {
@@ -95,20 +95,19 @@ const CREATE_GALLERY = gql`
         id
       }
     }
-  }
-`
+  }`
 
-const withCreateGallery = graphql(CREATE_GALLERY, {
-  name: 'createGallery',
-  options: {
-    updateQueries: {
-      galleries: (prev, { mutationResult, queryVariables }) => {
-        return {
-          galleries: [...prev.galleries, mutationResult.data.createGallery],
-        }
-      }
-    }
-  }
-})
-
-export default withCreateGallery(AddGallery)
+export default compose(
+  graphql(CREATE_GALLERY, {
+    name: 'createGallery',
+    options: {
+      updateQueries: {
+        galleries: (prev, { mutationResult, queryVariables }) => {
+          return {
+            galleries: [...prev.galleries, mutationResult.data.createGallery],
+          }
+        },
+      },
+    },
+  }),
+)(AddGallery)
