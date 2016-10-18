@@ -1,67 +1,46 @@
 {
   "galleries": [
     {
-      "id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "kokokokokok",
-      "name": "kokokokokok",
-      "description": "okokokok"
+      "id": "bbf2efa7-14a6-4c06-9043-bb9e24ab8c99",
+      "slug": "stotks",
+      "name": "Stotks",
+      "description": "Asssdf"
     },
     {
-      "id": "cbf0e7e9-3fb4-4d84-a628-74446581754e",
-      "slug": "partija",
-      "name": "Partija",
-      "description": "jajjaaja"
-    },
-    {
-      "id": "5cccd17a-1789-42bc-a234-be5eb859b309",
-      "slug": "gfdgdfg",
-      "name": "gfdgdfg",
-      "description": "fdggdfgfd"
-    },
-    {
-      "id": "c05234d5-9e6b-43a7-a22f-377ea96b5e18",
-      "slug": "groovvy",
-      "name": "groovvy",
-      "description": "sdfsdf"
-    },
-    {
-      "id": "14f5210f-0e23-423f-93ad-17d83f5ba09f",
-      "slug": "gfdgfdg",
-      "name": "gfdgfdg",
-      "description": "dfgfdgfd"
+      "id": "27762e9b-540d-466f-a01d-df1b1b041422",
+      "slug": "koleksn",
+      "name": "Kolekšn",
+      "description": "AAASdsdf"
     }
   ],
   "gallery_images": [
     {
-      "id": "eee69add-b425-4b12-bf9a-0c2b474e1d1e",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "img_9766-maybe-final",
-      "filename": "img_9766-maybe-final.jpg",
+      "id": "0c1ae1df-ddd4-4a9f-8e8c-7c0fbc9115fa",
+      "gallery_id": "bbf2efa7-14a6-4c06-9043-bb9e24ab8c99",
+      "slug": "prasks",
+      "filename": "prasks.jpg",
       "extension": "jpg",
-      "name": "img_9766-maybe-final.jpg",
+      "name": "Prasks",
+      "description": "Kkokoslkd",
+      "gallery": {
+        "id": "bbf2efa7-14a6-4c06-9043-bb9e24ab8c99",
+        "slug": "stotks",
+        "name": "Stotks",
+        "description": "Asssdf"
+      }
+    },
+    {
+      "id": "f74c35ca-fc3f-43ad-af23-d9409e5975e3",
+      "gallery_id": "bbf2efa7-14a6-4c06-9043-bb9e24ab8c99",
+      "slug": "_77a9191",
+      "filename": "_77a9191.jpg",
+      "extension": "jpg",
+      "name": "_77a9191.jpg",
       "description": ""
     },
     {
-      "id": "be3c71d1-168d-414e-aad5-9781b734df03",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "krilo1",
-      "filename": "krilo1.jpg",
-      "extension": "jpg",
-      "name": "krilo1.jpg",
-      "description": ""
-    },
-    {
-      "id": "45e240fd-1c98-4fc6-8426-81e42b1f5dbe",
-      "gallery_id": "cbf0e7e9-3fb4-4d84-a628-74446581754e",
-      "slug": "_77a9183",
-      "filename": "_77a9183.jpg",
-      "extension": "jpg",
-      "name": "_77a9183.jpg",
-      "description": ""
-    },
-    {
-      "id": "6716f872-af73-4200-92a7-fe16de6be9d1",
-      "gallery_id": "5cccd17a-1789-42bc-a234-be5eb859b309",
+      "id": "20b4b007-7d21-4821-976e-b9959b2d4c0e",
+      "gallery_id": "bbf2efa7-14a6-4c06-9043-bb9e24ab8c99",
       "slug": "_77a9219",
       "filename": "_77a9219.jpg",
       "extension": "jpg",
@@ -69,8 +48,17 @@
       "description": ""
     },
     {
-      "id": "39976a1c-e9f5-4473-b148-74e01112160a",
-      "gallery_id": "c05234d5-9e6b-43a7-a22f-377ea96b5e18",
+      "id": "2f38dd8a-beec-4790-8e37-94bc91a3dab3",
+      "gallery_id": "bbf2efa7-14a6-4c06-9043-bb9e24ab8c99",
+      "slug": "_77a9384",
+      "filename": "_77a9384.jpg",
+      "extension": "jpg",
+      "name": "_77a9384.jpg",
+      "description": ""
+    },
+    {
+      "id": "57eece49-2db8-46ed-9940-e46ab3f067d1",
+      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
       "slug": "72130_1516481086314_1663090515_1202016_1116407_n",
       "filename": "72130_1516481086314_1663090515_1202016_1116407_n.jpg",
       "extension": "jpg",
@@ -78,8 +66,8 @@
       "description": ""
     },
     {
-      "id": "0d4e70ed-fe80-4a7c-8cb5-5175690f6e70",
-      "gallery_id": "c05234d5-9e6b-43a7-a22f-377ea96b5e18",
+      "id": "ddd8e8fc-f733-450c-bee9-ca33ee29e5b0",
+      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
       "slug": "312778_2156139077364_1908423487_n",
       "filename": "312778_2156139077364_1908423487_n.jpg",
       "extension": "jpg",
@@ -87,75 +75,21 @@
       "description": ""
     },
     {
-      "id": "43f99103-2cd7-4a60-a5c6-27d3f41b1bbe",
-      "gallery_id": "5cccd17a-1789-42bc-a234-be5eb859b309",
-      "slug": "dsc_0168",
-      "filename": "dsc_0168.jpg",
+      "id": "f1161265-35a0-42cb-8819-61311a7c8f30",
+      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
+      "slug": "305190_2156134837258_250844580_n",
+      "filename": "305190_2156134837258_250844580_n.jpg",
       "extension": "jpg",
-      "name": "dsc_0168.jpg",
+      "name": "305190_2156134837258_250844580_n.jpg",
       "description": ""
     },
     {
-      "id": "e3dd9cbc-f023-42a3-9b9d-8a06e159de13",
-      "gallery_id": "5cccd17a-1789-42bc-a234-be5eb859b309",
-      "slug": "krilo1",
-      "filename": "krilo1.jpg",
+      "id": "ba19ba63-a4ca-4e8b-9442-6ab68e4546c7",
+      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
+      "slug": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng",
+      "filename": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng.jpg",
       "extension": "jpg",
-      "name": "krilo1.jpg",
-      "description": ""
-    },
-    {
-      "id": "c7b9efd8-c289-4eda-97cf-47951cf91ec4",
-      "gallery_id": "5cccd17a-1789-42bc-a234-be5eb859b309",
-      "slug": "logo-barvni",
-      "filename": "logo-barvni.jpg",
-      "extension": "jpg",
-      "name": "logo-barvni.jpg",
-      "description": ""
-    },
-    {
-      "id": "db74bb62-3a4e-4fcf-a3e2-23e34d55c6c0",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "_77a9219",
-      "filename": "_77a9219.jpg",
-      "extension": "jpg",
-      "name": "_77a9219.jpg",
-      "description": ""
-    },
-    {
-      "id": "6db7afd6-c48a-4d48-b9d5-f570ea8428ac",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "_77a9219-2",
-      "filename": "_77a9219-2.jpg",
-      "extension": "jpg",
-      "name": "_77a9219-2.jpg",
-      "description": ""
-    },
-    {
-      "id": "13b3d3af-8e8b-4c2d-ab3f-93983bad31cb",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "_77a9183",
-      "filename": "_77a9183.jpg",
-      "extension": "jpg",
-      "name": "_77a9183.jpg",
-      "description": ""
-    },
-    {
-      "id": "c3504d32-0b2a-43f2-bc0f-a059afa416d1",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "bit_tm2",
-      "filename": "bit_tm2.jpg",
-      "extension": "jpg",
-      "name": "bit_tm2.jpg",
-      "description": ""
-    },
-    {
-      "id": "837fbc46-2f24-4089-8def-53cef315eec7",
-      "gallery_id": "40f76516-700d-4cf1-9a86-2f87acedc0e4",
-      "slug": "vse-tina-hribernik",
-      "filename": "vse-tina-hribernik.jpg",
-      "extension": "jpg",
-      "name": "vse-tina-hribernik.jpg",
+      "name": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng.jpg",
       "description": ""
     }
   ]

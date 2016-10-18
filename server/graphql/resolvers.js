@@ -161,13 +161,13 @@ const resolveFunctions = {
         // add to result
         images.push(image)
       }
-      
+
       console.log('==> upload done');
       return gallery
     },
-    async updateImage(root, { id, name, description }, context) {
+    async updateGalleryImage(root, { id, name, description }, context) {
       console.log('******************************************');
-      console.log('************* updateImage', id, name, description);
+      console.log('************* updateGalleryImage', id, name, description);
       console.log('******************************************');
       // validate
       if (!id) throw new Error('ID is required!')
@@ -188,11 +188,12 @@ const resolveFunctions = {
         Object.assign(data, { slug: info.name, filename: info.base })
       }
       // update
-      return GalleryImage.update(data)
+      const newImage = GalleryImage.update(data)
+      return Object.assign(newImage, { gallery })
     },
-    async deleteImage(root, { id }, context) {
+    async deleteGalleryImage(root, { id }, context) {
       console.log('******************************************');
-      console.log('************* deleteImage', id);
+      console.log('************* deleteGalleryImage', id);
       console.log('******************************************');
       // read image
       const image = GalleryImage.getById(id)
@@ -204,8 +205,8 @@ const resolveFunctions = {
       await removeImage('gallery', gallery, image)
       // remove image from db
       GalleryImage.delete(id)
-      // return id of deleted image
-      return id
+      // return gallery
+      return gallery
     },
   },
   Gallery: {

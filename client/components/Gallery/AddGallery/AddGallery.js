@@ -36,10 +36,10 @@ class AddGallery extends Component {
     const { name, description } = this.state
     createGallery({ variables: { name, description } })
       .then(({ data }) => {
-        console.log('createGallery success', data);
+        //console.log('createGallery success', data);
         close();
       }).catch((error) => {
-        console.log('createGallery error', error);
+        //console.log('createGallery error', error);
       });
   }
 

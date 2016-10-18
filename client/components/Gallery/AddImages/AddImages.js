@@ -38,11 +38,12 @@ class AddImages extends Component {
     this.setState({ uploading: true })
     uploadGalleryImages(gallery.id, this.files)
       .then(({ data }) => {
-        console.log('data', data);
+        //console.log('data', data);
         this.setState({ uploading: false })
+        close()
       })
       .catch(error => {
-        console.log('error', error.message);
+        //console.log('error', error.message);
         this.setState({ uploading: false })
       })
   }
@@ -104,6 +105,28 @@ export default compose(
     props: ({ ownProps, mutate }) => ({
       uploadGalleryImages: (id, files) => mutate({
         variables: { id, files },
+        updateQueries: {
+          galleries: (prev, { mutationResult }) => {
+            const gallery = mutationResult.data.uploadGalleryImages
+            const index = prev.galleries.findIndex(g => g.id === gallery.id)
+            if (index === -1) return prev
+            return update(prev, {
+              galleries: {
+                [index]: {
+                  $apply: g => {
+                    if (g.image === null) {
+                      g.image = gallery.images[0]
+                    }
+                    if (g.images && g.images.length === 0) {
+                      g.images = gallery.images
+                    }
+                    return g
+                  }
+                }
+              }
+            })
+          }
+        }
       }),
     }),
   }),

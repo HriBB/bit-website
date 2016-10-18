@@ -35,8 +35,8 @@ type RootMutation {
   updateGallery(id: String!, name: String!, description: String): Gallery
   deleteGallery(id: String!): String
   uploadGalleryImages(id: String!, files: [UploadedFile!]!): Gallery
-  updateImage(id: String!, name: String!, description: String): Image
-  deleteImage(id: String!): String
+  updateGalleryImage(id: String!, name: String!, description: String): Image
+  deleteGalleryImage(id: String!): Gallery
 }
 
 schema {

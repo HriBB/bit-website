@@ -42,11 +42,11 @@ class Gallery extends Component {
   deleteGallery = (gallery) => {
     const { deleteGallery } = this.props
     const { id } = gallery
-    deleteGallery({ variables: { id } })
+    deleteGallery(id)
       .then(({ data }) => {
-        console.log('deleteGallery success', data);
+        //console.log('deleteGallery success', data);
       }).catch((error) => {
-        console.log('deleteGallery error', error);
+        //console.log('deleteGallery error', error);
       });
   }
 
@@ -59,13 +59,13 @@ class Gallery extends Component {
   }
 
   deleteImage = (image) => {
-    const { deleteImage } = this.props
+    const { deleteGalleryImage } = this.props
     const { id } = image
-    deleteImage({ variables: { id } })
+    deleteGalleryImage(id)
       .then(({ data }) => {
-        console.log('deleteImage success', data);
+        //console.log('deleteGalleryImage success', data);
       }).catch((error) => {
-        console.log('deleteImage error', error);
+        //console.log('deleteGalleryImage error', error);
       });
   }
 
@@ -125,65 +125,70 @@ const DELETE_GALLERY = gql`
     deleteGallery(id: $id)
   }`
 
-const DELETE_IMAGE = gql`
-  mutation deleteImage($id: String!) {
-    deleteImage(id: $id)
+const DELETE_GALLERY_IMAGE = gql`
+  mutation deleteGalleryImage($id: String!) {
+    deleteGalleryImage(id: $id) {
+      id
+      images {
+        id slug name filename description
+        small medium large full
+      }
+    }
   }`
 
 export default compose(
-  graphql(DELETE_IMAGE, {
-    name: 'deleteImage',
-    options: ownProps => ({
-      updateQueries: {
-        gallery: (prev, { mutationResult }) => {
-          if (!prev.gallery || !prev.gallery.images) return prev
-          const id = mutationResult.data.deleteImage
-          return update(prev, {
-            gallery: {
-              images: { $apply: images => images.filter(i => i.id !== id)}
-            }
-          })
+  graphql(DELETE_GALLERY, {
+    props: ({ ownProps, mutate }) => ({
+      deleteGallery: (id) => mutate({
+        variables: { id },
+        updateQueries: {
+          galleries: (prev, { mutationResult }) => {
+            const id = mutationResult.data.deleteGallery
+            return update(prev, {
+              galleries: { $apply: galleries => galleries.filter(g => g.id !== id)}
+            })
+          },
         },
-        galleries: (prev, { mutationResult }) => {
-          if (!ownProps.data || !ownProps.data.gallery) return prev
-          const gallery = ownProps.data.gallery
-          const index = prev.galleries.findIndex(g => g.id === gallery.id)
-          if (index === -1) return prev // gallery not found, return prev state
-          return update(prev, {
-            galleries: {
-              [index]: {
+      }),
+    }),
+  }),
+  graphql(DELETE_GALLERY_IMAGE, {
+    props: ({ ownProps, mutate }) => ({
+      deleteGalleryImage: (id) => mutate({
+        variables: { id },
+        updateQueries: {
+          gallery: (prev, { mutationResult }) => {
+            const gallery = mutationResult.data.deleteGalleryImage
+            if (!prev.gallery || prev.gallery.id !== gallery.id) return prev
+            return update(prev, {
+              gallery: {
                 $apply: g => {
-                  // $apply updates gallery object
-                  // @see https://facebook.github.io/react/docs/update.html
-                  // this code will replace images
-                  const imageId = mutationResult.data.deleteImage
-                  const images = gallery.images.filter(i => i.id !== imageId)
-                  if (g.images && g.images.length) {
-                    g.images = images || []
-                  }
-                  if (g.image && g.image.id === imageId) {
-                    g.image = images[0] || null
-                  }
+                  if (g.image) g.image = gallery.images[0] || null
+                  if (g.images) g.images = gallery.images
                   return g
                 }
               }
-            }
-          })
+            })
+          },
+          galleries: (prev, { mutationResult }) => {
+            if (!prev.galleries) return prev
+            const gallery = mutationResult.data.deleteGalleryImage
+            const index = prev.galleries.findIndex(g => g.id === gallery.id)
+            if (index === -1) return prev
+            return update(prev, {
+              galleries: {
+                [index]: {
+                  $apply: g => {
+                    if (g.image) g.image = gallery.images[0] || null
+                    if (g.images) g.images = gallery.images
+                    return g
+                  }
+                }
+              }
+            })
+          },
         },
-      },
-    }),
-  }),
-  graphql(DELETE_GALLERY, {
-    name: 'deleteGallery',
-    options: ownProps => ({
-      updateQueries: {
-        galleries: (prev, { mutationResult }) => {
-          const id = mutationResult.data.deleteGallery
-          return update(prev, {
-            galleries: { $apply: galleries => galleries.filter(g => g.id !== id)}
-          })
-        },
-      },
+      }),
     }),
   }),
 )(Gallery)

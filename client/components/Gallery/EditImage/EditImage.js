@@ -37,17 +37,12 @@ class EditImage extends Component {
   }
 
   save = () => {
-    const { image, updateImage, close } = this.props
+    const { image, updateGalleryImage, close } = this.props
     const { name, description } = this.state
-    const { id, slug } = image
-    updateImage({ variables: { id, name, description } })
-      .then(({ data: { updateImage } }) => {
-        console.log({updateImage});
-        return
+    const { id } = image
+    updateGalleryImage(id, name, description)
+      .then(({ data: { updateGalleryImage } }) => {
         close()
-        if (updateImage.slug !== slug) {
-          this.context.router.transitionTo(`/gallery/${updateImage.slug}`)
-        }
       })
       .catch(error => {
         this.setState({ error: error.message })
@@ -96,9 +91,9 @@ class EditImage extends Component {
 
 }
 
-const UPDATE_IMAGE = gql`
-  mutation updateImage($id: String!, $name: String!, $description: String) {
-    updateImage(id: $id, name: $name, description: $description) {
+const UPDATE_GALLERY_IMAGE = gql`
+  mutation updateGalleryImage($id: String!, $name: String!, $description: String) {
+    updateGalleryImage(id: $id, name: $name, description: $description) {
       id
       slug name filename extension description
       url small medium large full
@@ -107,7 +102,11 @@ const UPDATE_IMAGE = gql`
 `
 
 export default compose(
-  graphql(UPDATE_IMAGE, {
-    name: 'updateImage',
+  graphql(UPDATE_GALLERY_IMAGE, {
+    props: ({ ownProps, mutate }) => ({
+      updateGalleryImage: (id, name, description) => mutate({
+        variables: { id, name, description },
+      }),
+    }),
   }),
 )(EditImage)
