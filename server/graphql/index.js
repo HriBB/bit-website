@@ -6,6 +6,7 @@ import { get, post } from 'koa-route'
 
 import typeDefs from './schema'
 import resolvers from './resolvers'
+import apolloKoaUpload from './apolloKoaUpload'
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -14,8 +15,7 @@ const schema = makeExecutableSchema({
 })
 
 export function createGraphQLServer(app) {
+  app.use(apolloKoaUpload({ endpointURL: '/graphql' }))
   app.use(post('/graphql', apolloKoa({ schema })))
-  app.use(get('/graphiql', graphiqlKoa({
-    endpointURL: '/graphql',
-  })))
+  app.use(get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' })))
 }

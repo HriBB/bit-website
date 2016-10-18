@@ -10,20 +10,20 @@ module.exports = {
     'react-hot-loader/patch',
     'webpack-dev-server/client?' + config.dev.url,
     'webpack/hot/only-dev-server',
-    path.resolve(__dirname, '..', 'client', 'index'),
+    path.join(__dirname, '..', 'client', 'index'),
   ],
   output: {
-    path: path.resolve(__dirname, '..', 'dist'),
+    path: path.join(__dirname, '..', 'dist'),
     filename: 'bit.js',
     publicPath: '/',
   },
   resolve: {
     extensions: ['', '.js', '.scss', '.css'],
     alias: {
-      config: path.resolve(__dirname, '..', 'config'),
-      apollo: path.resolve(__dirname, '..', 'client', 'apollo'),
-      components: path.resolve(__dirname, '..', 'client', 'components'),
-      routes: path.resolve(__dirname, '..', 'client', 'routes'),
+      config: path.join(__dirname, '..', 'config'),
+      apollo: path.join(__dirname, '..', 'client', 'apollo'),
+      components: path.join(__dirname, '..', 'client', 'components'),
+      routes: path.join(__dirname, '..', 'client', 'routes'),
     },
   },
   module: {
@@ -44,7 +44,7 @@ module.exports = {
   },
   sassLoader: {
     includePaths: [
-      path.resolve(__dirname, '..', 'client', 'styles'),
+      path.join(__dirname, '..', 'client', 'styles'),
     ],
   },
   postcss: function() {

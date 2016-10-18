@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
-import { graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+import { compose, graphql } from 'react-apollo'
+import update from 'react-addons-update'
 import fetch from 'isomorphic-fetch'
+import gql from 'graphql-tag'
 
 import {
   Layout,
@@ -12,16 +13,12 @@ import {
   Button,
   IconButton,
   Uploadfield,
-  FileList,
+  fileList,
 } from 'components/ux'
 
 import './AddImages.scss'
 
 class AddImages extends Component {
-
-  static contextTypes = {
-    emitter: PropTypes.object.isRequired,
-  }
 
   static propTypes = {
     gallery: PropTypes.object.isRequired,
@@ -37,27 +34,15 @@ class AddImages extends Component {
   }
 
   upload = () => {
-    const { emitter } = this.context
-    const { gallery, close } = this.props
-    const formData = new FormData()
-    formData.append('type', 'gallery')
-    formData.append('id', gallery.id)
-    Array.from(this.files).map(f => formData.append('files', f))
-    const options = {
-      method: 'POST',
-      body: formData
-    }
+    const { gallery, close, uploadGalleryImages } = this.props
     this.setState({ uploading: true })
-    return fetch('http://localhost:4000/upload', options)
-      .then(response => response.json())
-      .then(json => {
-        console.log('upload done', json);
+    uploadGalleryImages(gallery.id, this.files)
+      .then(({ data }) => {
+        console.log('data', data);
         this.setState({ uploading: false })
-        emitter.emit('upload-complete')
-        close()
       })
-      .catch(err => {
-        console.log('upload failed', err);
+      .catch(error => {
+        console.log('error', error.message);
         this.setState({ uploading: false })
       })
   }
@@ -78,11 +63,7 @@ class AddImages extends Component {
         </Header>
         <Content className={'bit-add-images__content'}>
           <div className={'bit-add-images__input'}>
-            <Uploadfield
-              name={'files'}
-              onChange={this.changeFiles}
-              multiple
-            />
+            <Uploadfield multiple name={'files'} onChange={this.changeFiles} />
           </div>
           <div className={'bit-add-images__images'}>
             {images}
@@ -99,4 +80,31 @@ class AddImages extends Component {
 
 }
 
-export default FileList(AddImages)
+const UPLOAD_GALLERY_IMAGES = gql`
+  mutation uploadGalleryImages($id: String!, $files: [UploadedFile!]!) {
+    uploadGalleryImages(id: $id, files: $files) {
+      id
+      slug
+      name
+      images {
+        id
+        slug
+        name
+        filename
+        description
+        small
+        full
+      }
+    }
+  }`
+
+export default compose(
+  fileList(),
+  graphql(UPLOAD_GALLERY_IMAGES, {
+    props: ({ ownProps, mutate }) => ({
+      uploadGalleryImages: (id, files) => mutate({
+        variables: { id, files },
+      }),
+    }),
+  }),
+)(AddImages)

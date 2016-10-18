@@ -48,7 +48,8 @@ class EditImage extends Component {
         if (updateImage.slug !== slug) {
           this.context.router.transitionTo(`/gallery/${updateImage.slug}`)
         }
-      }).catch(error => {
+      })
+      .catch(error => {
         this.setState({ error: error.message })
       })
   }
@@ -99,9 +100,8 @@ const UPDATE_IMAGE = gql`
   mutation updateImage($id: String!, $name: String!, $description: String) {
     updateImage(id: $id, name: $name, description: $description) {
       id
-      name
-      slug
-      description
+      slug name filename extension description
+      url small medium large full
     }
   }
 `

@@ -12,7 +12,6 @@ import { get, post } from 'koa-route'
 import config from '../config'
 import { createGraphQLServer } from './graphql'
 //import { renderReactApp } from './utils/react'
-import { uploadImages } from './utils/upload'
 
 const app = new Koa()
 
@@ -23,13 +22,10 @@ app.use(cors());
 app.use(logger())
 
 // use body parser
-app.use(body())
+app.use(body({ enableTypes: ['json'] }))
 
 // create graphql server
 createGraphQLServer(app)
-
-// upload images
-app.use(post('/upload', uploadImages))
 
 // serve static
 app.use(mount('/static', serve(config.static.path)))

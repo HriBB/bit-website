@@ -2,6 +2,7 @@ import async from 'asyncawait/async'
 import await from 'asyncawait/await'
 import { parse } from 'path'
 import { move } from 'co-fs-extra'
+import createSlug from 'slug'
 import uuid from 'uuid'
 
 import config from 'config'
@@ -16,9 +17,38 @@ import {
   renameImage,
   removeImage,
   removeFolder,
+  uploadImage,
 } from '../utils/image'
 
+function parseJSONLiteral(ast) {
+  switch (ast.kind) {
+    case Kind.STRING:
+    case Kind.BOOLEAN:
+      return ast.value;
+    case Kind.INT:
+    case Kind.FLOAT:
+      return parseFloat(ast.value);
+    case Kind.OBJECT: {
+      const value = Object.create(null);
+      ast.fields.forEach(field => {
+        value[field.name.value] = parseJSONLiteral(field.value);
+      });
+
+      return value;
+    }
+    case Kind.LIST:
+      return ast.values.map(parseJSONLiteral);
+    default:
+      return null;
+  }
+}
+
 const resolveFunctions = {
+  UploadedFile: {
+    __parseLiteral: parseJSONLiteral,
+    __serialize: value => value,
+    __parseValue: value => value,
+  },
   RootQuery: {
     galleries(root, args, context) {
       return Gallery.getAll()
@@ -88,6 +118,52 @@ const resolveFunctions = {
       Gallery.delete(id)
       // return id of deleted gallery
       return id
+    },
+    async uploadGalleryImages(root, data, context) {
+      console.log('******************************************');
+      console.log('************* uploadGalleryImages', data);
+      console.log('******************************************');
+      const { id, files } = data
+      const type = 'gallery'
+
+      // load gallery
+      const gallery = Gallery.getById(id)
+      if (!gallery) {
+        throw new Error(`Cannot find gallery #${id}!`)
+      }
+
+      // process uploaded files
+      const images = []
+      for (let i = 0, len = files.length; i < len; i++) {
+        console.log(`==> upload file ${i+1} of ${len}`)
+        const file = files[i]
+
+        // upload image
+        const path = await uploadImage(type, gallery, file)
+
+        // parse uploaded path
+        const info = parse(path)
+
+        // build image data
+        const data = {
+          id: uuid(),
+          gallery_id: gallery.id,
+          slug: createSlug(info.name),
+          filename: info.base,
+          extension: info.ext.substring(1),
+          name: info.base,
+          description: '',
+        }
+
+        // create image
+        const image = GalleryImage.create(data)
+
+        // add to result
+        images.push(image)
+      }
+      
+      console.log('==> upload done');
+      return gallery
     },
     async updateImage(root, { id, name, description }, context) {
       console.log('******************************************');

@@ -38,7 +38,6 @@ class GalleryView extends Component {
   }
 
   static contextTypes = {
-    emitter: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired,
   }
 
@@ -71,14 +70,6 @@ class GalleryView extends Component {
     const image = images[index]
     const url = `/gallery/${params.gallery}/${image.slug}`
     this.context.router.replaceWith(url)
-  }
-
-  componentDidMount() {
-    this.refreshListener = this.context.emitter.addListener('upload-complete', this.refresh)
-  }
-
-  componentWillUnmount() {
-    if (this.refreshListener) this.refreshListener.remove()
   }
 
   render() {

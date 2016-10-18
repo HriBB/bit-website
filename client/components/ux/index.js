@@ -38,7 +38,7 @@ export Textarea from './Form/Textarea'
 export Uploadfield from './Form/Uploadfield'
 export MediumEditor from './Form/MediumEditor'
 export ReactRTE from './Form/ReactRTE'
-export FileList from './Form/FileList'
+export fileList from './Form/fileList'
 
 // misc
 export Loader from './Loader'

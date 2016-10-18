@@ -1,8 +1,14 @@
-import ApolloClient, { createNetworkInterface, addTypename } from 'apollo-client'
+import ApolloClient, { addTypename } from 'apollo-client'
+import fetch from 'isomorphic-fetch'
+import merge from 'lodash.merge'
 
 import config from 'config'
 
-const networkInterface = createNetworkInterface(`http://localhost:4000/graphql`)
+import { createNetworkInterface } from './UploadNetworkInterface'
+
+const networkInterface = createNetworkInterface({
+  uri: `http://localhost:4000/graphql`
+})
 
 const dataIdFromObject = result => {
   if (result.id && result.__typename) {
