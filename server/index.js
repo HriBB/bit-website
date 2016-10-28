@@ -1,5 +1,4 @@
-import async from 'asyncawait/async'
-import await from 'asyncawait/await'
+import { async, await } from 'asyncawait'
 import Koa from 'koa'
 import logger from 'koa-logger'
 import body from 'koa-bodyparser'

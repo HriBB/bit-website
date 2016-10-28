@@ -85,17 +85,17 @@ const UPLOAD_GALLERY_IMAGES = gql`
   mutation uploadGalleryImages($id: String!, $files: [UploadedFile!]!) {
     uploadGalleryImages(id: $id, files: $files) {
       id
-      slug
+      type
+      filename
       name
-      images {
-        id
-        slug
-        name
-        filename
-        description
-        small
-        full
-      }
+      comment
+      url
+      thumb
+      square
+      small
+      medium
+      large
+      full
     }
   }`
 

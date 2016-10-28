@@ -1,12 +1,11 @@
-import async from 'asyncawait/async'
-import await from 'asyncawait/await'
-import { apolloKoa, graphiqlKoa } from 'apollo-server'
+import { async, await } from 'asyncawait'
+import { graphqlKoa, graphiqlKoa } from 'graphql-server-koa'
 import { makeExecutableSchema } from 'graphql-tools'
 import { get, post } from 'koa-route'
 
 import typeDefs from './schema'
 import resolvers from './resolvers'
-import apolloKoaUpload from './apolloKoaUpload'
+import graphqlKoaUpload from './graphqlKoaUpload'
 
 const schema = makeExecutableSchema({
   typeDefs,
@@ -15,7 +14,7 @@ const schema = makeExecutableSchema({
 })
 
 export function createGraphQLServer(app) {
-  app.use(apolloKoaUpload({ endpointURL: '/graphql' }))
-  app.use(post('/graphql', apolloKoa({ schema })))
+  app.use(graphqlKoaUpload({ endpointURL: '/graphql' }))
+  app.use(post('/graphql', graphqlKoa({ schema })))
   app.use(get('/graphiql', graphiqlKoa({ endpointURL: '/graphql' })))
 }

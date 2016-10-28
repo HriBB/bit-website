@@ -1,5 +1,4 @@
-import async from 'asyncawait/async'
-import await from 'asyncawait/await'
+import { async, await } from 'asyncawait'
 import { parse } from 'path'
 import { move, removeSync, existsSync } from 'co-fs-extra'
 import createSlug from 'slug'

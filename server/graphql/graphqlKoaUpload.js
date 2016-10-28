@@ -1,6 +1,6 @@
 import asyncBusboy from 'async-busboy'
 
-export default function apolloKoaUpload(options) {
+export default function graphqlKoaUpload(options) {
 
   function isUpload(ctx) {
     return Boolean(

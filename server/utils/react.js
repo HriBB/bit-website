@@ -1,5 +1,4 @@
-import async from 'asyncawait/async'
-import await from 'asyncawait/await'
+import { async, await } from 'asyncawait'
 import { readFileSync } from 'fs'
 import { resolve } from 'path'
 import React from 'react'

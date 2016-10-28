@@ -7,10 +7,10 @@
       "description": "Asssdf"
     },
     {
-      "id": "27762e9b-540d-466f-a01d-df1b1b041422",
-      "slug": "koleksn",
-      "name": "Kolekšn",
-      "description": "AAASdsdf"
+      "id": "578557e2-665c-4e6e-b0c9-a4b1afcdcff8",
+      "slug": "jzujgh",
+      "name": "jzujgh",
+      "description": "jghjghjgh"
     }
   ],
   "gallery_images": [
@@ -57,26 +57,8 @@
       "description": ""
     },
     {
-      "id": "57eece49-2db8-46ed-9940-e46ab3f067d1",
-      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
-      "slug": "72130_1516481086314_1663090515_1202016_1116407_n",
-      "filename": "72130_1516481086314_1663090515_1202016_1116407_n.jpg",
-      "extension": "jpg",
-      "name": "72130_1516481086314_1663090515_1202016_1116407_n.jpg",
-      "description": ""
-    },
-    {
-      "id": "ddd8e8fc-f733-450c-bee9-ca33ee29e5b0",
-      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
-      "slug": "312778_2156139077364_1908423487_n",
-      "filename": "312778_2156139077364_1908423487_n.jpg",
-      "extension": "jpg",
-      "name": "312778_2156139077364_1908423487_n.jpg",
-      "description": ""
-    },
-    {
-      "id": "f1161265-35a0-42cb-8819-61311a7c8f30",
-      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
+      "id": "9cc0282c-7a81-453a-a0ce-243e01ebb5d9",
+      "gallery_id": "578557e2-665c-4e6e-b0c9-a4b1afcdcff8",
       "slug": "305190_2156134837258_250844580_n",
       "filename": "305190_2156134837258_250844580_n.jpg",
       "extension": "jpg",
@@ -84,12 +66,21 @@
       "description": ""
     },
     {
-      "id": "ba19ba63-a4ca-4e8b-9442-6ab68e4546c7",
-      "gallery_id": "27762e9b-540d-466f-a01d-df1b1b041422",
-      "slug": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng",
-      "filename": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng.jpg",
+      "id": "2f7e917a-cc6c-463b-85bf-2f9db7ef7a5a",
+      "gallery_id": "578557e2-665c-4e6e-b0c9-a4b1afcdcff8",
+      "slug": "312778_2156139077364_1908423487_n",
+      "filename": "312778_2156139077364_1908423487_n.jpg",
       "extension": "jpg",
-      "name": "ora8of3xmsm5llbvfuqjzqfrpzghz5vba-w1h1u-3j0rhdwxrmnsvgr_ynx9dibpkjixn-voh1qhefczlwdtng.jpg",
+      "name": "312778_2156139077364_1908423487_n.jpg",
+      "description": ""
+    },
+    {
+      "id": "fcd606bf-6b47-4532-9e58-8f0ac66502de",
+      "gallery_id": "578557e2-665c-4e6e-b0c9-a4b1afcdcff8",
+      "slug": "dsc_0168",
+      "filename": "dsc_0168.jpg",
+      "extension": "jpg",
+      "name": "dsc_0168.jpg",
       "description": ""
     }
   ]
