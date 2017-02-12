@@ -1,5 +1,5 @@
 import low from 'lowdb'
-import storage from 'lowdb/lib/file-async'
+import storage from 'lowdb/lib/storages/file-async'
 import createSlug from 'slug'
 
 const db = low('db.json', { storage })

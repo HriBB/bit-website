@@ -1,6 +1,7 @@
-var path = require('path')
-var webpack = require('webpack')
-var config = require('../config')
+const path = require('path')
+const webpack = require('webpack')
+const config = require('../config')
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
   name: 'bit',
@@ -18,45 +19,59 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['', '.js', '.scss', '.css'],
+    modules: [
+      path.resolve(__dirname, '..', 'client'),
+      path.resolve(__dirname, '..', 'config'),
+      path.resolve(__dirname, '..', 'node_modules'),
+    ],
+    extensions: ['.js', '.scss', '.css', '.gql', '.graphql'],
     alias: {
-      config: path.join(__dirname, '..', 'config'),
-      apollo: path.join(__dirname, '..', 'client', 'apollo'),
-      components: path.join(__dirname, '..', 'client', 'components'),
-      routes: path.join(__dirname, '..', 'client', 'routes'),
+      config: path.resolve(__dirname, '..', 'config'),
+      apollo: path.resolve(__dirname, '..', 'client', 'apollo'),
+      components: path.resolve(__dirname, '..', 'client', 'components'),
     },
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['babel'],
+      loader: 'babel-loader',
       exclude: /(node_modules)/,
+      include: [
+        path.resolve(__dirname, '..', 'config'),
+        path.resolve(__dirname, '..', 'client'),
+      ],
+      query: {
+        cacheDirectory: true,
+      },
+    },{
+      test: /\.(scss|css)$/,
+      loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
     },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
     },{
-      test: /\.(css|scss)$/,
-      loader: 'style!css?sourceMap!resolve-url?sourceMap!sass?sourceMap!postcss',
-    },{
       test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
-      loader: 'imports?define=>false&this=>window',
+      loader: 'imports-loader?define=>false&this=>window',
     }]
-  },
-  sassLoader: {
-    includePaths: [
-      path.join(__dirname, '..', 'client', 'styles'),
-    ],
-  },
-  postcss: function() {
-    return [
-      require('autoprefixer'),
-    ]
   },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"development"'
       },
+    }),
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        context: path.resolve(__dirname, '..'),
+        postcss: [
+          autoprefixer(),
+        ],
+        sassLoader: {
+          includePaths: [
+            path.resolve(__dirname, '..', 'client', 'styles'),
+          ],
+        },
+      }
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

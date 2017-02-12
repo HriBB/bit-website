@@ -18,57 +18,63 @@ module.exports = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['', '.js', '.scss', '.css'],
+    modules: [
+      path.resolve(__dirname, '..', 'client'),
+      path.resolve(__dirname, '..', 'config'),
+      path.resolve(__dirname, '..', 'node_modules'),
+    ],
+    extensions: ['.js', '.scss', '.css', '.gql', '.graphql'],
     alias: {
       config: path.resolve(__dirname, '..', 'config'),
       apollo: path.resolve(__dirname, '..', 'client', 'apollo'),
       components: path.resolve(__dirname, '..', 'client', 'components'),
-      routes: path.resolve(__dirname, '..', 'client', 'routes'),
     },
   },
   module: {
-    loaders: [{
+    rules: [{
       test: /\.js$/,
-      loaders: ['babel?cacheDirectory'],
+      loader: 'babel-loader',
       exclude: /(node_modules)/,
+      include: [
+        path.resolve(__dirname, '..', 'config'),
+        path.resolve(__dirname, '..', 'client'),
+      ],
+      query: {
+        cacheDirectory: true,
+      },
+    },{
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader', 'sass-loader', 'postcss-loader'],
+      })
     },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
-    },{
-      test: /\.(css|scss)$/,
-      loader: ExtractTextPlugin.extract('css!resolve-url!sass!postcss'),
     },{
       test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
       loader: 'imports?define=>false&this=>window',
     }]
   },
-  sassLoader: {
-    includePaths: [
-      path.resolve(__dirname, '..', 'client', 'styles'),
-    ],
-  },
-  postcss: function() {
-    return [
-      require('autoprefixer'),
-    ];
-  },
   plugins: [
-    new HtmlWebpackPluginRemove('<script src="/bit.js"></script>\n'),
-    new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, '..', 'index.html'),
-      filename: 'index.html',
-      inject: 'body',
-      hash: true,
-      xhtml: true,
-    }),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: '"production"',
       },
     }),
-    new webpack.NoErrorsPlugin(),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      options: {
+        postcss: [
+          autoprefixer(),
+        ],
+        sassLoader: {
+          includePaths: [
+            path.resolve(__dirname, '..', 'client', 'styles'),
+          ],
+        },
+      },
+    }),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,
@@ -81,6 +87,14 @@ module.exports = {
         comments: false,
         screw_ie8: true,
       },
+    }),
+    new HtmlWebpackPluginRemove('<script src="/bit.js"></script>\n'),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, '..', 'index.html'),
+      filename: 'index.html',
+      inject: 'body',
+      hash: true,
+      xhtml: true,
     }),
     new ExtractTextPlugin('bit.css'),
   ],

@@ -1,13 +1,9 @@
 import { printAST } from 'apollo-client'
-import {
-  HTTPFetchNetworkInterface,
-  addQueryMerging,
-  printRequest,
-} from 'apollo-client/networkInterface'
+import { HTTPFetchNetworkInterface, printRequest } from 'apollo-client/transport/networkInterface'
 
 export function createNetworkInterface(opts) {
   const { uri } = opts
-  return addQueryMerging(new UploadNetworkInterface(uri, opts))
+  return new UploadNetworkInterface(uri, opts)
 }
 
 export class UploadNetworkInterface extends HTTPFetchNetworkInterface {
