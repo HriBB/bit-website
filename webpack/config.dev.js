@@ -1,20 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
-const config = require('../config')
 const autoprefixer = require('autoprefixer')
+const config = require('../config')
 
 module.exports = {
   name: 'bit',
   target: 'web',
-  devtool: 'eval',
+  devtool: 'cheap-module-inline-source-map',
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?' + config.dev.url,
     'webpack/hot/only-dev-server',
-    path.join(__dirname, '..', 'client', 'index'),
+    path.resolve(__dirname, '..', 'client', 'index'),
   ],
   output: {
-    path: path.join(__dirname, '..', 'dist'),
+    path: path.resolve(__dirname, '..', 'dist'),
     filename: 'bit.js',
     publicPath: '/',
   },
@@ -45,7 +45,21 @@ module.exports = {
       },
     },{
       test: /\.(scss|css)$/,
-      loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
+      use: [{
+        loader: 'style-loader',
+      },{
+        loader: 'css-loader',
+      },{
+        loader: 'sass-loader',
+        options: {
+          includePaths: [
+            path.resolve(__dirname, '..', 'client', 'styles'),
+          ],
+        },
+      },{
+        loader: 'postcss-loader',
+      }],
+      //loaders: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
     },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
@@ -61,6 +75,7 @@ module.exports = {
       },
     }),
     new webpack.LoaderOptionsPlugin({
+      //debug: true,
       options: {
         context: path.resolve(__dirname, '..'),
         postcss: [
@@ -73,6 +88,7 @@ module.exports = {
         },
       }
     }),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
   ],
 }

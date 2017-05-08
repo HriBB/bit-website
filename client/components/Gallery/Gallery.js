@@ -1,4 +1,5 @@
-import React, { Component, Children, PropTypes, cloneElement } from 'react'
+import React, { Component, Children, cloneElement } from 'react'
+import PropTypes from 'prop-types'
 import { Link, Match } from 'react-router'
 import { compose, graphql } from 'react-apollo'
 import update from 'react-addons-update'

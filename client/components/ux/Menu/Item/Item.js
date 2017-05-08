@@ -1,4 +1,5 @@
-import React, { Component, PropTypes, Children, cloneElement } from 'react'
+import React, { Component, Children, cloneElement } from 'react'
+import PropTypes from 'prop-types'
 import ReactDOM, { findDOMNode } from 'react-dom'
 import Portal from 'react-portal'
 import classnames from 'classnames'

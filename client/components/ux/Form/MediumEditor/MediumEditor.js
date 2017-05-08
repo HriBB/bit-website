@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import Editor, { createEmptyValue } from 'react-rte'
 
 import 'medium-draft/lib/index.css'

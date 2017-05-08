@@ -43,16 +43,17 @@ module.exports = {
         cacheDirectory: true,
       },
     },{
+      test: /\.(scss|css)$/,
       loader: ExtractTextPlugin.extract({
         fallback: 'style-loader',
         use: ['css-loader', 'sass-loader', 'postcss-loader'],
-      })
+      }),
     },{
       test: /\.(png|jpg|svg|woff|woff2|eot|ttf)$/,
       loader: 'url-loader?limit=100000',
     },{
       test: /masonry|imagesloaded|fizzy\-ui\-utils|desandro\-|outlayer|get\-size|doc\-ready|eventie|eventemitter/,
-      loader: 'imports?define=>false&this=>window',
+      loader: 'imports-loader?define=>false&this=>window',
     }]
   },
   plugins: [

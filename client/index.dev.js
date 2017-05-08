@@ -1,5 +1,7 @@
-import React from 'react'
-import { render } from 'react-dom'
+import React, { Component } from 'react'
+//import { render } from 'react-dom'
+import { render } from 'react-dom/lib/ReactDOMFiber'
+//console.log(ReactDOM);
 import { AppContainer } from 'react-hot-loader'
 
 import Root from 'components/Root'
